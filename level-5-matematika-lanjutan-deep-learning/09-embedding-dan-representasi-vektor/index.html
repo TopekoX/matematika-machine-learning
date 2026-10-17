@@ -1,0 +1,4146 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/">
+      
+      
+        <link rel="prev" href="../08-regularisasi-dan-generalisasi/">
+      
+      
+        <link rel="next" href="../10-matematika-pemrosesan-bahasa/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 9 - Embedding dan Representasi Vektor - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-9-embedding-dan-representasi-vektor" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 9 - Embedding dan Representasi Vektor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2-aljabar-linear-dan-kalkulus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rumus dan Penjelasan Setiap Simbol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lookup-sama-dengan-perkalian-one-hot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup sama dengan perkalian one-hot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-dan-memori" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter dan memori
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kemiripan-dan-jarak-antarvektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kemiripan dan jarak antarvektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradien-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gradien embedding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gagasan-skip-gram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gagasan skip-gram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-lookup-dan-kalimat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Lookup dan kalimat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-parameter-dan-memori" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Parameter dan memori
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-kemiripan-dan-jarak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Kemiripan dan jarak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-mengapa-id-bukan-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Mengapa ID bukan embedding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-gradien-hanya-pada-baris-yang-dipakai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Gradien hanya pada baris yang dipakai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-6-satu-langkah-skip-gram-dimensi-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 6 — Satu langkah skip-gram (dimensi 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-deep-learning-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Deep Learning dan NLP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rumus dan Penjelasan Setiap Simbol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lookup-sama-dengan-perkalian-one-hot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup sama dengan perkalian one-hot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-dan-memori" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter dan memori
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kemiripan-dan-jarak-antarvektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kemiripan dan jarak antarvektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradien-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gradien embedding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gagasan-skip-gram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gagasan skip-gram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-lookup-dan-kalimat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Lookup dan kalimat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-parameter-dan-memori" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Parameter dan memori
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-kemiripan-dan-jarak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Kemiripan dan jarak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-mengapa-id-bukan-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Mengapa ID bukan embedding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-gradien-hanya-pada-baris-yang-dipakai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Gradien hanya pada baris yang dipakai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-6-satu-langkah-skip-gram-dimensi-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 6 — Satu langkah skip-gram (dimensi 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-deep-learning-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Deep Learning dan NLP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-9-embedding-dan-representasi-vektor">Part 9 — Embedding dan Representasi Vektor<a class="headerlink" href="#part-9-embedding-dan-representasi-vektor" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>menjelaskan <strong>embedding</strong> sebagai pemetaan token ke vektor yang <strong>dipelajari</strong>, dan mengapa ia bukan sekadar kode ID;</li>
+<li>menghitung <em>lookup</em> embedding sebagai baris matriks dan sebagai perkalian <strong>one-hot</strong> dengan matriks embedding;</li>
+<li>menentukan shape matriks embedding, jumlah parameternya, dan memori yang dibutuhkan;</li>
+<li>menghitung <strong>dot product</strong>, <strong>cosine similarity</strong>, dan <strong>jarak Euclid</strong> antarvektor dan menjelaskan kapan masing-masing cocok;</li>
+<li>menjelaskan bagaimana embedding diperbarui oleh gradien (hanya baris yang dipakai);</li>
+<li>menjelaskan gagasan dasar pembelajaran representasi kata (<em>skip-gram</em>) dengan perhitungan mini;</li>
+<li>menyebut keterbatasan embedding statis dan rata-rata vektor sebagai representasi kalimat.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/">Level 2 Part 2 — Vektor</a> (dot product, norma, cosine), <a href="../02-tensor-dan-operasi-multidimensi/">Part 2 — Tensor dan Operasi Multidimensi</a> (shape dan perkalian matriks), <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/">Level 4 Part 2</a> (one-hot, BoW, TF-IDF, dan cosine antar-dokumen), dan <a href="../06-backpropagation-mendalam/">Part 6</a> (gradien terhadap parameter).</p>
+<h2 id="masalah-yang-ingin-diselesaikan">Masalah yang Ingin Diselesaikan<a class="headerlink" href="#masalah-yang-ingin-diselesaikan" title="Permanent link">&para;</a></h2>
+<p>Jaringan hanya mengerti angka. Kata harus diubah menjadi angka dengan cara yang menyimpan <strong>makna</strong>. Ada tiga pilihan, dan dua yang pertama bermasalah:</p>
+<ol>
+<li><strong>Kode ID</strong> (misalnya "banjir" <span class="arithmatex">\(=1\)</span>, "hujan" <span class="arithmatex">\(=2\)</span>): angkanya acak. Memberi <span class="arithmatex">\(1&lt;2\)</span> atau <span class="arithmatex">\(|1-2|&lt;|1-4|\)</span> tidak berarti apa-apa tentang makna, tetapi jaringan bisa tertipu menganggapnya bermakna.</li>
+<li><strong>One-hot</strong>: setiap kata adalah vektor panjang <span class="arithmatex">\(V\)</span> (ukuran kosakata) berisi satu angka 1. Tidak ada angka palsu, tetapi <strong>semua kata saling tegak lurus</strong>: "banjir" dan "hujan" sama jauhnya dengan "banjir" dan "makan". Vektor sangat panjang dan hampir semuanya nol.</li>
+<li><strong>Embedding</strong>: setiap kata dipetakan ke vektor pendek <span class="arithmatex">\(d\)</span> dimensi (<span class="arithmatex">\(d\ll V\)</span>) yang <strong>dipelajari</strong> bersama jaringan, sehingga kata yang dipakai dalam konteks serupa mendapat vektor yang berdekatan.</li>
+</ol>
+<h2 id="intuisi-dan-istilah-penting">Intuisi dan Istilah Penting<a class="headerlink" href="#intuisi-dan-istilah-penting" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Token</strong>: potongan teks yang menjadi satuan masukan (kata atau potongan kata; dibahas di <a href="../10-matematika-pemrosesan-bahasa/">Part 10</a>). <strong>Kosakata</strong> (<em>vocabulary</em>) berukuran <span class="arithmatex">\(V\)</span>: himpunan token yang dikenal.</li>
+<li><strong>ID token</strong>: nomor urut token pada kosakata. Hanya penanda.</li>
+<li><strong>Matriks embedding</strong> <span class="arithmatex">\(E\in\mathbb{R}^{V\times d}\)</span>: baris ke-<span class="arithmatex">\(i\)</span> adalah vektor token dengan ID <span class="arithmatex">\(i\)</span>. <span class="arithmatex">\(d\)</span> adalah <strong>dimensi embedding</strong>.</li>
+<li><strong>Embedding</strong> (<em>embedding</em>): vektor baris itu. Nilainya parameter yang dipelajari lewat <em>backpropagation</em>, bukan ditentukan manual.</li>
+<li><strong>Ruang embedding</strong>: ruang <span class="arithmatex">\(\mathbb{R}^d\)</span> tempat vektor-vektor itu hidup. Kedekatan di ruang itu diharapkan mencerminkan kemiripan penggunaan kata.</li>
+</ul>
+<pre class="mermaid"><code>flowchart LR
+    T["Teks: 'tolong banjir'"] --&gt; I["Token dan ID: 0, 1"]
+    I --&gt; L["Lookup baris E: matriks (2, d)"]
+    L --&gt; M["Jaringan (lapisan, attention)"]
+    M --&gt; O["Keluaran"]</code></pre>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<h3 id="lookup-sama-dengan-perkalian-one-hot"><em>Lookup</em> sama dengan perkalian one-hot<a class="headerlink" href="#lookup-sama-dengan-perkalian-one-hot" title="Permanent link">&para;</a></h3>
+<p>Untuk token dengan ID <span class="arithmatex">\(i\)</span> (mulai dari 0), one-hot-nya <span class="arithmatex">\(\mathbf{e}_i\in\{0,1\}^V\)</span> berisi 1 pada posisi <span class="arithmatex">\(i\)</span>. Vektor embedding:</p>
+<div class="arithmatex">\[
+\mathbf{x}=\mathbf{e}_i^\top E=E_{i,:}\in\mathbb{R}^d
+\]</div>
+<p>Perkalian <span class="arithmatex">\((1,V)(V,d)\to(1,d)\)</span> memilih baris ke-<span class="arithmatex">\(i\)</span>. Untuk kalimat dengan <span class="arithmatex">\(T\)</span> token (ID <span class="arithmatex">\(i_1,\dots,i_T\)</span>), tumpuk barisnya: <span class="arithmatex">\(X=E[\,i_1,\dots,i_T\,]\in\mathbb{R}^{T\times d}\)</span>, dan untuk batch <span class="arithmatex">\(B\)</span> kalimat menjadi tensor <span class="arithmatex">\((B,T,d)\)</span> (<a href="../02-tensor-dan-operasi-multidimensi/">Part 2</a>). Dalam praktik <em>lookup</em> dikerjakan dengan mengambil baris (jauh lebih cepat daripada perkalian matriks besar yang hampir seluruhnya nol).</p>
+<h3 id="parameter-dan-memori">Parameter dan memori<a class="headerlink" href="#parameter-dan-memori" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\#\text{parameter}=V\times d,\qquad \text{memori (float32)}\approx 4\,V\,d\ \text{byte}
+\]</div>
+<p>Satu bilangan <em>float32</em> memakai 4 byte. Contoh hipotetis (bukan spesifikasi model tertentu): <span class="arithmatex">\(V=30{,}000\)</span>, <span class="arithmatex">\(d=768\)</span> menghasilkan <span class="arithmatex">\(23{,}040{,}000\)</span> parameter (<span class="arithmatex">\(\approx92{,}2\)</span> MB).</p>
+<h3 id="kemiripan-dan-jarak-antarvektor">Kemiripan dan jarak antarvektor<a class="headerlink" href="#kemiripan-dan-jarak-antarvektor" title="Permanent link">&para;</a></h3>
+<p>Untuk dua vektor <span class="arithmatex">\(\mathbf{u},\mathbf{v}\in\mathbb{R}^d\)</span>:</p>
+<div class="arithmatex">\[
+\mathbf{u}\cdot\mathbf{v}=\sum_{k=1}^{d}u_kv_k,\qquad
+\cos(\mathbf{u},\mathbf{v})=\frac{\mathbf{u}\cdot\mathbf{v}}{\lVert\mathbf{u}\rVert_2\,\lVert\mathbf{v}\rVert_2},\qquad
+d(\mathbf{u},\mathbf{v})=\lVert\mathbf{u}-\mathbf{v}\rVert_2
+\]</div>
+<ul>
+<li><strong>Dot product</strong> besar jika arah searah <strong>dan</strong> panjang vektor besar.</li>
+<li><strong>Cosine</strong> hanya melihat arah (rentang <span class="arithmatex">\([-1,1]\)</span>); tidak berubah jika vektor diperpanjang.</li>
+<li><strong>Jarak Euclid</strong> melihat posisi absolut; berubah jika vektor diperpanjang.</li>
+</ul>
+<h3 id="gradien-embedding">Gradien embedding<a class="headerlink" href="#gradien-embedding" title="Permanent link">&para;</a></h3>
+<p>Misalkan <span class="arithmatex">\(\partial L/\partial X\in\mathbb{R}^{T\times d}\)</span> adalah gradien hulu pada embedding kalimat (dari <a href="../06-backpropagation-mendalam/">Part 6</a>). Maka gradien terhadap <span class="arithmatex">\(E\)</span> adalah nol untuk baris yang tidak dipakai, dan untuk baris token ke-<span class="arithmatex">\(i\)</span>:</p>
+<div class="arithmatex">\[
+\frac{\partial L}{\partial E_{i,:}}=\sum_{t:\ i_t=i}\frac{\partial L}{\partial X_{t,:}}
+\]</div>
+<p>Jika satu token muncul beberapa kali, gradiennya dijumlahkan (jalur ganda). Pembaruan: <span class="arithmatex">\(E_{i,:}\leftarrow E_{i,:}-\eta\,\partial L/\partial E_{i,:}\)</span>. Karena itu hanya embedding kata yang muncul di <em>batch</em> saat ini yang berubah.</p>
+<h3 id="gagasan-skip-gram">Gagasan <em>skip-gram</em><a class="headerlink" href="#gagasan-skip-gram" title="Permanent link">&para;</a></h3>
+<p>Hipotesis distribusional: kata yang muncul di konteks serupa punya makna serupa. Pada <em>skip-gram</em> untuk kata pusat <span class="arithmatex">\(c\)</span> dan kata konteks <span class="arithmatex">\(o\)</span>, tiap kata punya vektor pusat <span class="arithmatex">\(\mathbf{v}_c\)</span> dan vektor konteks <span class="arithmatex">\(\mathbf{u}_w\)</span>:</p>
+<div class="arithmatex">\[
+P(o\mid c)=\frac{\exp(\mathbf{u}_o\cdot\mathbf{v}_c)}{\sum_{w=1}^{V}\exp(\mathbf{u}_w\cdot\mathbf{v}_c)},\qquad
+\ell=-\ln P(o\mid c),\qquad
+\frac{\partial\ell}{\partial\mathbf{v}_c}=\sum_{w}P(w\mid c)\,\mathbf{u}_w-\mathbf{u}_o
+\]</div>
+<p>Ini softmax atas dot product (<a href="../04-fungsi-aktivasi/">Part 4</a> dan <a href="../05-loss-function/">5</a>): skor tiap kandidat adalah dot product dengan vektor pusat, loss adalah cross-entropy, dan gradiennya mengikuti pola "prediksi dikurangi target". Meminimalkan loss mendekatkan <span class="arithmatex">\(\mathbf{v}_c\)</span> ke <span class="arithmatex">\(\mathbf{u}_o\)</span> untuk pasangan yang benar-benar muncul bersama.</p>
+<h2 id="contoh-numerik-langkah-demi-langkah">Contoh Numerik Langkah demi Langkah<a class="headerlink" href="#contoh-numerik-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<p>Kosakata mini <span class="arithmatex">\(V=5\)</span> dan dimensi <span class="arithmatex">\(d=3\)</span>. <strong>Vektor di bawah adalah angka contoh yang dipilih agar kata terkait berdekatan; bukan hasil pelatihan.</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Token</th>
+<th>Vektor (baris <span class="arithmatex">\(E\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>tolong</td>
+<td><span class="arithmatex">\((0{,}5,\ 0{,}5,\ 0{,}5)\)</span></td>
+</tr>
+<tr>
+<td>1</td>
+<td>banjir</td>
+<td><span class="arithmatex">\((0{,}9,\ 0{,}8,\ 0{,}1)\)</span></td>
+</tr>
+<tr>
+<td>2</td>
+<td>hujan</td>
+<td><span class="arithmatex">\((0{,}8,\ 0{,}7,\ 0{,}2)\)</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>makan</td>
+<td><span class="arithmatex">\((0{,}1,\ 0{,}2,\ 0{,}9)\)</span></td>
+</tr>
+<tr>
+<td>4</td>
+<td>siang</td>
+<td><span class="arithmatex">\((0{,}2,\ 0{,}1,\ 0{,}8)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="contoh-1-lookup-dan-kalimat">Contoh 1 — <em>Lookup</em> dan kalimat<a class="headerlink" href="#contoh-1-lookup-dan-kalimat" title="Permanent link">&para;</a></h3>
+<p>"banjir" memiliki ID <span class="arithmatex">\(1\)</span>. One-hot-nya <span class="arithmatex">\(\mathbf{e}_1=(0,1,0,0,0)\)</span> dan</p>
+<div class="arithmatex">\[
+\mathbf{e}_1^\top E=0\cdot E_0+1\cdot E_1+0\cdot E_2+0\cdot E_3+0\cdot E_4=(0{,}9,\ 0{,}8,\ 0{,}1)
+\]</div>
+<p>Kalimat contoh "tolong banjir hujan" memiliki ID <span class="arithmatex">\((0,1,2)\)</span>, sehingga</p>
+<div class="arithmatex">\[
+X=\begin{bmatrix}0{,}5&amp;0{,}5&amp;0{,}5\\0{,}9&amp;0{,}8&amp;0{,}1\\0{,}8&amp;0{,}7&amp;0{,}2\end{bmatrix},\quad\text{shape }(3,3)
+\]</div>
+<p>Rata-rata ketiga baris (satu cara sederhana merangkum kalimat): <span class="arithmatex">\(\bigl(\tfrac{0{,}5+0{,}9+0{,}8}{3},\ \tfrac{0{,}5+0{,}8+0{,}7}{3},\ \tfrac{0{,}5+0{,}1+0{,}2}{3}\bigr)=(0{,}7333,\ 0{,}6667,\ 0{,}2667)\)</span>.</p>
+<h3 id="contoh-2-parameter-dan-memori">Contoh 2 — Parameter dan memori<a class="headerlink" href="#contoh-2-parameter-dan-memori" title="Permanent link">&para;</a></h3>
+<p>Matriks <span class="arithmatex">\(E\)</span> pada kosakata mini: <span class="arithmatex">\(5\times3=15\)</span> parameter. Untuk <span class="arithmatex">\(V=30{,}000\)</span> dan <span class="arithmatex">\(d=768\)</span>: <span class="arithmatex">\(30{,}000\times768=23{,}040{,}000\)</span> parameter, atau <span class="arithmatex">\(4\times23{,}040{,}000=92{,}160{,}000\)</span> byte <span class="arithmatex">\(\approx92{,}2\)</span> MB dalam <em>float32</em>. Selama pelatihan, memori yang dibutuhkan beberapa kali lipat karena gradien dan keadaan <em>optimizer</em> (Adam menyimpan <span class="arithmatex">\(\mathbf{m}\)</span> dan <span class="arithmatex">\(\mathbf{s}\)</span> untuk tiap parameter, <a href="../07-optimasi-deep-learning/">Part 7</a>) juga disimpan.</p>
+<h3 id="contoh-3-kemiripan-dan-jarak">Contoh 3 — Kemiripan dan jarak<a class="headerlink" href="#contoh-3-kemiripan-dan-jarak" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pasangan</th>
+<th>Dot product</th>
+<th>Cosine</th>
+<th>Jarak Euclid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>banjir, hujan</td>
+<td><span class="arithmatex">\(0{,}72+0{,}56+0{,}02=1{,}30\)</span></td>
+<td><span class="arithmatex">\(0{,}9947\)</span></td>
+<td><span class="arithmatex">\(0{,}1732\)</span></td>
+</tr>
+<tr>
+<td>makan, siang</td>
+<td><span class="arithmatex">\(0{,}02+0{,}02+0{,}72=0{,}76\)</span></td>
+<td><span class="arithmatex">\(0{,}9866\)</span></td>
+<td><span class="arithmatex">\(0{,}1732\)</span></td>
+</tr>
+<tr>
+<td>banjir, makan</td>
+<td><span class="arithmatex">\(0{,}09+0{,}16+0{,}09=0{,}34\)</span></td>
+<td><span class="arithmatex">\(0{,}3034\)</span></td>
+<td><span class="arithmatex">\(1{,}2806\)</span></td>
+</tr>
+<tr>
+<td>tolong, banjir</td>
+<td><span class="arithmatex">\(0{,}45+0{,}40+0{,}05=0{,}90\)</span></td>
+<td><span class="arithmatex">\(0{,}8601\)</span></td>
+<td><span class="arithmatex">\(0{,}6403\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Contoh perhitungan cosine banjir–hujan: <span class="arithmatex">\(\lVert\text{banjir}\rVert=\sqrt{0{,}81+0{,}64+0{,}01}=1{,}2083\)</span>, <span class="arithmatex">\(\lVert\text{hujan}\rVert=\sqrt{0{,}64+0{,}49+0{,}04}=1{,}0817\)</span>, <span class="arithmatex">\(\cos=\dfrac{1{,}30}{1{,}2083\times1{,}0817}=0{,}9947\)</span>. Pasangan terkait ("banjir, hujan" dan "makan, siang") sangat mirip; pasangan tak terkait ("banjir, makan") jauh. Pada <strong>one-hot</strong>, cosine setiap pasangan kata berbeda adalah <span class="arithmatex">\(0\)</span>.</p>
+<p><strong>Mengapa cosine sering lebih disukai daripada dot product.</strong> Jika vektor "hujan" diperpanjang 3 kali, dot product banjir–hujan menjadi <span class="arithmatex">\(3{,}90\)</span> (tiga kali), padahal kata yang dibicarakan sama; cosine tetap <span class="arithmatex">\(0{,}9947\)</span>. Dot product bercampur antara arah dan panjang vektor.</p>
+<h3 id="contoh-4-mengapa-id-bukan-embedding">Contoh 4 — Mengapa ID bukan embedding<a class="headerlink" href="#contoh-4-mengapa-id-bukan-embedding" title="Permanent link">&para;</a></h3>
+<p>ID: banjir <span class="arithmatex">\(=1\)</span>, hujan <span class="arithmatex">\(=2\)</span>, siang <span class="arithmatex">\(=4\)</span>. Jarak ID: <span class="arithmatex">\(|1-2|=1\)</span>, <span class="arithmatex">\(|1-4|=3\)</span>, seolah "banjir lebih dekat ke hujan daripada siang". Tetapi kosakata bisa diurutkan ulang: jika siang diberi ID <span class="arithmatex">\(2\)</span> dan hujan ID <span class="arithmatex">\(4\)</span>, kesimpulannya terbalik. Kedekatan ID tergantung urutan penomoran yang sembarang, sedangkan kedekatan vektor embedding (Contoh 3) berasal dari penggunaan kata.</p>
+<h3 id="contoh-5-gradien-hanya-pada-baris-yang-dipakai">Contoh 5 — Gradien hanya pada baris yang dipakai<a class="headerlink" href="#contoh-5-gradien-hanya-pada-baris-yang-dipakai" title="Permanent link">&para;</a></h3>
+<p>Kalimat "tolong banjir" (ID <span class="arithmatex">\(0,1\)</span>) dengan gradien hulu</p>
+<div class="arithmatex">\[
+\frac{\partial L}{\partial X}=\begin{bmatrix}0{,}1&amp;-0{,}2&amp;0{,}3\\-0{,}4&amp;0{,}5&amp;0{,}6\end{bmatrix}
+\]</div>
+<p>Gradien terhadap <span class="arithmatex">\(E\)</span>: baris 0 <span class="arithmatex">\(=(0{,}1,-0{,}2,0{,}3)\)</span>, baris 1 <span class="arithmatex">\(=(-0{,}4,0{,}5,0{,}6)\)</span>, baris 2, 3, 4 <span class="arithmatex">\(=(0,0,0)\)</span>. Dengan <span class="arithmatex">\(\eta=0{,}1\)</span> embedding "banjir" menjadi</p>
+<div class="arithmatex">\[
+(0{,}9,\ 0{,}8,\ 0{,}1)-0{,}1\,(-0{,}4,\ 0{,}5,\ 0{,}6)=(0{,}94,\ 0{,}75,\ 0{,}04)
+\]</div>
+<p>Embedding "hujan", "makan", dan "siang" tidak berubah pada langkah ini. Jika kalimatnya "hujan hujan" dengan gradien baris <span class="arithmatex">\((0{,}1,0,0)\)</span> dan <span class="arithmatex">\((0{,}2,0{,}1,0)\)</span>, gradien baris "hujan" adalah jumlahnya <span class="arithmatex">\((0{,}3,0{,}1,0)\)</span> dan embedding menjadi <span class="arithmatex">\((0{,}8-0{,}03,\ 0{,}7-0{,}01,\ 0{,}2)=(0{,}77,\ 0{,}69,\ 0{,}2)\)</span>.</p>
+<h3 id="contoh-6-satu-langkah-skip-gram-dimensi-2">Contoh 6 — Satu langkah <em>skip-gram</em> (dimensi 2)<a class="headerlink" href="#contoh-6-satu-langkah-skip-gram-dimensi-2" title="Permanent link">&para;</a></h3>
+<p>Kata pusat dengan <span class="arithmatex">\(\mathbf{v}_c=(0{,}8,\ 0{,}2)\)</span>. Tiga kandidat konteks dengan vektor konteks <span class="arithmatex">\(\mathbf{u}_{\text{banjir}}=(1,0)\)</span>, <span class="arithmatex">\(\mathbf{u}_{\text{hujan}}=(0{,}5,0{,}5)\)</span>, <span class="arithmatex">\(\mathbf{u}_{\text{makan}}=(0,1)\)</span>; kata konteks yang benar adalah "banjir". (Angka contoh, bukan hasil pelatihan.)</p>
+<ol>
+<li>Skor (dot product): banjir <span class="arithmatex">\(0{,}8\)</span>, hujan <span class="arithmatex">\(0{,}5\)</span>, makan <span class="arithmatex">\(0{,}2\)</span>.</li>
+<li>Softmax: <span class="arithmatex">\(e^{0{,}8}=2{,}2255\)</span>, <span class="arithmatex">\(e^{0{,}5}=1{,}6487\)</span>, <span class="arithmatex">\(e^{0{,}2}=1{,}2214\)</span>, jumlah <span class="arithmatex">\(5{,}0956\)</span>; peluang <span class="arithmatex">\((0{,}4368,\ 0{,}3236,\ 0{,}2397)\)</span>.</li>
+<li>Loss: <span class="arithmatex">\(\ell=-\ln0{,}4368=0{,}8284\)</span>.</li>
+<li>Gradien: <span class="arithmatex">\(\partial\ell/\partial\mathbf{v}_c=0{,}4368(1,0)+0{,}3236(0{,}5,0{,}5)+0{,}2397(0,1)-(1,0)=(-0{,}4015,\ 0{,}4015)\)</span>.</li>
+<li>Pembaruan dengan <span class="arithmatex">\(\eta=0{,}5\)</span>: <span class="arithmatex">\(\mathbf{v}_c\leftarrow(0{,}8,0{,}2)-0{,}5(-0{,}4015,0{,}4015)=(1{,}0007,\ -0{,}0007)\)</span>.</li>
+<li>Periksa: skor baru banjir <span class="arithmatex">\(1{,}0007\)</span>, hujan <span class="arithmatex">\(0{,}5000\)</span>, makan <span class="arithmatex">\(-0{,}0007\)</span> dan peluang banjir naik dari <span class="arithmatex">\(0{,}4368\)</span> menjadi <span class="arithmatex">\(0{,}5067\)</span>; loss turun dari <span class="arithmatex">\(0{,}8284\)</span> menjadi <span class="arithmatex">\(0{,}6798\)</span>.</li>
+</ol>
+<p>Vektor pusat bergerak ke arah vektor konteks yang benar. Dengan jutaan pasangan kata-konteks, vektor kata yang sering berbagi konteks saling mendekat.</p>
+<h2 id="interpretasi-asumsi-dan-keterbatasan">Interpretasi, Asumsi, dan Keterbatasan<a class="headerlink" href="#interpretasi-asumsi-dan-keterbatasan" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Vektor di atas <strong>dipilih tangan</strong>. Embedding sungguhan dipelajari; angka dan dimensinya tidak dapat ditafsirkan satu per satu (sumbu 1 tidak berarti "banjir").</li>
+<li>Gambar atau perhitungan dua/tiga dimensi hanya ilustrasi: pada <span class="arithmatex">\(d=768\)</span> geometri berperilaku berbeda dan kedekatan lebih sulit dibayangkan.</li>
+<li>Embedding menyerap pola penggunaan di data latih, termasuk <strong>bias</strong> (stereotip) dan kesalahan di data itu. Kemiripan tinggi bukan jaminan hubungan makna.</li>
+<li><strong>Embedding statis</strong> (satu vektor per token) tidak membedakan arti kata menurut konteks (misalnya "bisa" sebagai kemampuan atau racun); ini diatasi <strong>embedding kontekstual</strong> (<a href="../10-matematika-pemrosesan-bahasa/">Part 10</a> dan <a href="../14-fondasi-matematis-bert-dan-indobert/">Part 14</a>).</li>
+<li>Rata-rata vektor kata sebagai representasi kalimat <strong>membuang urutan kata</strong>: "anjing menggigit manusia" dan "manusia menggigit anjing" memiliki rata-rata yang sama (soal 9).</li>
+<li>Pilihan <span class="arithmatex">\(d\)</span> adalah hiperparameter: <span class="arithmatex">\(d\)</span> kecil kurang ekspresif, <span class="arithmatex">\(d\)</span> besar menambah parameter dan risiko <em>overfitting</em> (<a href="../08-regularisasi-dan-generalisasi/">Part 8</a>).</li>
+<li>Token yang tidak ada di kosakata tidak punya baris di <span class="arithmatex">\(E\)</span>; penanganan token baru dibahas pada tokenisasi (<a href="../10-matematika-pemrosesan-bahasa/">Part 10</a>).</li>
+</ul>
+<h2 id="hubungan-dengan-deep-learning-dan-nlp">Hubungan dengan Deep Learning dan NLP<a class="headerlink" href="#hubungan-dengan-deep-learning-dan-nlp" title="Permanent link">&para;</a></h2>
+<p>Lapisan pertama hampir semua model bahasa adalah lapisan embedding <span class="arithmatex">\(E\)</span>, diikuti informasi posisi (<a href="../13-transformer/">Part 13</a>). Pada BERT, vektor token ditambah vektor posisi dan segmen sebelum masuk ke encoder (<a href="../14-fondasi-matematis-bert-dan-indobert/">Part 14</a>). Kemiripan cosine antarvektor dipakai untuk pencarian dokumen dan pengelompokan; pada <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/">Level 4 Part 2</a> cosine dipakai pada vektor TF-IDF, sekarang pada vektor yang dipelajari. Bagian ini juga dasar <em>attention</em>: skor query–key di <a href="../12-attention-dan-self-attention/">Part 12</a> adalah dot product antarvektor seperti di atas.</p>
+<h2 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<p>Pustaka standar saja.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">kata</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"tolong"</span><span class="p">,</span> <span class="s2">"banjir"</span><span class="p">,</span> <span class="s2">"hujan"</span><span class="p">,</span> <span class="s2">"makan"</span><span class="p">,</span> <span class="s2">"siang"</span><span class="p">]</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">E</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>      <span class="c1"># tolong</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>     <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>      <span class="c1"># banjir</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>     <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>      <span class="c1"># hujan</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>     <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>      <span class="c1"># makan</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>     <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]]</span>      <span class="c1"># siang</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">return</span> <span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">def</span><span class="w"> </span><span class="nf">jarak</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="k">return</span> <span class="n">norm</span><span class="p">([</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)])</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># lookup = perkalian one-hot dengan E</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="k">def</span><span class="w"> </span><span class="nf">onehot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="k">return</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">V</span><span class="p">)]</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="k">def</span><span class="w"> </span><span class="nf">matvec</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)))</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">onehot</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">E</span><span class="p">),</span> <span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="n">kalimat</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>                                  <span class="c1"># "tolong banjir hujan" sebagai ID</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">E</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kalimat</span><span class="p">]</span>                          <span class="c1"># shape (3, 3)</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>   <span class="c1"># rata-rata</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="c1"># kemiripan</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]:</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">kata</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">kata</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">b</span><span class="p">]),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">b</span><span class="p">]),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">jarak</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">b</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="c1"># gradien embedding hanya pada baris yang dipakai</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="n">dX</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">]]</span>            <span class="c1"># gradien hulu untuk "tolong banjir"</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="n">dE</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="k">for</span> <span class="n">baris</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>        <span class="n">dE</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dX</span><span class="p">[</span><span class="n">baris</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="n">eta</span> <span class="o">=</span> <span class="mf">0.1</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="nb">print</span><span class="p">([[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">r</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dE</span><span class="p">])</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">dE</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="c1"># skip-gram mini: pusat 'hujan', konteks benar 'banjir', d = 2</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"banjir"</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s2">"hujan"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="s2">"makan"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]}</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="k">def</span><span class="w"> </span><span class="nf">softmax</span><span class="p">(</span><span class="n">zs</span><span class="p">):</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>    <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="o">/</span> <span class="n">s</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">e</span><span class="p">]</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="n">skor</span> <span class="o">=</span> <span class="p">[</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="n">p</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">skor</span><span class="p">)</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="n">g</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="nb">list</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="n">U</span><span class="p">[</span><span class="s2">"banjir"</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">skor</span><span class="p">],</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">g</span><span class="p">])</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="n">v2</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">)]</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="n">p2</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">([</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v2</span><span class="p">],</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p2</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="nb">print</span><span class="p">(</span><span class="mi">30000</span> <span class="o">*</span> <span class="mi">768</span><span class="p">,</span> <span class="mi">30000</span> <span class="o">*</span> <span class="mi">768</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Keluaran:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[0.9, 0.8, 0.1] [0.9, 0.8, 0.1]
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[[0.5, 0.5, 0.5], [0.9, 0.8, 0.1], [0.8, 0.7, 0.2]]
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[0.7333, 0.6667, 0.2667]
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>banjir hujan 1.3 0.9947 0.1732
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>banjir makan 0.34 0.3034 1.2806
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>makan siang 0.76 0.9866 0.1732
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>tolong banjir 0.9 0.8601 0.6403
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>[[0.1, -0.2, 0.3], [-0.4, 0.5, 0.6], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>[0.94, 0.75, 0.04]
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>[0.8, 0.5, 0.2] [0.4368, 0.3236, 0.2397] 0.8284
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>[-0.4015, 0.4015]
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>[1.0007, -0.0007] [0.5067, 0.3071, 0.1861] 0.6798
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>23040000 92160000
+</span></code></pre></div>
+<p>Semua angka sama dengan Contoh 1, 2, 3, 5, dan 6. Perhatikan bahwa pada baris pertama perkalian one-hot dengan <span class="arithmatex">\(E\)</span> memberi baris yang sama dengan <code>E[1]</code>.</p>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Menganggap ID token punya urutan atau jarak yang bermakna.</strong> Hanya embedding (atau one-hot) yang layak dimasukkan ke jaringan.</li>
+<li><strong>Menyamakan embedding dengan one-hot.</strong> One-hot panjang <span class="arithmatex">\(V\)</span>, tetap, tanpa kemiripan; embedding panjang <span class="arithmatex">\(d\ll V\)</span> dan dipelajari.</li>
+<li><strong>Salah shape.</strong> <span class="arithmatex">\(E\)</span> berukuran <span class="arithmatex">\((V,d)\)</span>, bukan <span class="arithmatex">\((d,V)\)</span>; keluaran <em>lookup</em> kalimat <span class="arithmatex">\(T\)</span> token adalah <span class="arithmatex">\((T,d)\)</span>.</li>
+<li><strong>Memakai dot product mentah sebagai kemiripan</strong> padahal panjang vektor berbeda; gunakan cosine atau normalkan.</li>
+<li><strong>Menafsirkan satu sumbu embedding</strong> sebagai makna tertentu.</li>
+<li><strong>Menganggap rata-rata vektor kata menyimpan urutan.</strong></li>
+<li><strong>Mengabaikan token di luar kosakata</strong> atau bias yang terbawa dari data latih.</li>
+<li><strong>Mengira jarak di dimensi tinggi bisa dibaca seperti di dua dimensi.</strong></li>
+</ol>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Dengan <span class="arithmatex">\(E\)</span> dari bagian ini, tuliskan vektor "makan" lewat perkalian one-hot dan matriks <span class="arithmatex">\(X\)</span> serta rata-rata untuk kalimat "makan siang".</li>
+<li>Hitung jumlah parameter matriks embedding untuk <span class="arithmatex">\(V=1000,\ d=50\)</span> dan untuk <span class="arithmatex">\(V=30{,}000,\ d=768\)</span>, serta memori <em>float32</em> yang kedua.</li>
+<li>Hitung dot product, norma, dan cosine "tolong" dan "hujan".</li>
+<li>Hitung jarak Euclid "banjir" dan "siang".</li>
+<li>Mengapa cosine antara dua one-hot berbeda selalu <span class="arithmatex">\(0\)</span>, dan mengapa kedekatan ID tidak bermakna? Beri contoh dengan ID banjir <span class="arithmatex">\(=1\)</span>, hujan <span class="arithmatex">\(=2\)</span>, siang <span class="arithmatex">\(=4\)</span>.</li>
+<li>Kalimat "hujan hujan" (ID <span class="arithmatex">\(2,2\)</span>) dengan gradien hulu baris <span class="arithmatex">\((0{,}1,\ 0,\ 0)\)</span> dan <span class="arithmatex">\((0{,}2,\ 0{,}1,\ 0)\)</span>. Hitung gradien baris "hujan" dan embedding barunya untuk <span class="arithmatex">\(\eta=0{,}1\)</span>.</li>
+<li>Pada Contoh 6, ganti kata konteks yang benar menjadi "makan". Hitung loss dan gradien terhadap <span class="arithmatex">\(\mathbf{v}_c\)</span>.</li>
+<li>Perpanjang vektor "hujan" 3 kali. Hitung dot product dan cosine dengan "banjir" sebelum dan sesudahnya. Mana yang berubah?</li>
+<li>Tiga token dengan vektor <span class="arithmatex">\((1,0)\)</span>, <span class="arithmatex">\((0,1)\)</span>, <span class="arithmatex">\((1,1)\)</span>. Hitung rata-rata vektor untuk urutan A-B-C dan C-B-A. Apa implikasinya untuk representasi kalimat?</li>
+<li>Jelaskan dengan kata sendiri mengapa embedding "bukan sekadar kode ID", dengan menyebut sedikitnya tiga perbedaan.</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p>"makan" memiliki ID <span class="arithmatex">\(3\)</span>: <span class="arithmatex">\(\mathbf{e}_3^\top E=E_3=(0{,}1,\ 0{,}2,\ 0{,}9)\)</span>. "makan siang" (ID <span class="arithmatex">\(3,4\)</span>): <span class="arithmatex">\(X=\begin{bmatrix}0{,}1&amp;0{,}2&amp;0{,}9\\0{,}2&amp;0{,}1&amp;0{,}8\end{bmatrix}\)</span>, shape <span class="arithmatex">\((2,3)\)</span>. Rata-rata <span class="arithmatex">\(=(0{,}15,\ 0{,}15,\ 0{,}85)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p><span class="arithmatex">\(1000\times50=50{,}000\)</span> parameter. <span class="arithmatex">\(30{,}000\times768=23{,}040{,}000\)</span> parameter; memori <span class="arithmatex">\(4\times23{,}040{,}000=92{,}160{,}000\)</span> byte <span class="arithmatex">\(\approx92\)</span> MB.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>Dot: <span class="arithmatex">\(0{,}5\cdot0{,}8+0{,}5\cdot0{,}7+0{,}5\cdot0{,}2=0{,}40+0{,}35+0{,}10=0{,}85\)</span>. <span class="arithmatex">\(\lVert\text{tolong}\rVert=\sqrt{0{,}75}=0{,}8660\)</span>. <span class="arithmatex">\(\lVert\text{hujan}\rVert=\sqrt{1{,}17}=1{,}0817\)</span>. Cosine <span class="arithmatex">\(=\dfrac{0{,}85}{0{,}8660\times1{,}0817}=0{,}9074\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p>Selisih <span class="arithmatex">\((0{,}7,\ 0{,}7,\ -0{,}7)\)</span>; jarak <span class="arithmatex">\(=\sqrt{3\times0{,}49}=\sqrt{1{,}47}=1{,}2124\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p>Dua one-hot berbeda tidak punya posisi 1 yang sama, jadi dot product <span class="arithmatex">\(0\)</span> dan cosine <span class="arithmatex">\(0\)</span>: tak ada informasi kemiripan. Jarak ID: banjir–hujan <span class="arithmatex">\(=1\)</span>, banjir–siang <span class="arithmatex">\(=3\)</span> tampak seperti "banjir lebih mirip hujan". Tetapi jika penomoran ditukar (siang <span class="arithmatex">\(=2\)</span>, hujan <span class="arithmatex">\(=4\)</span>) jaraknya terbalik. Kedekatan ID hanya akibat penomoran sembarang.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p>Gradien baris "hujan" <span class="arithmatex">\(=(0{,}1,0,0)+(0{,}2,0{,}1,0)=(0{,}3,\ 0{,}1,\ 0)\)</span>. Embedding baru: <span class="arithmatex">\((0{,}8,0{,}7,0{,}2)-0{,}1(0{,}3,0{,}1,0)=(0{,}77,\ 0{,}69,\ 0{,}2)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>Peluang makan <span class="arithmatex">\(=0{,}2397\)</span> (dari Contoh 6), loss <span class="arithmatex">\(=-\ln0{,}2397=1{,}4284\)</span>. Gradien <span class="arithmatex">\(=\sum_wP(w)\mathbf{u}_w-\mathbf{u}_{\text{makan}}=(0{,}4368+0{,}1618,\ 0{,}1618+0{,}2397)-(0,1)=(0{,}5985,\ -0{,}5985)\)</span>. Pembaruan akan menggeser <span class="arithmatex">\(\mathbf{v}_c\)</span> ke arah <span class="arithmatex">\(\mathbf{u}_{\text{makan}}\)</span> (komponen kedua naik).</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p>Sebelum: dot <span class="arithmatex">\(=1{,}30\)</span>, cosine <span class="arithmatex">\(=0{,}9947\)</span>. Setelah (<span class="arithmatex">\(3\times\)</span> hujan <span class="arithmatex">\(=(2{,}4,\ 2{,}1,\ 0{,}6)\)</span>): dot <span class="arithmatex">\(=3\times1{,}30=3{,}90\)</span>, cosine tetap <span class="arithmatex">\(0{,}9947\)</span> karena pembilang dan penyebut sama-sama tiga kali lipat. Yang berubah hanya dot product.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p>Urutan A-B-C: <span class="arithmatex">\(\tfrac13[(1,0)+(0,1)+(1,1)]=(\tfrac23,\tfrac23)\)</span>. Urutan C-B-A: jumlah sama, rata-rata sama. Rata-rata tidak peka terhadap urutan, jadi kalimat dengan kata yang sama tetapi urutan berbeda (dan makna berbeda) mendapat representasi sama.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>Contoh jawaban: (1) ID hanya penanda tanpa makna, embedding adalah vektor yang <strong>dipelajari</strong> dan mencerminkan penggunaan kata. (2) Jarak antar-ID tak bermakna, sedangkan jarak/cosine antar-embedding mengukur kemiripan. (3) ID berupa satu bilangan, embedding berupa vektor <span class="arithmatex">\(d\)</span> dimensi yang dapat diperbarui oleh gradien dan dioperasikan oleh lapisan jaringan. (4) Menjadikan ID sebagai masukan memaksa jaringan menafsirkan urutan penomoran sebagai besaran; embedding menghindarinya.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Embedding</strong>: matriks <span class="arithmatex">\(E\in\mathbb{R}^{V\times d}\)</span>; baris ke-<span class="arithmatex">\(i\)</span> adalah vektor token ID <span class="arithmatex">\(i\)</span>; <em>lookup</em> sama dengan <span class="arithmatex">\(\mathbf{e}_i^\top E\)</span>.</li>
+<li>Parameter <span class="arithmatex">\(V\times d\)</span>; memori <em>float32</em> <span class="arithmatex">\(\approx4Vd\)</span> byte.</li>
+<li>One-hot: panjang <span class="arithmatex">\(V\)</span>, semua pasangan tegak lurus; embedding: pendek, dipelajari, kemiripan bermakna.</li>
+<li>Ukur kemiripan dengan dot product, <strong>cosine</strong> (arah saja), atau jarak Euclid.</li>
+<li>Gradien hanya mengalir ke baris yang dipakai; token yang berulang dijumlahkan.</li>
+<li><em>Skip-gram</em>: softmax atas dot product antara vektor pusat dan vektor konteks.</li>
+<li>Keterbatasan: statis (satu vektor per token), bias dari data, rata-rata membuang urutan.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung <em>lookup</em> embedding dan membuktikannya sama dengan perkalian one-hot.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menentukan shape, jumlah parameter, dan memori matriks embedding.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung dot product, cosine, dan jarak Euclid antarvektor.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan mengapa ID bukan embedding dan mengapa one-hot tidak menyimpan kemiripan.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung pembaruan embedding dari gradien hulu.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung satu langkah <em>skip-gram</em> kecil.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menyebut keterbatasan embedding statis dan rata-rata vektor.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../10-matematika-pemrosesan-bahasa/">Part 10 — Matematika Pemrosesan Bahasa</a> menjelaskan bagaimana teks dipotong menjadi token, membandingkan one-hot, TF-IDF, dan embedding, serta memperkenalkan embedding kontekstual. Pastikan kamu nyaman dengan <em>lookup</em>, cosine, dan batas embedding statis.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../08-regularisasi-dan-generalisasi/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 8 - Regularisasi dan Generalisasi">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 8 - Regularisasi dan Generalisasi
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../10-matematika-pemrosesan-bahasa/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 10 - Matematika Pemrosesan Bahasa">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 10 - Matematika Pemrosesan Bahasa
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

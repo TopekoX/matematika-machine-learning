@@ -1,0 +1,4428 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-4-matematika-ml-klasik/08-random-forest/">
+      
+      
+        <link rel="prev" href="../07-decision-tree/">
+      
+      
+        <link rel="next" href="../09-support-vector-machine/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 8 - Matematika Random Forest - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-8-matematika-random-forest" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 8 - Matematika Random Forest
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2-aljabar-linear-dan-kalkulus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intuisi dan Istilah Penting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sampel-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sampel Bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Bagging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-random-forest-bagging-fitur-acak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Random Forest = Bagging + Fitur Acak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mengapa-merata-ratakan-menurunkan-varians" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Mengapa Merata-ratakan Menurunkan Varians
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-estimasi-out-of-bag-oob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Estimasi Out-of-Bag (OOB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pentingnya-fitur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pentingnya Fitur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-hiperparameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Hiperparameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-bagging-dengan-lima-stump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Bagging dengan lima stump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-varians-rata-rata-prediktor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Varians rata-rata prediktor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-peluang-voting-mayoritas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Peluang voting mayoritas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-peluang-terambil-dalam-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Peluang terambil dalam bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-perbandingan-pohon-tunggal-dan-hutan-simulasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Perbandingan pohon tunggal dan hutan (simulasi)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-ml-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan ML dan NLP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan ML dan NLP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-bootstrap-stump-dan-variansi-dari-nol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: bootstrap, stump, dan variansi dari nol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-5-matematika-lanjutan-deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intuisi dan Istilah Penting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sampel-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sampel Bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Bagging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-random-forest-bagging-fitur-acak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Random Forest = Bagging + Fitur Acak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-mengapa-merata-ratakan-menurunkan-varians" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Mengapa Merata-ratakan Menurunkan Varians
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-estimasi-out-of-bag-oob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Estimasi Out-of-Bag (OOB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-pentingnya-fitur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pentingnya Fitur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-hiperparameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Hiperparameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-bagging-dengan-lima-stump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Bagging dengan lima stump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-varians-rata-rata-prediktor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Varians rata-rata prediktor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-peluang-voting-mayoritas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Peluang voting mayoritas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-peluang-terambil-dalam-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Peluang terambil dalam bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-perbandingan-pohon-tunggal-dan-hutan-simulasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Perbandingan pohon tunggal dan hutan (simulasi)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-ml-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan ML dan NLP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan ML dan NLP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-bootstrap-stump-dan-variansi-dari-nol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: bootstrap, stump, dan variansi dari nol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 4 - Matematika untuk Machine Learning Klasik
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-4-matematika-ml-klasik/08-random-forest.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-8-matematika-random-forest">Part 8 — Matematika Random Forest<a class="headerlink" href="#part-8-matematika-random-forest" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>menjelaskan mengapa satu pohon keputusan tidak stabil dan bagaimana ensemble membantu;</li>
+<li>menjelaskan sampel <em>bootstrap</em>, peluang sebuah contoh terambil, dan data <em>out-of-bag</em> (OOB);</li>
+<li>menjelaskan <em>bagging</em> dan <em>voting</em> atau <em>averaging</em> sebagai penggabung prediksi;</li>
+<li>menurunkan <span class="arithmatex">\(\mathrm{Var}(\text{rata-rata}) = \rho\sigma^2 + \frac{(1 - \rho)\sigma^2}{B}\)</span> dan menafsirkannya;</li>
+<li>menjelaskan peran pemilihan fitur acak dalam menurunkan korelasi antar pohon;</li>
+<li>menjalankan <em>bagging</em> dengan <em>stump</em> secara manual;</li>
+<li>menjelaskan mengapa banyak pohon meningkatkan stabilitas tetapi tidak menjamin hasil selalu lebih baik;</li>
+<li>menyebut hiperparameter utama dan batasan Random Forest, serta hubungannya dengan klasifikasi teks.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../07-decision-tree/">Part 7 — Matematika Decision Tree</a>; <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/">Level 3 Part 7</a> (varians) dan <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/">Part 11</a> (kovarians dan korelasi); <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/">Level 3 Part 9</a> (bootstrap); <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/">Level 3 Part 8</a> (Binomial).</p>
+<h2 id="masalah-yang-ingin-diselesaikan">Masalah yang Ingin Diselesaikan<a class="headerlink" href="#masalah-yang-ingin-diselesaikan" title="Permanent link">&para;</a></h2>
+<p>Satu pohon yang dalam punya <strong>bias rendah</strong> (ia dapat menyesuaikan diri dengan pola rumit) tetapi <strong>varians tinggi</strong>: data latih yang sedikit berbeda menghasilkan pohon yang sangat berbeda dan prediksi yang berubah-ubah (Part 7). Gagasan <em>Random Forest</em>: <strong>latih banyak pohon yang berbeda-beda, lalu gabungkan prediksinya</strong>. Rata-rata dari banyak prediksi yang berfluktuasi independen jauh lebih stabil daripada satu prediksi, sama seperti rata-rata sampel lebih stabil daripada satu observasi (Level 3 Part 9).</p>
+<h2 id="intuisi-dan-istilah-penting">Intuisi dan Istilah Penting<a class="headerlink" href="#intuisi-dan-istilah-penting" title="Permanent link">&para;</a></h2>
+<h3 id="1-sampel-bootstrap">1. Sampel <em>Bootstrap</em><a class="headerlink" href="#1-sampel-bootstrap" title="Permanent link">&para;</a></h3>
+<p>Dari data latih berukuran <span class="arithmatex">\(n\)</span>, <strong>sampel bootstrap</strong> diambil dengan <strong>pengembalian</strong> sebanyak <span class="arithmatex">\(n\)</span> kali. Beberapa contoh terambil lebih dari sekali, sebagian tidak terambil sama sekali. Peluang sebuah contoh tertentu <strong>tidak</strong> terambil dalam satu kali penarikan adalah <span class="arithmatex">\(1 - \frac{1}{n}\)</span>, sehingga setelah <span class="arithmatex">\(n\)</span> penarikan:</p>
+<div class="arithmatex">\[
+P(\text{tidak terambil}) = \Bigl(1 - \frac{1}{n}\Bigr)^{n} \;\xrightarrow{\,n \to \infty\,}\; e^{-1} \approx 0{,}368
+\]</div>
+<p>Jadi sekitar <strong>63,2%</strong> contoh unik masuk sampel bootstrap, dan sekitar <strong>36,8%</strong> tidak. Untuk <span class="arithmatex">\(n = 10\)</span>: <span class="arithmatex">\(P(\text{terambil}) = 1 - 0{,}9^{10} = 0{,}6513\)</span>; <span class="arithmatex">\(n = 100\)</span>: <span class="arithmatex">\(0{,}6340\)</span>; <span class="arithmatex">\(n = 1000\)</span>: <span class="arithmatex">\(0{,}6323\)</span>. Contoh yang tidak terambil untuk sebuah pohon disebut <strong>out-of-bag</strong> (OOB) bagi pohon itu.</p>
+<h3 id="2-bagging">2. <em>Bagging</em><a class="headerlink" href="#2-bagging" title="Permanent link">&para;</a></h3>
+<p><em><strong>Bootstrap aggregating</strong></em> (<em>bagging</em>): latih <span class="arithmatex">\(B\)</span> pohon, masing-masing pada satu sampel bootstrap sendiri, lalu gabungkan:</p>
+<ul>
+<li><strong>Klasifikasi:</strong> <em>voting</em> mayoritas, atau rata-rata peluang kelas dari tiap pohon.</li>
+<li><strong>Regresi:</strong> rata-rata prediksi <span class="arithmatex">\(\hat{y}(\mathbf{x}) = \dfrac{1}{B}\sum_{b=1}^{B} T_b(\mathbf{x})\)</span>.</li>
+</ul>
+<p>Karena tiap pohon melihat data yang berbeda, kesalahan "kebetulan" mereka tidak sama, dan penggabungan meredam kesalahan itu.</p>
+<h3 id="3-random-forest-bagging-fitur-acak">3. <em>Random Forest</em> = <em>Bagging</em> + Fitur Acak<a class="headerlink" href="#3-random-forest-bagging-fitur-acak" title="Permanent link">&para;</a></h3>
+<p>Pada <em>bagging</em> biasa, pohon-pohon masih mirip karena mereka memilih fitur kuat yang sama di akar. <em><strong>Random Forest</strong></em> menambahkan satu langkah: <strong>di setiap pemisah</strong>, hanya <span class="arithmatex">\(m\)</span> fitur yang dipilih <strong>acak</strong> (dari <span class="arithmatex">\(d\)</span> fitur) yang dipertimbangkan, misalnya <span class="arithmatex">\(m \approx \sqrt{d}\)</span> untuk klasifikasi. Ini membuat pohon lebih berbeda satu sama lain (korelasi lebih rendah), yang penting karena alasan di bagian berikut.</p>
+<h3 id="4-mengapa-merata-ratakan-menurunkan-varians">4. Mengapa Merata-ratakan Menurunkan Varians<a class="headerlink" href="#4-mengapa-merata-ratakan-menurunkan-varians" title="Permanent link">&para;</a></h3>
+<p>Misalkan <span class="arithmatex">\(B\)</span> prediktor <span class="arithmatex">\(T_1, \dots, T_B\)</span> masing-masing bervarians <span class="arithmatex">\(\sigma^2\)</span> dan <strong>korelasi berpasangan</strong> <span class="arithmatex">\(\rho\)</span>. Varians rata-ratanya (memakai <span class="arithmatex">\(\mathrm{Var}(\sum T_b) = \sum\mathrm{Var} + \sum_{b \neq b'}\mathrm{Cov}\)</span>, Level 3 Part 11):</p>
+<div class="arithmatex">\[
+\mathrm{Var}\!\left(\frac{1}{B}\sum_{b=1}^{B}T_b\right) = \frac{1}{B^2}\bigl[B\sigma^2 + B(B - 1)\rho\sigma^2\bigr] = \rho\,\sigma^2 + \frac{(1 - \rho)\,\sigma^2}{B}
+\]</div>
+<p>Dua suku: <span class="arithmatex">\(\rho\sigma^2\)</span> <strong>tidak mengecil</strong> dengan menambah pohon, sedangkan <span class="arithmatex">\(\dfrac{(1 - \rho)\sigma^2}{B}\)</span> menyusut. Untuk <span class="arithmatex">\(\sigma^2 = 1\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Korelasi <span class="arithmatex">\(\rho\)</span></th>
+<th><span class="arithmatex">\(B = 1\)</span></th>
+<th><span class="arithmatex">\(B = 10\)</span></th>
+<th><span class="arithmatex">\(B = 100\)</span></th>
+<th><span class="arithmatex">\(B = 1000\)</span></th>
+<th><span class="arithmatex">\(B \to \infty\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(0\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\(0{,}1\)</span></td>
+<td><span class="arithmatex">\(0{,}01\)</span></td>
+<td><span class="arithmatex">\(0{,}001\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(0{,}5\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\(0{,}55\)</span></td>
+<td><span class="arithmatex">\(0{,}505\)</span></td>
+<td><span class="arithmatex">\(0{,}5005\)</span></td>
+<td><span class="arithmatex">\(0{,}5\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(0{,}9\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\(0{,}91\)</span></td>
+<td><span class="arithmatex">\(0{,}901\)</span></td>
+<td><span class="arithmatex">\(0{,}9001\)</span></td>
+<td><span class="arithmatex">\(0{,}9\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Pelajaran: (1) menambah pohon menurunkan varians, tetapi hanya sampai batas <span class="arithmatex">\(\rho\sigma^2\)</span>; (2) bila pohon sangat berkorelasi (<span class="arithmatex">\(\rho = 0{,}9\)</span>), ratusan pohon hampir tidak membantu; (3) itulah fungsi pemilihan fitur acak: menurunkan <span class="arithmatex">\(\rho\)</span> walaupun varians tiap pohon <span class="arithmatex">\(\sigma^2\)</span> sedikit naik.</p>
+<p><strong>Yang tidak diubah ensemble: bias.</strong> Rata-rata prediktor yang semuanya bias ke arah yang sama tetap bias ke arah itu. <em>Bagging</em> terutama mengurangi <strong>varians</strong>.</p>
+<p><strong>Peluang voting mayoritas</strong> (bila tiap pohon benar dengan peluang <span class="arithmatex">\(p\)</span> <strong>dan saling independen</strong>): benar bila lebih dari separuh pohon benar. Dengan <span class="arithmatex">\(p = 0{,}6\)</span>: <span class="arithmatex">\(B = 1\)</span>: <span class="arithmatex">\(0{,}6\)</span>; <span class="arithmatex">\(B = 11\)</span>: <span class="arithmatex">\(0{,}7535\)</span>; <span class="arithmatex">\(B = 51\)</span>: <span class="arithmatex">\(0{,}9265\)</span>; <span class="arithmatex">\(B = 101\)</span>: <span class="arithmatex">\(0{,}9791\)</span> (distribusi Binomial, Level 3 Part 8). Namun bila <span class="arithmatex">\(p &lt; 0{,}5\)</span>, voting justru memperburuk (<span class="arithmatex">\(p = 0{,}45\)</span>, <span class="arithmatex">\(B = 101\)</span>: <span class="arithmatex">\(0{,}1562\)</span>), dan pada kenyataannya pohon tidak independen, sehingga peningkatan jauh lebih kecil daripada hitungan ideal ini.</p>
+<h3 id="5-estimasi-out-of-bag-oob">5. Estimasi <em>Out-of-Bag</em> (OOB)<a class="headerlink" href="#5-estimasi-out-of-bag-oob" title="Permanent link">&para;</a></h3>
+<p>Setiap contoh latih tidak dipakai oleh sekitar 36,8% pohon. Prediksi OOB sebuah contoh dihitung hanya dari pohon yang <strong>tidak</strong> melihatnya. Mengevaluasi prediksi OOB pada seluruh contoh memberi taksiran galat generalisasi tanpa data validasi terpisah (mirip validasi silang). Taksirannya bisa bervariasi pada data kecil.</p>
+<h3 id="6-pentingnya-fitur">6. Pentingnya Fitur<a class="headerlink" href="#6-pentingnya-fitur" title="Permanent link">&para;</a></h3>
+<p>Pentingnya sebuah fitur pada hutan adalah rata-rata, di seluruh pohon, dari jumlah penurunan ketidakmurnian (berbobot ukuran simpul) oleh pemisah pada fitur itu (Part 7). Ini ringkasan yang berguna tetapi punya bias: condong ke fitur dengan banyak nilai unik, membagi kredit di antara fitur yang berkorelasi, dan dihitung dari data latih. Ia bukan ukuran sebab-akibat.</p>
+<h3 id="7-hiperparameter">7. Hiperparameter<a class="headerlink" href="#7-hiperparameter" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Hiperparameter</th>
+<th>Pengaruh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jumlah pohon <span class="arithmatex">\(B\)</span></td>
+<td>lebih banyak menurunkan varians sampai batas; biaya hitung naik linear</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(m\)</span> (fitur per pemisah)</td>
+<td>kecil: pohon beragam (<span class="arithmatex">\(\rho\)</span> rendah) tetapi tiap pohon lebih lemah; besar: kebalikannya</td>
+</tr>
+<tr>
+<td><code>max_depth</code>, <code>min_samples_leaf</code></td>
+<td>mengatur kompleksitas tiap pohon</td>
+</tr>
+<tr>
+<td>ukuran sampel bootstrap</td>
+<td>umumnya <span class="arithmatex">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Konsep</th>
+<th>Rumus</th>
+<th>Arti simbol dan syarat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Peluang tidak terambil</td>
+<td><span class="arithmatex">\(\bigl(1 - \frac{1}{n}\bigr)^n \to e^{-1} \approx 0{,}368\)</span></td>
+<td><span class="arithmatex">\(n\)</span> ukuran data latih</td>
+</tr>
+<tr>
+<td>Prediksi regresi</td>
+<td><span class="arithmatex">\(\hat{y} = \frac{1}{B}\sum_b T_b(\mathbf{x})\)</span></td>
+<td><span class="arithmatex">\(T_b\)</span> pohon ke-<span class="arithmatex">\(b\)</span></td>
+</tr>
+<tr>
+<td>Voting</td>
+<td><span class="arithmatex">\(\hat{y} = \arg\max_c \sum_b \mathbb{1}[T_b(\mathbf{x}) = c]\)</span></td>
+<td>mayoritas suara</td>
+</tr>
+<tr>
+<td>Peluang kelas</td>
+<td><span class="arithmatex">\(\hat{P}(c \mid \mathbf{x}) = \frac{1}{B}\sum_b \hat{P}_b(c \mid \mathbf{x})\)</span></td>
+<td>rata-rata peluang tiap pohon</td>
+</tr>
+<tr>
+<td>Varians rata-rata</td>
+<td><span class="arithmatex">\(\rho\sigma^2 + \frac{(1 - \rho)\sigma^2}{B}\)</span></td>
+<td><span class="arithmatex">\(\sigma^2\)</span> varians tiap prediktor, <span class="arithmatex">\(\rho\)</span> korelasi berpasangan</td>
+</tr>
+<tr>
+<td>Peluang voting benar</td>
+<td><span class="arithmatex">\(\sum_{k &gt; B/2}\binom{B}{k}p^k(1 - p)^{B - k}\)</span></td>
+<td>pohon independen dengan akurasi <span class="arithmatex">\(p\)</span></td>
+</tr>
+<tr>
+<td>Fitur per pemisah</td>
+<td><span class="arithmatex">\(m \approx \sqrt{d}\)</span> (klasifikasi)</td>
+<td><span class="arithmatex">\(d\)</span> banyak fitur</td>
+</tr>
+</tbody>
+</table>
+<h2 id="contoh-numerik-langkah-demi-langkah">Contoh Numerik Langkah demi Langkah<a class="headerlink" href="#contoh-numerik-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-bagging-dengan-lima-stump">Contoh 1 — <em>Bagging</em> dengan lima <em>stump</em><a class="headerlink" href="#contoh-1-bagging-dengan-lima-stump" title="Permanent link">&para;</a></h3>
+<p>Data simulasi satu fitur: <span class="arithmatex">\(x = 1, \dots, 8\)</span>, label <span class="arithmatex">\(y = 0, 0, 1, 0, 0, 1, 1, 1\)</span> (sama dengan Part 7). Titik <span class="arithmatex">\(x = 3\)</span> berlabel 1 di antara label 0 adalah "derau". <em>Stump</em> adalah pohon dengan satu pemisah. Lima sampel bootstrap (ukuran 8, dengan pengembalian, seed tetap), dan stump terbaik pada tiap sampel menurut <em>information gain</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Pohon</th>
+<th>Sampel bootstrap (nilai <span class="arithmatex">\(x\)</span>)</th>
+<th>Unik</th>
+<th>Ambang</th>
+<th>Kiri (<span class="arithmatex">\(x \leq t\)</span>)</th>
+<th>Kanan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1, 5, 5, 7, 7, 7, 8, 8</td>
+<td>4</td>
+<td><span class="arithmatex">\(6{,}0\)</span></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2, 3, 3, 3, 4, 5, 5, 6</td>
+<td>5</td>
+<td><span class="arithmatex">\(3{,}5\)</span></td>
+<td><strong>1</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>2, 2, 2, 5, 6, 6, 7, 8</td>
+<td>5</td>
+<td><span class="arithmatex">\(5{,}5\)</span></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1, 1, 2, 4, 5, 6, 8, 8</td>
+<td>6</td>
+<td><span class="arithmatex">\(5{,}5\)</span></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1, 2, 4, 4, 6, 6, 7, 8</td>
+<td>6</td>
+<td><span class="arithmatex">\(5{,}0\)</span></td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Pohon 2 aneh: sampelnya memuat tiga salinan <span class="arithmatex">\(x = 3\)</span> (berlabel 1) dan hanya sedikit titik besar sehingga ia belajar aturan terbalik ("<span class="arithmatex">\(x \leq 3{,}5\)</span> berarti 1"). Itulah variasi akibat sampel yang berbeda. Prediksi tiap pohon dan hasil voting mayoritas:</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(x\)</span></th>
+<th>Pohon 1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>Suara 1</th>
+<th>Voting</th>
+<th>Label sebenarnya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><strong>0</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><strong>0</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td><strong>1</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td><strong>1</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td><strong>1</strong></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Pohon 2 salah pada <span class="arithmatex">\(x = 1, 2, 6, 7, 8\)</span> (lima dari delapan titik) dan hanya benar pada <span class="arithmatex">\(x = 3, 4, 5\)</span>, tetapi pada <span class="arithmatex">\(x = 1, 2, 6, 7, 8\)</span> empat pohon lain <strong>mengalahkan</strong> suaranya. (Pada <span class="arithmatex">\(x = 3\)</span> keempat pohon itu mengalahkan suara pohon 2 yang kebetulan benar, karena label 1 di sana adalah derau.) Voting benar pada 7 dari 8 titik. Satu-satunya yang salah adalah <span class="arithmatex">\(x = 3\)</span> (label derau), yang juga salah pada stump tunggal terbaik (<span class="arithmatex">\(x \leq 5{,}5\)</span>). Jadi di sini hutan <strong>tidak</strong> lebih baik daripada satu stump pada data latih (keduanya <span class="arithmatex">\(7/8\)</span>); keunggulan ensemble terutama soal stabilitas pada data baru, dan data kecil ini hanya memperlihatkan mekanismenya.</p>
+<h3 id="contoh-2-varians-rata-rata-prediktor">Contoh 2 — Varians rata-rata prediktor<a class="headerlink" href="#contoh-2-varians-rata-rata-prediktor" title="Permanent link">&para;</a></h3>
+<p>Tiga puluh pohon memberi prediksi dengan varians <span class="arithmatex">\(\sigma^2 = 4\)</span> (simpangan baku <span class="arithmatex">\(2\)</span>).</p>
+<ol>
+<li>Bila saling independen (<span class="arithmatex">\(\rho = 0\)</span>): <span class="arithmatex">\(\mathrm{Var} = \dfrac{4}{30} = 0{,}1333\)</span>, simpangan baku <span class="arithmatex">\(0{,}365\)</span>.</li>
+<li>Bila berkorelasi <span class="arithmatex">\(\rho = 0{,}6\)</span>: <span class="arithmatex">\(\mathrm{Var} = 0{,}6 \times 4 + \dfrac{0{,}4 \times 4}{30} = 2{,}4 + 0{,}0533 = 2{,}4533\)</span>, simpangan baku <span class="arithmatex">\(1{,}566\)</span>.</li>
+<li>Dengan korelasi tinggi, 30 pohon hampir tidak lebih stabil daripada satu pohon (<span class="arithmatex">\(\sigma = 2\)</span>): <span class="arithmatex">\(\rho\sigma^2 = 2{,}4\)</span> mendominasi.</li>
+</ol>
+<p>Untuk mengurangi varians, turunkan <span class="arithmatex">\(\rho\)</span> (fitur acak, sampel berbeda), bukan hanya menambah <span class="arithmatex">\(B\)</span>.</p>
+<h3 id="contoh-3-peluang-voting-mayoritas">Contoh 3 — Peluang voting mayoritas<a class="headerlink" href="#contoh-3-peluang-voting-mayoritas" title="Permanent link">&para;</a></h3>
+<p>Setiap pohon benar dengan peluang <span class="arithmatex">\(p = 0{,}6\)</span> dan independen. Hitung peluang voting benar untuk <span class="arithmatex">\(B = 3\)</span>.</p>
+<ol>
+<li>Voting benar bila minimal <span class="arithmatex">\(2\)</span> dari <span class="arithmatex">\(3\)</span> pohon benar.</li>
+<li><span class="arithmatex">\(P(2) = \dbinom{3}{2}(0{,}6)^2(0{,}4) = 3 \times 0{,}36 \times 0{,}4 = 0{,}432\)</span>.</li>
+<li><span class="arithmatex">\(P(3) = (0{,}6)^3 = 0{,}216\)</span>.</li>
+<li>Total <span class="arithmatex">\(= 0{,}648\)</span>, lebih tinggi dari <span class="arithmatex">\(0{,}6\)</span>. Dengan <span class="arithmatex">\(B = 101\)</span>: <span class="arithmatex">\(0{,}9791\)</span>.</li>
+<li>Peringatan: jika <span class="arithmatex">\(p = 0{,}45\)</span> (lebih buruk dari tebakan), <span class="arithmatex">\(B = 101\)</span> memberi <span class="arithmatex">\(0{,}1562\)</span>: voting memperkuat kesalahan. Dan bila pohon berkorelasi, peningkatannya jauh lebih kecil.</li>
+</ol>
+<h3 id="contoh-4-peluang-terambil-dalam-bootstrap">Contoh 4 — Peluang terambil dalam bootstrap<a class="headerlink" href="#contoh-4-peluang-terambil-dalam-bootstrap" title="Permanent link">&para;</a></h3>
+<p>Untuk <span class="arithmatex">\(n = 5\)</span>: <span class="arithmatex">\(P(\text{contoh tertentu tidak terambil}) = 0{,}8^5 = 0{,}3277\)</span>, sehingga <span class="arithmatex">\(P(\text{terambil}) = 0{,}6723\)</span>. Untuk <span class="arithmatex">\(n = 100\)</span>: <span class="arithmatex">\(0{,}99^{100} = 0{,}3660\)</span>, <span class="arithmatex">\(P(\text{terambil}) = 0{,}6340\)</span>. Batas <span class="arithmatex">\(n \to \infty\)</span>: <span class="arithmatex">\(e^{-1} = 0{,}3679\)</span>, <span class="arithmatex">\(P = 0{,}6321\)</span>. Jadi tiap pohon melatih sekitar dua pertiga contoh unik, dan sepertiga sisanya menjadi data OOB pohon itu.</p>
+<h3 id="contoh-5-perbandingan-pohon-tunggal-dan-hutan-simulasi">Contoh 5 — Perbandingan pohon tunggal dan hutan (simulasi)<a class="headerlink" href="#contoh-5-perbandingan-pohon-tunggal-dan-hutan-simulasi" title="Permanent link">&para;</a></h3>
+<p>Data sintetis dari <code>make_classification</code> (300 contoh, 20 fitur, 5 informatif, 10% label diacak), dibagi 70/30; diulang pada 20 dataset berbeda (seed 0 sampai 19) dengan satu pohon dan 100 pohon (<code>n_estimators=100</code>).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Rata-rata akurasi uji (20 dataset)</th>
+<th>Dataset di mana lebih baik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Satu pohon</td>
+<td><span class="arithmatex">\(0{,}7400\)</span></td>
+<td>4 dari 20</td>
+</tr>
+<tr>
+<td>Random Forest (100 pohon)</td>
+<td><span class="arithmatex">\(0{,}8072\)</span></td>
+<td>16 dari 20</td>
+</tr>
+</tbody>
+</table>
+<p>Random Forest lebih baik rata-rata dan pada 16 dari 20 dataset, <strong>tetapi pohon tunggal menang pada 4 dataset</strong>: ensemble tidak menjamin hasil lebih baik pada setiap data. Ini data simulasi, bukan hasil eksperimen pada data nyata.</p>
+<p>Pada satu dataset (seed 2): pohon tunggal akurasi latih <span class="arithmatex">\(1{,}0\)</span> dan uji <span class="arithmatex">\(0{,}744\)</span> (menghafal); hutan akurasi latih <span class="arithmatex">\(1{,}0\)</span> dan uji <span class="arithmatex">\(0{,}956\)</span>. Pengaruh jumlah pohon pada dataset yang sama (satu pohon dengan bootstrap dan fitur acak): <span class="arithmatex">\(B = 1\)</span>: <span class="arithmatex">\(0{,}789\)</span>; <span class="arithmatex">\(5\)</span>: <span class="arithmatex">\(0{,}878\)</span>; <span class="arithmatex">\(25\)</span>: <span class="arithmatex">\(0{,}933\)</span>; <span class="arithmatex">\(100\)</span>: <span class="arithmatex">\(0{,}956\)</span>; <span class="arithmatex">\(300\)</span>: <span class="arithmatex">\(0{,}933\)</span>. Naik cepat lalu mendatar dan berfluktuasi (tidak naik terus). Dengan <code>max_features</code> semua fitur: <span class="arithmatex">\(0{,}889\)</span> vs <span class="arithmatex">\(\sqrt{d}\)</span>: <span class="arithmatex">\(0{,}956\)</span>, memperlihatkan manfaat fitur acak pada dataset ini.</p>
+<h2 id="interpretasi-asumsi-dan-keterbatasan">Interpretasi, Asumsi, dan Keterbatasan<a class="headerlink" href="#interpretasi-asumsi-dan-keterbatasan" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Mengurangi varians, bukan bias.</strong> Bila pohon sama-sama terlalu sederhana, hutan tetap bias.</li>
+<li><strong>Batas oleh korelasi.</strong> Menambah pohon berhenti membantu setelah <span class="arithmatex">\(\rho\sigma^2\)</span> mendominasi.</li>
+<li><strong>Tidak menjamin hasil lebih baik.</strong> Contoh 5: pohon tunggal menang pada sebagian dataset; pada data kecil atau sangat sederhana hutan tidak selalu berguna.</li>
+<li><strong>Kurang dapat ditafsirkan.</strong> Ratusan pohon tidak lagi berupa aturan yang dapat dibaca; hanya ringkasan seperti pentingnya fitur yang tersedia, dengan bias yang disebutkan.</li>
+<li><strong>Biaya.</strong> Waktu latih dan memori naik kira-kira linear dengan <span class="arithmatex">\(B\)</span>.</li>
+<li><strong>Tidak mengekstrapolasi.</strong> Prediksi tetap berada dalam rentang target latih untuk regresi.</li>
+<li><strong>Pada teks berdimensi tinggi dan jarang</strong>, Random Forest bisa bekerja, tetapi model linear (regresi logistik, SVM linear) sering kompetitif atau lebih baik dan jauh lebih ringan; hasilnya bergantung data.</li>
+<li><strong>OOB</strong> adalah taksiran yang berisik pada data kecil.</li>
+<li><strong>Kelas tidak seimbang.</strong> Voting mayoritas cenderung menguntungkan kelas besar; bobot kelas, <em>resampling</em>, atau ambang peluang dapat dipakai (Part 11).</li>
+</ul>
+<h2 id="hubungan-dengan-ml-dan-nlp">Hubungan dengan ML dan NLP<a class="headerlink" href="#hubungan-dengan-ml-dan-nlp" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Ensemble sebagai penstabil.</strong> Gagasan merata-ratakan prediktor yang tidak sempurna muncul di banyak tempat; <em>bagging</em> adalah bentuk paling sederhana.</li>
+<li><strong>Tanpa penskalaan.</strong> Seperti pohon, hutan tidak peka skala fitur (Part 7).</li>
+<li><strong>Teks.</strong> Pada klasifikasi Emergency vs Non-Emergency, hutan atas fitur BoW atau TF-IDF dapat menangkap interaksi antar kata, tetapi dengan dimensi besar dan data sedikit risiko <em>overfitting</em> tetap ada; bandingkan selalu dengan baseline linear (Part 4 dan 9) dan Naive Bayes (Part 6).</li>
+<li><strong>Pentingnya fitur</strong> dipakai untuk eksplorasi kata yang paling sering dipakai pemisah, bukan untuk kesimpulan sebab-akibat.</li>
+<li><strong>Validasi OOB</strong> memberi cara cepat memantau galat tanpa memisahkan data validasi, dengan catatan bahwa ia berisik.</li>
+</ul>
+<h3 id="python-bootstrap-stump-dan-variansi-dari-nol">Python: bootstrap, <em>stump</em>, dan variansi dari nol<a class="headerlink" href="#python-bootstrap-stump-dan-variansi-dari-nol" title="Permanent link">&para;</a></h3>
+<p>Hanya pustaka standar.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span><span class="o">,</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">pvariance</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">([(</span><span class="n">n</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)],</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># [(5, 0.6723), (10, 0.6513), (100, 0.634), (1000, 0.6323)] 0.6321</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">peluang_voting</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span> <span class="o">**</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">B</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">([(</span><span class="n">B</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">peluang_voting</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">101</span><span class="p">)])</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># [(1, 0.6), (3, 0.648), (11, 0.7535), (51, 0.9265), (101, 0.9791)]</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">print</span><span class="p">([(</span><span class="n">B</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">peluang_voting</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)])</span>      <span class="c1"># [(1, 0.45), (101, 0.1562)]</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">for</span> <span class="n">rho</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">):</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">rho</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">B</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)])</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="c1"># 0 [1.0, 0.1, 0.01, 0.001]</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># 0.5 [1.0, 0.55, 0.505, 0.5005]</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1"># 0.9 [1.0, 0.91, 0.901, 0.9001]</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">simulasi</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ulang</span><span class="o">=</span><span class="mi">20000</span><span class="p">):</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">hasil</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ulang</span><span class="p">):</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        <span class="n">z0</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                            <span class="c1"># komponen bersama (sumber korelasi)</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="o">*</span> <span class="n">z0</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">B</span><span class="p">)]</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        <span class="n">hasil</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    <span class="k">return</span> <span class="n">pvariance</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="nb">print</span><span class="p">([(</span><span class="n">rho</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">simulasi</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span> <span class="k">for</span> <span class="n">rho</span><span class="p">,</span> <span class="n">B</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">100</span><span class="p">))])</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1"># [(0, 10, 0.1), (0.5, 10, 0.553), (0.5, 100, 0.512), (0.9, 100, 0.91)]</span>
+</span></code></pre></div>
+<p><em>Bagging</em> lima <em>stump</em>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">entropy</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">return</span> <span class="o">-</span><span class="nb">sum</span><span class="p">((</span><span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">0</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">stump</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">terbaik</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">nilai</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nilai</span><span class="p">,</span> <span class="n">nilai</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">kiri</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">]</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">kanan</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">t</span><span class="p">]</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">g</span> <span class="o">=</span> <span class="n">entropy</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">kiri</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">*</span> <span class="n">entropy</span><span class="p">(</span><span class="n">kiri</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">kanan</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">*</span> <span class="n">entropy</span><span class="p">(</span><span class="n">kanan</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="k">if</span> <span class="n">terbaik</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="n">terbaik</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">:</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="n">terbaik</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">kiri</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Counter</span><span class="p">(</span><span class="n">kanan</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">return</span> <span class="n">terbaik</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">rng2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">pohon</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">rng2</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">kiri</span><span class="p">,</span> <span class="n">kanan</span> <span class="o">=</span> <span class="n">stump</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">])</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">pohon</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">kiri</span><span class="p">,</span> <span class="n">kanan</span><span class="p">))</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">idx</span><span class="p">)),</span> <span class="n">t</span><span class="p">,</span> <span class="n">kiri</span><span class="p">,</span> <span class="n">kanan</span><span class="p">)</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="c1"># 1 [1, 5, 5, 7, 7, 7, 8, 8] 4 6.0 0 1</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="c1"># 2 [2, 3, 3, 3, 4, 5, 5, 6] 5 3.5 1 0</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="c1"># 3 [2, 2, 2, 5, 6, 6, 7, 8] 5 5.5 0 1</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="c1"># 4 [1, 1, 2, 4, 5, 6, 8, 8] 6 5.5 0 1</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="c1"># 5 [1, 2, 4, 4, 6, 6, 7, 8] 6 5.0 0 1</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="n">suara</span> <span class="o">=</span> <span class="p">[</span><span class="n">kr</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="k">else</span> <span class="n">kn</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">kr</span><span class="p">,</span> <span class="n">kn</span> <span class="ow">in</span> <span class="n">pohon</span><span class="p">]</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">suara</span><span class="p">,</span> <span class="n">Counter</span><span class="p">(</span><span class="n">suara</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">v</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="c1"># 1 [0, 1, 0, 0, 0] 0 0</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="c1"># 2 [0, 1, 0, 0, 0] 0 0</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="c1"># 3 [0, 1, 0, 0, 0] 0 1</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="c1"># 4 [0, 0, 0, 0, 0] 0 0</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="c1"># 5 [0, 0, 0, 0, 0] 0 0</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="c1"># 6 [0, 0, 1, 1, 1] 1 1</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="c1"># 7 [1, 0, 1, 1, 1] 1 1</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="c1"># 8 [1, 0, 1, 1, 1] 1 1</span>
+</span></code></pre></div>
+<p><strong>Opsional: bandingkan dengan scikit-learn.</strong> Blok ini membutuhkan scikit-learn dan NumPy, yang <strong>tidak</strong> dipasang oleh proyek ini dan tidak dijalankan oleh situs. Keluaran dijalankan dengan scikit-learn 1.9.0 pada Python 3.14; data adalah simulasi.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">a_pohon</span><span class="p">,</span> <span class="n">a_hutan</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">for</span> <span class="n">rs</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">X</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                                <span class="n">n_redundant</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rs</span><span class="p">)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">Xa</span><span class="p">,</span> <span class="n">Xb</span><span class="p">,</span> <span class="n">ya</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rs</span><span class="p">)</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">a_pohon</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xa</span><span class="p">,</span> <span class="n">ya</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">a_hutan</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xa</span><span class="p">,</span> <span class="n">ya</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xb</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a_pohon</span><span class="p">)),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a_hutan</span><span class="p">)),</span> <span class="mi">4</span><span class="p">),</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>      <span class="nb">sum</span><span class="p">(</span><span class="n">q</span> <span class="o">&gt;</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a_pohon</span><span class="p">,</span> <span class="n">a_hutan</span><span class="p">)),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">q</span> <span class="o">&lt;</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a_pohon</span><span class="p">,</span> <span class="n">a_hutan</span><span class="p">)))</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># 0.74 0.8072 16 4</span>
+</span></code></pre></div>
+<p>Interpretasi: hitungan manual (peluang bootstrap, varians rata-rata, voting stump) sesuai teori, dan simulasi variansi cocok dengan rumus <span class="arithmatex">\(\rho + (1 - \rho)/B\)</span>. Perbandingan scikit-learn menunjukkan hutan unggul rata-rata tetapi bukan pada setiap dataset.</p>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kesalahan</th>
+<th>Mengapa salah</th>
+<th>Yang benar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mengira lebih banyak pohon selalu lebih baik</td>
+<td>varians berhenti turun di <span class="arithmatex">\(\rho\sigma^2\)</span> dan hasil berfluktuasi</td>
+<td>pilih <span class="arithmatex">\(B\)</span> cukup besar lalu perhatikan <span class="arithmatex">\(\rho\)</span></td>
+</tr>
+<tr>
+<td>Mengira Random Forest mengurangi bias</td>
+<td>terutama mengurangi varians</td>
+<td>gunakan pohon yang cukup ekspresif</td>
+</tr>
+<tr>
+<td>Menganggap pohon dalam hutan independen</td>
+<td>mereka berbagi data dan fitur kuat</td>
+<td>gunakan fitur acak untuk menurunkan <span class="arithmatex">\(\rho\)</span></td>
+</tr>
+<tr>
+<td>Menganggap OOB identik dengan galat uji</td>
+<td>OOB berisik pada data kecil</td>
+<td>pakai sebagai taksiran, bukan kepastian</td>
+</tr>
+<tr>
+<td>Menafsirkan pentingnya fitur sebagai sebab-akibat</td>
+<td>bias dan data latih</td>
+<td>hati-hati</td>
+</tr>
+<tr>
+<td>Menganggap hutan selalu mengalahkan model lain</td>
+<td>bergantung data (Contoh 5)</td>
+<td>bandingkan dengan baseline</td>
+</tr>
+<tr>
+<td>Lupa bahwa voting memperburuk bila <span class="arithmatex">\(p &lt; 0{,}5\)</span></td>
+<td>mayoritas dari prediktor buruk tetap buruk</td>
+<td>pastikan pohon lebih baik dari acak</td>
+</tr>
+<tr>
+<td>Menghitung peluang kelas hutan sebagai peluang terkalibrasi</td>
+<td>rata-rata proporsi daun kasar</td>
+<td>periksa kalibrasi</td>
+</tr>
+<tr>
+<td>Mengabaikan kelas tidak seimbang</td>
+<td>mayoritas menang</td>
+<td>bobot kelas atau ambang</td>
+</tr>
+</tbody>
+</table>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Hitung peluang sebuah contoh <strong>tidak</strong> terambil dan terambil dalam sampel bootstrap untuk <span class="arithmatex">\(n = 5\)</span> dan <span class="arithmatex">\(n = 100\)</span>. Berapa batasnya untuk <span class="arithmatex">\(n\)</span> besar?</li>
+<li>Tiga pohon masing-masing benar dengan peluang <span class="arithmatex">\(0{,}6\)</span> dan independen. Hitung peluang voting mayoritas benar. Ulangi dengan <span class="arithmatex">\(p = 0{,}45\)</span> dan jelaskan hasilnya.</li>
+<li>Hitung <span class="arithmatex">\(\mathrm{Var}\)</span> rata-rata <span class="arithmatex">\(B = 10\)</span> prediktor dengan <span class="arithmatex">\(\sigma^2 = 1\)</span> untuk <span class="arithmatex">\(\rho = 0\)</span>, <span class="arithmatex">\(0{,}5\)</span>, dan <span class="arithmatex">\(0{,}9\)</span>.</li>
+<li>Tiga puluh pohon dengan <span class="arithmatex">\(\sigma^2 = 4\)</span> dan <span class="arithmatex">\(\rho = 0{,}6\)</span>. Hitung <span class="arithmatex">\(\mathrm{Var}\)</span> dan simpangan baku rata-ratanya, dan bandingkan dengan <span class="arithmatex">\(\rho = 0\)</span>.</li>
+<li>Turunkan <span class="arithmatex">\(\mathrm{Var}\bigl(\frac{1}{B}\sum T_b\bigr) = \rho\sigma^2 + \frac{(1 - \rho)\sigma^2}{B}\)</span> dari <span class="arithmatex">\(\mathrm{Var}(\sum T_b) = B\sigma^2 + B(B - 1)\rho\sigma^2\)</span>.</li>
+<li>Mengapa pemilihan fitur acak di setiap pemisah menurunkan <span class="arithmatex">\(\rho\)</span>, dan apa harganya?</li>
+<li>Pada Contoh 1, mengapa pohon 2 mempelajari aturan terbalik? Bagaimana ensemble menanggulanginya?</li>
+<li>Pada simulasi Contoh 5, hutan lebih baik pada 16 dari 20 dataset dan pohon tunggal pada 4. Apa artinya bagi klaim "Random Forest selalu lebih baik"?</li>
+<li>Sebuah hutan memiliki 100 pohon dan data latih berukuran 200. Kira-kira berapa contoh yang menjadi OOB bagi satu pohon, dan berapa pohon (rata-rata) yang tidak melihat sebuah contoh tertentu?</li>
+<li>Jelaskan dalam beberapa kalimat kapan Random Forest layak dicoba untuk klasifikasi teks dan kapan model linear mungkin lebih sesuai.</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p><span class="arithmatex">\(n = 5\)</span>: tidak terambil <span class="arithmatex">\(0{,}8^5 = 0{,}3277\)</span>; terambil <span class="arithmatex">\(0{,}6723\)</span>. <span class="arithmatex">\(n = 100\)</span>: tidak terambil <span class="arithmatex">\(0{,}99^{100} = 0{,}3660\)</span>; terambil <span class="arithmatex">\(0{,}6340\)</span>. Batas <span class="arithmatex">\(n \to \infty\)</span>: tidak terambil <span class="arithmatex">\(e^{-1} \approx 0{,}368\)</span>; terambil <span class="arithmatex">\(\approx 0{,}632\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p><span class="arithmatex">\(p = 0{,}6\)</span>: <span class="arithmatex">\(P(2) = 3(0{,}36)(0{,}4) = 0{,}432\)</span>; <span class="arithmatex">\(P(3) = 0{,}216\)</span>; total <span class="arithmatex">\(0{,}648\)</span> (lebih baik dari <span class="arithmatex">\(0{,}6\)</span>). <span class="arithmatex">\(p = 0{,}45\)</span>: <span class="arithmatex">\(P(2) = 3(0{,}2025)(0{,}55) = 0{,}3341\)</span>; <span class="arithmatex">\(P(3) = 0{,}0911\)</span>; total <span class="arithmatex">\(0{,}4253\)</span> (lebih buruk dari <span class="arithmatex">\(0{,}45\)</span>). Voting memperkuat arah mayoritas: bila prediktor lebih baik dari acak ia membaik, bila lebih buruk ia memburuk.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p><span class="arithmatex">\(\rho + \dfrac{1 - \rho}{10}\)</span>: <span class="arithmatex">\(\rho = 0\)</span>: <span class="arithmatex">\(0{,}1\)</span>. <span class="arithmatex">\(\rho = 0{,}5\)</span>: <span class="arithmatex">\(0{,}5 + 0{,}05 = 0{,}55\)</span>. <span class="arithmatex">\(\rho = 0{,}9\)</span>: <span class="arithmatex">\(0{,}9 + 0{,}01 = 0{,}91\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p><span class="arithmatex">\(\rho = 0{,}6\)</span>: <span class="arithmatex">\(0{,}6(4) + \dfrac{0{,}4(4)}{30} = 2{,}4 + 0{,}0533 = 2{,}4533\)</span>; simpangan baku <span class="arithmatex">\(\approx 1{,}566\)</span>. <span class="arithmatex">\(\rho = 0\)</span>: <span class="arithmatex">\(\dfrac{4}{30} = 0{,}1333\)</span>; simpangan baku <span class="arithmatex">\(\approx 0{,}365\)</span>. Korelasi tinggi menahan penurunan varians: hampir tidak lebih stabil daripada satu pohon (<span class="arithmatex">\(\sigma = 2\)</span>).</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p><span class="arithmatex">\(\mathrm{Var}\bigl(\frac{1}{B}\sum T_b\bigr) = \dfrac{1}{B^2}\mathrm{Var}(\sum T_b) = \dfrac{1}{B^2}\bigl[B\sigma^2 + B(B - 1)\rho\sigma^2\bigr] = \dfrac{\sigma^2}{B} + \dfrac{(B - 1)\rho\sigma^2}{B}\)</span>. Pecah: <span class="arithmatex">\(\dfrac{(B - 1)\rho\sigma^2}{B} = \rho\sigma^2 - \dfrac{\rho\sigma^2}{B}\)</span>. Maka total <span class="arithmatex">\(= \rho\sigma^2 + \dfrac{\sigma^2 - \rho\sigma^2}{B} = \rho\sigma^2 + \dfrac{(1 - \rho)\sigma^2}{B}\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p>Tanpa pemilihan fitur acak, semua pohon cenderung memilih fitur terkuat yang sama di akar sehingga mirip (korelasi tinggi). Dengan hanya <span class="arithmatex">\(m\)</span> fitur acak yang dipertimbangkan per pemisah, pohon dipaksa memakai fitur berbeda sehingga lebih beragam: <span class="arithmatex">\(\rho\)</span> turun. Harganya: tiap pohon bisa lebih lemah (tidak selalu memakai fitur terbaik) dan bias sedikit naik, tetapi total varians hutan biasanya turun lebih banyak.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>Sampel bootstrap pohon 2 berisi tiga salinan <span class="arithmatex">\(x = 3\)</span> (label 1) dan hanya satu titik besar (<span class="arithmatex">\(x = 6\)</span>), sehingga di sampel itu aturan "<span class="arithmatex">\(x \leq 3{,}5 \Rightarrow 1\)</span>" tampak paling memisahkan. Itu variasi akibat sampel. Ensemble menanggulanginya karena empat pohon lain memberi aturan sebaliknya dan suara mereka mengalahkan pohon 2 pada <span class="arithmatex">\(x = 1, 2, 6, 7, 8\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p>Hutan lebih baik rata-rata dan pada mayoritas dataset, tetapi pohon tunggal menang pada 4 dari 20, jadi klaim "selalu lebih baik" keliru. Ensemble menurunkan varians yang menguntungkan secara rata-rata, tetapi tidak menjamin hasil lebih baik pada setiap data.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p>Sekitar <span class="arithmatex">\(36{,}8\%\)</span> dari 200 <span class="arithmatex">\(= 73{,}6 \approx 74\)</span> contoh adalah OOB bagi satu pohon. Sebuah contoh tertentu tidak dilihat oleh sekitar <span class="arithmatex">\(36{,}8\%\)</span> dari 100 pohon, yaitu sekitar <span class="arithmatex">\(37\)</span> pohon.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>Random Forest layak dicoba bila diharapkan ada interaksi antar kata atau fitur lain yang dapat ditangkap pohon, dan data cukup banyak untuk menghindari <em>overfitting</em>; ia tidak peka skala dan mudah dipakai. Model linear (regresi logistik, SVM linear, Naive Bayes) sering lebih sesuai untuk teks berdimensi sangat tinggi dan jarang karena lebih ringan, lebih mudah ditafsirkan, dan sering sama baiknya. Keputusan akhir bergantung validasi pada data yang bersangkutan.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Satu pohon: bias rendah, varians tinggi. Random Forest melatih banyak pohon pada sampel <em>bootstrap</em> dan pada tiap pemisah hanya mempertimbangkan <span class="arithmatex">\(m\)</span> fitur acak, lalu menggabungkan lewat voting atau rata-rata.</li>
+<li>Sampel bootstrap memuat sekitar <span class="arithmatex">\(63{,}2\%\)</span> contoh unik; sisanya (<span class="arithmatex">\(36{,}8\%\)</span>) adalah OOB untuk taksiran galat tanpa data validasi terpisah.</li>
+<li>Varians rata-rata: <span class="arithmatex">\(\rho\sigma^2 + \frac{(1 - \rho)\sigma^2}{B}\)</span>. Menambah pohon menurunkan hanya suku kedua; fitur acak menurunkan <span class="arithmatex">\(\rho\)</span>.</li>
+<li>Ensemble mengurangi varians, bukan bias; voting memperburuk bila prediktor lebih buruk dari acak.</li>
+<li>Banyak pohon meningkatkan stabilitas tetapi tidak menjamin hasil lebih baik; pada simulasi pohon tunggal menang pada 4 dari 20 dataset.</li>
+<li>Kekurangan: kurang dapat dibaca, biaya lebih besar, dan pada teks berdimensi tinggi model linear sering kompetitif.</li>
+<li>Contoh NLP dan simulasi di sini bukan hasil eksperimen nyata.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan sampel bootstrap dan peluang <span class="arithmatex">\(0{,}632\)</span> / <span class="arithmatex">\(0{,}368\)</span>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan <em>bagging</em>, voting, dan rata-rata.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menurunkan dan menafsirkan <span class="arithmatex">\(\rho\sigma^2 + \frac{(1 - \rho)\sigma^2}{B}\)</span>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan peran fitur acak dalam menurunkan korelasi pohon.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjalankan <em>bagging</em> stump manual dan membaca hasil voting.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan mengapa ensemble tidak menjamin hasil lebih baik.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menyebut hiperparameter utama dan keterbatasan Random Forest.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../09-support-vector-machine/">Part 9 — Matematika Support Vector Machine</a> kembali ke model linear, kini dengan gagasan geometris: memilih batas keputusan yang memaksimalkan <strong>margin</strong> antar kelas. Pastikan norma, dot product, dan jarak titik ke bidang (Level 2 Part 2) serta batas keputusan regresi logistik (Part 4) sudah jelas.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../07-decision-tree/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 7 - Matematika Decision Tree">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 7 - Matematika Decision Tree
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../09-support-vector-machine/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 9 - Matematika Support Vector Machine">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 9 - Matematika Support Vector Machine
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4168 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/">
+      
+      
+        <link rel="prev" href="../10-matematika-pemrosesan-bahasa/">
+      
+      
+        <link rel="next" href="../12-attention-dan-self-attention/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 11 - Softmax dan Probabilitas Keluaran - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-11-softmax-dan-probabilitas-keluaran" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 11 - Softmax dan Probabilitas Keluaran
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2-aljabar-linear-dan-kalkulus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rumus dan Penjelasan Setiap Simbol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#softmax-dan-sifat-sifatnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax dan sifat-sifatnya
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-sum-exp-dan-perhitungan-stabil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log-sum-exp dan perhitungan stabil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropi-sebagai-ukuran-ketidakpastian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropi sebagai ukuran ketidakpastian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Label smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perplexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-softmax-lse-dan-cross-entropy-dari-logit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Softmax, LSE, dan cross-entropy dari logit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-mengapa-perlu-stabil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Mengapa perlu stabil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Temperature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-multikelas-vs-multi-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Multikelas vs multi-label
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-dua-kelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Dua kelas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-6-label-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 6 — Label smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-7-perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 7 — Perplexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-8-kalibrasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 8 — Kalibrasi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-deep-learning-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Deep Learning dan NLP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masalah-yang-ingin-diselesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masalah yang Ingin Diselesaikan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intuisi-dan-istilah-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuisi dan Istilah Penting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rumus dan Penjelasan Setiap Simbol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#softmax-dan-sifat-sifatnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Softmax dan sifat-sifatnya
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-sum-exp-dan-perhitungan-stabil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log-sum-exp dan perhitungan stabil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entropi-sebagai-ukuran-ketidakpastian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entropi sebagai ukuran ketidakpastian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Label smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perplexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-numerik-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Numerik Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Numerik Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-softmax-lse-dan-cross-entropy-dari-logit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Softmax, LSE, dan cross-entropy dari logit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-mengapa-perlu-stabil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Mengapa perlu stabil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-temperature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Temperature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-multikelas-vs-multi-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Multikelas vs multi-label
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-dua-kelas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Dua kelas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-6-label-smoothing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 6 — Label smoothing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-7-perplexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 7 — Perplexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-8-kalibrasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 8 — Kalibrasi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretasi-asumsi-dan-keterbatasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretasi, Asumsi, dan Keterbatasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-deep-learning-dan-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Deep Learning dan NLP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-11-softmax-dan-probabilitas-keluaran">Part 11 — Softmax dan Probabilitas Keluaran<a class="headerlink" href="#part-11-softmax-dan-probabilitas-keluaran" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>mengubah <strong>logit</strong> menjadi <strong>probabilitas multikelas</strong> dengan softmax dan memeriksa bahwa jumlahnya satu;</li>
+<li>menjelaskan bahwa <span class="arithmatex">\(p_i/p_j=e^{z_i-z_j}\)</span> dan bahwa softmax tidak berubah bila semua logit digeser;</li>
+<li>menghitung softmax dan <strong>cross-entropy</strong> secara stabil dengan <em><strong>log-sum-exp</strong></em>;</li>
+<li>menjelaskan pengaruh <strong>temperature</strong> dan menghitungnya dengan angka;</li>
+<li>membedakan klasifikasi <strong>multikelas</strong> (softmax) dari <strong>multi-label</strong> (sigmoid);</li>
+<li>menafsirkan prediksi: kelas terpilih, keyakinan, ketidakpastian (entropi), dan <strong>kalibrasi</strong>;</li>
+<li>menghitung <em>label smoothing</em> dan <strong>perplexity</strong> pada contoh kecil.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../04-fungsi-aktivasi/">Part 4 — Fungsi Aktivasi</a> (definisi softmax, invariansi terhadap pergeseran, Jacobian), <a href="../05-loss-function/">Part 5 — Loss Function</a> (cross-entropy dan gradien <span class="arithmatex">\(p-y\)</span>), dan <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/">Level 1 Part 10</a> (<span class="arithmatex">\(e^x\)</span>, <span class="arithmatex">\(\ln x\)</span>, sifat logaritma).</p>
+<h2 id="masalah-yang-ingin-diselesaikan">Masalah yang Ingin Diselesaikan<a class="headerlink" href="#masalah-yang-ingin-diselesaikan" title="Permanent link">&para;</a></h2>
+<p>Lapisan terakhir jaringan menghasilkan satu skor mentah (<strong>logit</strong>) per kelas, bilangan real apa pun. Kita ingin (1) mengubahnya menjadi distribusi peluang, (2) menghitung loss tanpa kesalahan numerik walau logit besar, dan (3) menafsirkan angka itu dengan benar. Part 4 sudah memperkenalkan softmax; Part ini memperdalamnya: sifat-sifatnya, cara menghitungnya dengan aman, dan apa arti probabilitas yang keluar.</p>
+<p>Softmax juga muncul di dua tempat lain pada Level 5: untuk <strong>bobot attention</strong> (<a href="../12-attention-dan-self-attention/">Part 12</a>) dan untuk <strong>prediksi token</strong> pada model bahasa (<a href="../14-fondasi-matematis-bert-dan-indobert/">Part 14</a>).</p>
+<h2 id="intuisi-dan-istilah-penting">Intuisi dan Istilah Penting<a class="headerlink" href="#intuisi-dan-istilah-penting" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Logit</strong> (<span class="arithmatex">\(z_k\)</span>): skor mentah kelas ke-<span class="arithmatex">\(k\)</span>. Bukan peluang; boleh negatif atau lebih dari 1.</li>
+<li><strong>Softmax</strong>: mengubah logit menjadi peluang: yang lebih besar mendapat peluang lebih besar, dan jumlahnya satu.</li>
+<li><strong>Multikelas</strong>: tepat satu kelas yang benar (<span class="arithmatex">\(K\)</span> kelas, saling meniadakan) <span class="arithmatex">\(\Rightarrow\)</span> softmax.</li>
+<li><strong>Multi-label</strong>: beberapa label dapat benar sekaligus <span class="arithmatex">\(\Rightarrow\)</span> satu sigmoid per label.</li>
+<li><em><strong>Log-sum-exp</strong></em> (LSE): <span class="arithmatex">\(\ln\sum_je^{z_j}\)</span>, "maksimum yang dihaluskan"; kunci perhitungan yang stabil.</li>
+<li><strong>Temperature</strong> <span class="arithmatex">\(T\)</span>: pembagi logit sebelum softmax; mengatur seberapa tajam distribusinya.</li>
+<li><strong>Kalibrasi</strong>: apakah peluang yang dinyatakan model sesuai dengan frekuensi kebenaran sebenarnya.</li>
+</ul>
+<pre class="mermaid"><code>flowchart LR
+    Z["Logit z (K bilangan)"] --&gt; S["Softmax"]
+    S --&gt; P["Probabilitas p (jumlah 1)"]
+    P --&gt; A["Keputusan: argmax"]
+    P --&gt; L["Loss: -ln p kelas benar"]</code></pre>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<h3 id="softmax-dan-sifat-sifatnya">Softmax dan sifat-sifatnya<a class="headerlink" href="#softmax-dan-sifat-sifatnya" title="Permanent link">&para;</a></h3>
+<p>Untuk logit <span class="arithmatex">\(\mathbf{z}=(z_1,\dots,z_K)\)</span>:</p>
+<div class="arithmatex">\[
+p_k=\operatorname{softmax}(\mathbf{z})_k=\frac{e^{z_k}}{\sum_{j=1}^{K}e^{z_j}},\qquad p_k&gt;0,\qquad \sum_kp_k=1
+\]</div>
+<p>Sifat penting:</p>
+<ol>
+<li><strong>Rasio peluang</strong> <span class="arithmatex">\(=\)</span> eksponen selisih logit: <span class="arithmatex">\(\dfrac{p_i}{p_j}=e^{\,z_i-z_j}\)</span>. Selisih logit <span class="arithmatex">\(1\)</span> berarti peluang <span class="arithmatex">\(e\approx2{,}72\)</span> kali lebih besar.</li>
+<li><strong>Invarian terhadap pergeseran</strong>: <span class="arithmatex">\(\operatorname{softmax}(\mathbf{z}+c\mathbf{1})=\operatorname{softmax}(\mathbf{z})\)</span>. Hanya selisih logit yang berarti.</li>
+<li><strong>Urutan terjaga</strong>: <span class="arithmatex">\(z_i&gt;z_j\Rightarrow p_i&gt;p_j\)</span>. Kelas dengan peluang terbesar sama dengan kelas dengan logit terbesar (<em>argmax</em>).</li>
+<li>Dua kelas: <span class="arithmatex">\(\operatorname{softmax}(z_1,z_2)_1=\sigma(z_1-z_2)\)</span> (<a href="../04-fungsi-aktivasi/">Part 4</a>).</li>
+</ol>
+<h3 id="log-sum-exp-dan-perhitungan-stabil"><em>Log-sum-exp</em> dan perhitungan stabil<a class="headerlink" href="#log-sum-exp-dan-perhitungan-stabil" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\operatorname{LSE}(\mathbf{z})=\ln\sum_{j}e^{z_j}=m+\ln\sum_je^{\,z_j-m},\qquad m=\max_jz_j
+\]</div>
+<p>Mengurangi <span class="arithmatex">\(m\)</span> membuat eksponen paling besar menjadi <span class="arithmatex">\(e^0=1\)</span>, sehingga tidak meluap (<em>overflow</em>), dan paling sedikit satu suku tidak lenyap (<em>underflow</em>). Dengan itu:</p>
+<div class="arithmatex">\[
+\ln p_k=z_k-\operatorname{LSE}(\mathbf{z}),\qquad p_k=e^{\,z_k-\operatorname{LSE}(\mathbf{z})}
+\]</div>
+<p>Cross-entropy untuk kelas benar <span class="arithmatex">\(c\)</span> dapat dihitung <strong>langsung dari logit</strong>:</p>
+<div class="arithmatex">\[
+\ell=-\ln p_c=\operatorname{LSE}(\mathbf{z})-z_c
+\]</div>
+<p>Ini yang sebenarnya dilakukan pustaka Deep Learning pada "cross-entropy from logits".</p>
+<h3 id="temperature">Temperature<a class="headerlink" href="#temperature" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+p_k^{(T)}=\frac{e^{z_k/T}}{\sum_je^{z_j/T}},\qquad T&gt;0
+\]</div>
+<p><span class="arithmatex">\(T=1\)</span> adalah softmax biasa. <span class="arithmatex">\(T\to0\)</span>: peluang mengumpul pada logit terbesar (<em>argmax</em>). <span class="arithmatex">\(T\to\infty\)</span>: mendekati seragam <span class="arithmatex">\(1/K\)</span>. <span class="arithmatex">\(T&gt;1\)</span> melunakkan, <span class="arithmatex">\(T&lt;1\)</span> menajamkan.</p>
+<h3 id="entropi-sebagai-ukuran-ketidakpastian">Entropi sebagai ukuran ketidakpastian<a class="headerlink" href="#entropi-sebagai-ukuran-ketidakpastian" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+H(\mathbf{p})=-\sum_kp_k\ln p_k
+\]</div>
+<p>Bernilai <span class="arithmatex">\(0\)</span> jika satu kelas berpeluang 1, dan maksimum <span class="arithmatex">\(\ln K\)</span> jika seragam.</p>
+<h3 id="label-smoothing"><em>Label smoothing</em><a class="headerlink" href="#label-smoothing" title="Permanent link">&para;</a></h3>
+<p>Mengganti label <em>one-hot</em> <span class="arithmatex">\(\mathbf{y}\)</span> dengan campuran bersama distribusi seragam:</p>
+<div class="arithmatex">\[
+\mathbf{y}'=(1-\varepsilon)\,\mathbf{y}+\frac{\varepsilon}{K}\mathbf{1}
+\]</div>
+<p><span class="arithmatex">\(\varepsilon\in[0,1)\)</span> kecil. Gradien terhadap logit tetap berbentuk <span class="arithmatex">\(\mathbf{p}-\mathbf{y}'\)</span>. Efeknya mencegah model mengejar peluang 1 yang tidak bisa dicapai dan sering mengurangi keyakinan berlebih.</p>
+<h3 id="perplexity">Perplexity<a class="headerlink" href="#perplexity" title="Permanent link">&para;</a></h3>
+<p>Untuk model yang memberi peluang <span class="arithmatex">\(p_t\)</span> pada token benar ke-<span class="arithmatex">\(t\)</span> dari <span class="arithmatex">\(T\)</span> token:</p>
+<div class="arithmatex">\[
+\text{CE}=-\frac1T\sum_{t=1}^T\ln p_t,\qquad \text{perplexity}=e^{\text{CE}}
+\]</div>
+<p>Perplexity dibaca sebagai "kira-kira berapa pilihan yang sama-sama mungkin yang dihadapi model pada tiap langkah"; makin kecil makin baik.</p>
+<h2 id="contoh-numerik-langkah-demi-langkah">Contoh Numerik Langkah demi Langkah<a class="headerlink" href="#contoh-numerik-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-softmax-lse-dan-cross-entropy-dari-logit">Contoh 1 — Softmax, LSE, dan cross-entropy dari logit<a class="headerlink" href="#contoh-1-softmax-lse-dan-cross-entropy-dari-logit" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(\mathbf{z}=(2,\,1,\,0)\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(m=2\)</span>. Suku: <span class="arithmatex">\(e^{2-2}=1\)</span>, <span class="arithmatex">\(e^{1-2}=0{,}3679\)</span>, <span class="arithmatex">\(e^{0-2}=0{,}1353\)</span>; jumlah <span class="arithmatex">\(1{,}5032\)</span>.</li>
+<li><span class="arithmatex">\(\operatorname{LSE}=2+\ln1{,}5032=2+0{,}4076=2{,}4076\)</span>.</li>
+<li><span class="arithmatex">\(\ln p_1=z_1-\operatorname{LSE}=2-2{,}4076=-0{,}4076\Rightarrow p_1=0{,}6652\)</span>; dengan cara yang sama <span class="arithmatex">\(p_2=e^{1-2{,}4076}=0{,}2447\)</span>, <span class="arithmatex">\(p_3=e^{0-2{,}4076}=0{,}0900\)</span>.</li>
+<li>Cross-entropy bila kelas benar adalah kelas 1: <span class="arithmatex">\(\ell=\operatorname{LSE}-z_1=2{,}4076-2=0{,}4076\)</span>, sama dengan <span class="arithmatex">\(-\ln0{,}6652\)</span>.</li>
+<li>Rasio: <span class="arithmatex">\(p_1/p_2=0{,}6652/0{,}2447=2{,}7183=e^{2-1}\)</span>.</li>
+</ol>
+<h3 id="contoh-2-mengapa-perlu-stabil">Contoh 2 — Mengapa perlu stabil<a class="headerlink" href="#contoh-2-mengapa-perlu-stabil" title="Permanent link">&para;</a></h3>
+<p>Logit <span class="arithmatex">\((1000,\ 1001,\ 1002)\)</span>. Hitungan naif <span class="arithmatex">\(e^{1000}\)</span> meluap (galat <em>overflow</em>). Dengan LSE, <span class="arithmatex">\(m=1002\)</span>: suku <span class="arithmatex">\(e^{-2}=0{,}1353\)</span>, <span class="arithmatex">\(e^{-1}=0{,}3679\)</span>, <span class="arithmatex">\(e^0=1\)</span>, jumlah <span class="arithmatex">\(1{,}5032\)</span>, hasil <span class="arithmatex">\((0{,}0900,\ 0{,}2447,\ 0{,}6652)\)</span>, sama dengan softmax <span class="arithmatex">\((0,1,2)\)</span> (invarian pergeseran). Logit <span class="arithmatex">\((-1000,\ -1001)\)</span>: hitungan naif menghasilkan <span class="arithmatex">\(0/0\)</span>; dengan LSE <span class="arithmatex">\(=-1000+\ln(1+e^{-1})=-999{,}6867\)</span>.</p>
+<h3 id="contoh-3-temperature">Contoh 3 — Temperature<a class="headerlink" href="#contoh-3-temperature" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(\mathbf{z}=(2,1,0)\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(T\)</span></th>
+<th><span class="arithmatex">\(p_1\)</span></th>
+<th><span class="arithmatex">\(p_2\)</span></th>
+<th><span class="arithmatex">\(p_3\)</span></th>
+<th>Entropi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(0{,}5\)</span></td>
+<td><span class="arithmatex">\(0{,}8668\)</span></td>
+<td><span class="arithmatex">\(0{,}1173\)</span></td>
+<td><span class="arithmatex">\(0{,}0159\)</span></td>
+<td><span class="arithmatex">\(0{,}4411\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\(0{,}6652\)</span></td>
+<td><span class="arithmatex">\(0{,}2447\)</span></td>
+<td><span class="arithmatex">\(0{,}0900\)</span></td>
+<td><span class="arithmatex">\(0{,}8324\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2\)</span></td>
+<td><span class="arithmatex">\(0{,}5065\)</span></td>
+<td><span class="arithmatex">\(0{,}3072\)</span></td>
+<td><span class="arithmatex">\(0{,}1863\)</span></td>
+<td><span class="arithmatex">\(1{,}0202\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(5\)</span></td>
+<td><span class="arithmatex">\(0{,}4018\)</span></td>
+<td><span class="arithmatex">\(0{,}3289\)</span></td>
+<td><span class="arithmatex">\(0{,}2693\)</span></td>
+<td><span class="arithmatex">\(1{,}0854\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Temperature rendah menajamkan (entropi kecil), tinggi melembutkan (entropi mendekati maksimum <span class="arithmatex">\(\ln3=1{,}0986\)</span>). Pada model bahasa, <span class="arithmatex">\(T\)</span> tinggi menghasilkan teks lebih beragam dan <span class="arithmatex">\(T\)</span> rendah lebih konservatif.</p>
+<h3 id="contoh-4-multikelas-vs-multi-label">Contoh 4 — Multikelas vs multi-label<a class="headerlink" href="#contoh-4-multikelas-vs-multi-label" title="Permanent link">&para;</a></h3>
+<p>Logit yang sama <span class="arithmatex">\((2,1,0)\)</span>. Softmax: <span class="arithmatex">\((0{,}6652,\ 0{,}2447,\ 0{,}0900)\)</span>, jumlah <span class="arithmatex">\(1\)</span> (kelas saling bersaing). Sigmoid per label: <span class="arithmatex">\((0{,}8808,\ 0{,}7311,\ 0{,}5)\)</span>, jumlah <span class="arithmatex">\(2{,}1119\)</span> (tiap label diputuskan sendiri; boleh ada beberapa yang aktif). Pilih sesuai masalah: sebuah pesan hanya satu kategori <span class="arithmatex">\(\Rightarrow\)</span> softmax; sebuah pesan boleh memuat beberapa topik sekaligus <span class="arithmatex">\(\Rightarrow\)</span> sigmoid.</p>
+<h3 id="contoh-5-dua-kelas">Contoh 5 — Dua kelas<a class="headerlink" href="#contoh-5-dua-kelas" title="Permanent link">&para;</a></h3>
+<p>Pesan contoh (data simulasi) dengan logit <span class="arithmatex">\((\text{Emergency},\text{Non-Emergency})=(1{,}2,\ -0{,}3)\)</span>. Softmax: <span class="arithmatex">\(p_{\text{E}}=\dfrac{e^{1{,}2}}{e^{1{,}2}+e^{-0{,}3}}=0{,}8176\)</span>. Sama dengan <span class="arithmatex">\(\sigma(1{,}2-(-0{,}3))=\sigma(1{,}5)=0{,}8176\)</span>. Model menyatakan keyakinan <span class="arithmatex">\(81{,}76\%\)</span> pada Emergency; ini keyakinan model, bukan fakta.</p>
+<h3 id="contoh-6-label-smoothing">Contoh 6 — <em>Label smoothing</em><a class="headerlink" href="#contoh-6-label-smoothing" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(K=3\)</span>, <span class="arithmatex">\(\varepsilon=0{,}1\)</span>, kelas benar kelas 1: <span class="arithmatex">\(\mathbf{y}'=(0{,}9\cdot1+0{,}0333,\ 0{,}0333,\ 0{,}0333)=(0{,}9333,\ 0{,}0333,\ 0{,}0333)\)</span>. Dengan <span class="arithmatex">\(\mathbf{p}=(0{,}6652,\ 0{,}2447,\ 0{,}0900)\)</span>:</p>
+<div class="arithmatex">\[
+\text{CE}=-(0{,}9333\ln0{,}6652+0{,}0333\ln0{,}2447+0{,}0333\ln0{,}0900)=0{,}3804+0{,}0469+0{,}0803=0{,}5076
+\]</div>
+<p>(dibandingkan <span class="arithmatex">\(0{,}4076\)</span> tanpa smoothing). Gradien terhadap logit <span class="arithmatex">\(\mathbf{p}-\mathbf{y}'=(-0{,}2681,\ 0{,}2114,\ 0{,}0567)\)</span>, jumlah <span class="arithmatex">\(0\)</span>. Tanpa smoothing gradien kelas 1 adalah <span class="arithmatex">\(-0{,}3348\)</span>; dengan smoothing sedikit lebih kecil, jadi model tidak terus didorong menuju peluang 1.</p>
+<h3 id="contoh-7-perplexity">Contoh 7 — Perplexity<a class="headerlink" href="#contoh-7-perplexity" title="Permanent link">&para;</a></h3>
+<p>Peluang yang diberikan model pada tiga token yang benar: <span class="arithmatex">\(0{,}5,\ 0{,}25,\ 0{,}125\)</span>. <span class="arithmatex">\(\text{CE}=\tfrac13(0{,}6931+1{,}3863+2{,}0794)=1{,}3863\)</span>. Perplexity <span class="arithmatex">\(=e^{1{,}3863}=4{,}0\)</span>: model sama bingungnya dengan memilih seragam di antara 4 kemungkinan. Bandingkan: model yang memberi peluang <span class="arithmatex">\(1\)</span> pada semuanya punya perplexity <span class="arithmatex">\(1\)</span>.</p>
+<h3 id="contoh-8-kalibrasi">Contoh 8 — Kalibrasi<a class="headerlink" href="#contoh-8-kalibrasi" title="Permanent link">&para;</a></h3>
+<p>Model memberi keyakinan <span class="arithmatex">\(0{,}9\)</span> pada 10 pesan uji (contoh). Hanya 7 yang benar, sehingga akurasi kelompok itu <span class="arithmatex">\(0{,}7\)</span>. Selisih <span class="arithmatex">\(0{,}9-0{,}7=0{,}2\)</span>: model <strong>terlalu yakin</strong> (<em>overconfident</em>). Peluang yang terkalibrasi baik akan cocok dengan frekuensi kebenaran: dari 10 pesan berkeyakinan <span class="arithmatex">\(0{,}9\)</span>, kira-kira 9 yang benar.</p>
+<h2 id="interpretasi-asumsi-dan-keterbatasan">Interpretasi, Asumsi, dan Keterbatasan<a class="headerlink" href="#interpretasi-asumsi-dan-keterbatasan" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Softmax <strong>memaksa</strong> jumlah peluang menjadi satu atas <span class="arithmatex">\(K\)</span> kelas yang diberikan. Untuk masukan yang tidak termasuk kelas mana pun (data di luar distribusi), model tetap membagikan peluang ke kelas yang ada, kadang dengan keyakinan tinggi.</li>
+<li>Peluang yang dihasilkan <strong>belum tentu terkalibrasi</strong>. Model dalam sering terlalu yakin; temperature scaling dan label smoothing dapat membantu, tetapi hasilnya perlu diukur pada data validasi.</li>
+<li>Hanya selisih logit yang bermakna. Besar logit mutlak tidak memiliki arti (invarian pergeseran).</li>
+<li>Argmax adalah keputusan; peluang adalah informasi tambahan. Menggunakan ambang atau menolak prediksi berpeluang rendah (<em>abstain</em>) adalah keputusan terpisah.</li>
+<li>Pada ukuran kosakata besar (<span class="arithmatex">\(V\)</span> puluhan ribu), softmax mahal; ada pendekatan khusus, tetapi di luar cakupan di sini.</li>
+<li>Entropi tinggi berarti model tidak yakin, bukan berarti salah; entropi rendah tidak menjamin benar.</li>
+<li>Contoh logit di sini adalah angka sederhana untuk melacak hitungan, bukan keluaran model terlatih.</li>
+</ul>
+<h2 id="hubungan-dengan-deep-learning-dan-nlp">Hubungan dengan Deep Learning dan NLP<a class="headerlink" href="#hubungan-dengan-deep-learning-dan-nlp" title="Permanent link">&para;</a></h2>
+<p>Pada klasifikasi pesan (Emergency vs Non-Emergency, contoh/simulasi), keluaran akhir adalah softmax dua kelas pada logit <em>classification head</em> (<a href="../14-fondasi-matematis-bert-dan-indobert/">Part 14</a>). Pada pralatih BERT, softmax bekerja atas seluruh kosakata untuk menebak token yang disembunyikan. Pada attention, softmax mengubah skor query–key menjadi bobot yang berjumlah satu atas token-token (<a href="../12-attention-dan-self-attention/">Part 12</a>); semua hitungan stabil di atas dipakai di sana.</p>
+<h2 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h2>
+<p>Pustaka standar saja.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">softmax_naif</span><span class="p">(</span><span class="n">zs</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="o">/</span> <span class="n">s</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">e</span><span class="p">]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">logsumexp</span><span class="p">(</span><span class="n">zs</span><span class="p">):</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">zs</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">return</span> <span class="n">m</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">))</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">softmax</span><span class="p">(</span><span class="n">zs</span><span class="p">):</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">lse</span> <span class="o">=</span> <span class="n">logsumexp</span><span class="p">(</span><span class="n">zs</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">lse</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">softmax</span><span class="p">(</span><span class="n">z</span><span class="p">)],</span> <span class="nb">round</span><span class="p">(</span><span class="n">logsumexp</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">logsumexp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1"># rasio peluang = e^(selisih logit)</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">p</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">e</span> <span class="o">**</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># stabilitas numerik</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    <span class="n">softmax_naif</span><span class="p">([</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">1001.0</span><span class="p">,</span> <span class="mf">1002.0</span><span class="p">])</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="k">except</span> <span class="ne">OverflowError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"naif:"</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">softmax</span><span class="p">([</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">1001.0</span><span class="p">,</span> <span class="mf">1002.0</span><span class="p">])])</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">logsumexp</span><span class="p">([</span><span class="o">-</span><span class="mf">1000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1001.0</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1"># temperatur</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="k">def</span><span class="w"> </span><span class="nf">entropi</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    <span class="k">return</span> <span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span> <span class="k">if</span> <span class="n">q</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    <span class="n">p</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">([</span><span class="n">v</span> <span class="o">/</span> <span class="n">T</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">entropi</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="c1"># multikelas (softmax) vs multi-label (sigmoid)</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="n">sig</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">v</span><span class="p">))</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">softmax</span><span class="p">(</span><span class="n">z</span><span class="p">)),</span> <span class="mi">4</span><span class="p">),</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">sig</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">z</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">sig</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">z</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="c1"># label smoothing, K = 3, epsilon = 0.1, kelas benar = kelas 1</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="n">K</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.1</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="n">ys</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">eps</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span> <span class="o">+</span> <span class="n">eps</span> <span class="o">/</span> <span class="n">K</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="n">p</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="n">ce_keras</span> <span class="o">=</span> <span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ys</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">ce_keras</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">p</span><span class="p">)])</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="c1"># perplexity</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="n">p_benar</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">]</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="n">ce</span> <span class="o">=</span> <span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p_benar</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_benar</span><span class="p">)</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ce</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">ce</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="c1"># dua kelas: softmax = sigmoid dari selisih logit</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">softmax</span><span class="p">([</span><span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">sig</span><span class="p">(</span><span class="mf">1.5</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span></code></pre></div>
+<p>Keluaran:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[0.6652, 0.2447, 0.09] 2.4076 0.4076
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2.7183 2.7183
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>naif: math range error
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[0.09, 0.2447, 0.6652]
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>-999.6867
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>0.5 [0.8668, 0.1173, 0.0159] 0.4411
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>1 [0.6652, 0.2447, 0.09] 0.8324
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>2 [0.5065, 0.3072, 0.1863] 1.0202
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>5 [0.4018, 0.3289, 0.2693] 1.0854
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>1.0 [0.8808, 0.7311, 0.5] 2.1119
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>[0.9333, 0.0333, 0.0333] 0.5076 [-0.2681, 0.2114, 0.0567]
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>1.3863 4.0
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>0.8176 0.8176
+</span></code></pre></div>
+<p>Semua nilai sama dengan Contoh 1 sampai 7. Contoh 8 (kalibrasi) adalah hitungan sederhana yang tidak memerlukan kode.</p>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Menganggap logit sebagai peluang</strong>, atau menjumlahkan logit.</li>
+<li><strong>Menghitung softmax naif</strong> pada logit besar sehingga meluap; kurangi nilai maksimum atau pakai LSE.</li>
+<li><strong>Menerapkan softmax lalu cross-entropy yang juga memakai softmax</strong>, sehingga softmax terpakai dua kali. Gunakan loss yang menerima logit (atau softmax saja, bukan keduanya).</li>
+<li><strong>Memakai softmax untuk multi-label</strong>, atau sigmoid untuk multikelas yang saling meniadakan.</li>
+<li><strong>Menafsirkan peluang tinggi sebagai kepastian.</strong> Peluang adalah keyakinan model dan dapat tidak terkalibrasi.</li>
+<li><strong>Mengira logit mutlak bermakna.</strong> Hanya selisih logit yang berarti.</li>
+<li><strong>Menjumlahkan softmax pada sumbu yang salah</strong> pada tensor <span class="arithmatex">\((n,K)\)</span>.</li>
+<li><strong>Memilih temperature tanpa tujuan</strong>: <span class="arithmatex">\(T\)</span> mengubah sebaran peluang, bukan urutan kelas (argmax tidak berubah).</li>
+</ol>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Hitung softmax untuk <span class="arithmatex">\((0,0,0)\)</span>, untuk <span class="arithmatex">\((1,1,1,1)\)</span>, dan untuk <span class="arithmatex">\((\ln1,\ln2,\ln3)\)</span>.</li>
+<li>Logit <span class="arithmatex">\((3,1)\)</span>: hitung softmax dan rasio <span class="arithmatex">\(p_1/p_2\)</span>. Cocokkan dengan <span class="arithmatex">\(e^{z_1-z_2}\)</span>.</li>
+<li>Tunjukkan bahwa softmax <span class="arithmatex">\((10,11,12)\)</span> sama dengan softmax <span class="arithmatex">\((0,1,2)\)</span> dan tuliskan hasilnya.</li>
+<li>Hitung softmax <span class="arithmatex">\((800,\ 801)\)</span> secara stabil dengan mengurangi maksimum.</li>
+<li>Untuk <span class="arithmatex">\(\mathbf{z}=(1,0,-1)\)</span> dan kelas benar kelas 2, hitung LSE dan loss cross-entropy <span class="arithmatex">\(=\operatorname{LSE}-z_c\)</span>. Bandingkan dengan <span class="arithmatex">\(-\ln p_2\)</span>.</li>
+<li>Hitung softmax <span class="arithmatex">\((2,1,0)\)</span> dengan <span class="arithmatex">\(T=2\)</span> dan <span class="arithmatex">\(T=0{,}5\)</span>. Bagaimana perubahan keyakinan pada kelas pertama?</li>
+<li><em>Label smoothing</em> dengan <span class="arithmatex">\(\varepsilon=0{,}2\)</span>, <span class="arithmatex">\(K=3\)</span>, kelas benar kelas 1, dan <span class="arithmatex">\(\mathbf{p}=(0{,}6652,\ 0{,}2447,\ 0{,}0900)\)</span>. Hitung <span class="arithmatex">\(\mathbf{y}'\)</span>, cross-entropy, dan gradien <span class="arithmatex">\(\mathbf{p}-\mathbf{y}'\)</span>.</li>
+<li>Model memberi peluang pada token benar: <span class="arithmatex">\(0{,}5,\ 0{,}5,\ 0{,}25,\ 0{,}25\)</span>. Hitung cross-entropy rata-rata dan perplexity.</li>
+<li>Dari 10 prediksi berkeyakinan <span class="arithmatex">\(0{,}9\)</span>, hanya 7 yang benar. Hitung akurasi, selisih keyakinan dengan akurasi, dan nyatakan apakah model terlalu yakin atau kurang yakin.</li>
+<li>Logit <span class="arithmatex">\((2,1,0)\)</span> dipakai pada dua masalah: (a) satu pesan tepat satu dari tiga kategori; (b) satu pesan boleh punya beberapa tag. Pakai aktivasi mana, dan berapa jumlah keluarannya?</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p><span class="arithmatex">\((0,0,0)\)</span>: <span class="arithmatex">\(e^0=1\)</span> ketiganya, jumlah <span class="arithmatex">\(3\)</span>: <span class="arithmatex">\((\tfrac13,\tfrac13,\tfrac13)\)</span>. <span class="arithmatex">\((1,1,1,1)\)</span>: <span class="arithmatex">\((0{,}25,0{,}25,0{,}25,0{,}25)\)</span>. <span class="arithmatex">\((\ln1,\ln2,\ln3)\)</span>: <span class="arithmatex">\(e^{\ln k}=k\)</span>, jadi <span class="arithmatex">\((1,2,3)/6=(0{,}1667,\ 0{,}3333,\ 0{,}5)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p><span class="arithmatex">\(e^{3}=20{,}0855\)</span>, <span class="arithmatex">\(e^{1}=2{,}7183\)</span>, jumlah <span class="arithmatex">\(22{,}8038\)</span>: <span class="arithmatex">\(p=(0{,}8808,\ 0{,}1192)\)</span>. Rasio <span class="arithmatex">\(0{,}8808/0{,}1192=7{,}389=e^{3-1}=e^2\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>Kurangi <span class="arithmatex">\(10\)</span> dari semua logit: <span class="arithmatex">\((0,1,2)\)</span>. <span class="arithmatex">\(e^0=1\)</span>, <span class="arithmatex">\(e^1=2{,}7183\)</span>, <span class="arithmatex">\(e^2=7{,}3891\)</span>, jumlah <span class="arithmatex">\(11{,}1073\)</span>: <span class="arithmatex">\((0{,}0900,\ 0{,}2447,\ 0{,}6652)\)</span>. Faktor <span class="arithmatex">\(e^{10}\)</span> meniadakan diri sendiri pada pembilang dan penyebut.</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p>Kurangi <span class="arithmatex">\(m=801\)</span>: <span class="arithmatex">\((-1,\ 0)\)</span>. <span class="arithmatex">\(e^{-1}=0{,}3679\)</span>, <span class="arithmatex">\(e^0=1\)</span>, jumlah <span class="arithmatex">\(1{,}3679\)</span>: <span class="arithmatex">\(p=(0{,}2689,\ 0{,}7311)\)</span>. Hitungan naif <span class="arithmatex">\(e^{800}\)</span> meluap, hitungan stabil tidak.</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p><span class="arithmatex">\(m=1\)</span>: suku <span class="arithmatex">\(e^0=1\)</span>, <span class="arithmatex">\(e^{-1}=0{,}3679\)</span>, <span class="arithmatex">\(e^{-2}=0{,}1353\)</span>, jumlah <span class="arithmatex">\(1{,}5032\)</span>; <span class="arithmatex">\(\operatorname{LSE}=1+\ln1{,}5032=1{,}4076\)</span>. Kelas 2: <span class="arithmatex">\(z_2=0\)</span>, jadi <span class="arithmatex">\(\ell=1{,}4076-0=1{,}4076\)</span>. Peluang kelas 2: <span class="arithmatex">\(e^{0-1{,}4076}=0{,}2447\)</span> dan <span class="arithmatex">\(-\ln0{,}2447=1{,}4076\)</span>. Sama.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p><span class="arithmatex">\(T=2\)</span>: logit menjadi <span class="arithmatex">\((1,0{,}5,0)\)</span>, softmax <span class="arithmatex">\((0{,}5065,\ 0{,}3072,\ 0{,}1863)\)</span>: keyakinan kelas pertama turun dari <span class="arithmatex">\(0{,}6652\)</span> ke <span class="arithmatex">\(0{,}5065\)</span>. <span class="arithmatex">\(T=0{,}5\)</span>: logit <span class="arithmatex">\((4,2,0)\)</span>, softmax <span class="arithmatex">\((0{,}8668,\ 0{,}1173,\ 0{,}0159)\)</span>: naik ke <span class="arithmatex">\(0{,}8668\)</span>. Urutan kelas tidak berubah.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p><span class="arithmatex">\(\mathbf{y}'=(0{,}8+0{,}0667,\ 0{,}0667,\ 0{,}0667)=(0{,}8667,\ 0{,}0667,\ 0{,}0667)\)</span>. CE <span class="arithmatex">\(=0{,}8667(0{,}4076)+0{,}0667(1{,}4076)+0{,}0667(2{,}4076)=0{,}3533+0{,}0938+0{,}1605=0{,}6076\)</span>. Gradien <span class="arithmatex">\(\mathbf{p}-\mathbf{y}'=(-0{,}2014,\ 0{,}1781,\ 0{,}0234)\)</span>; jumlah <span class="arithmatex">\(0\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p><span class="arithmatex">\(\text{CE}=\tfrac14(0{,}6931+0{,}6931+1{,}3863+1{,}3863)=1{,}0397\)</span>. Perplexity <span class="arithmatex">\(=e^{1{,}0397}=2{,}83\)</span> (juga <span class="arithmatex">\(64^{1/4}=2\sqrt2=2{,}8284\)</span> karena <span class="arithmatex">\(0{,}5\cdot0{,}5\cdot0{,}25\cdot0{,}25=1/64\)</span>). Model setara dengan memilih di antara sekitar 2,8 pilihan seimbang.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p>Akurasi <span class="arithmatex">\(=0{,}7\)</span>. Selisih <span class="arithmatex">\(0{,}9-0{,}7=0{,}2\)</span>: keyakinan lebih tinggi daripada akurasi, jadi model <strong>terlalu yakin</strong> (<em>overconfident</em>).</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>(a) Softmax: <span class="arithmatex">\(3\)</span> keluaran yang berjumlah <span class="arithmatex">\(1\)</span>, yaitu <span class="arithmatex">\((0{,}6652,\ 0{,}2447,\ 0{,}0900)\)</span>; pilih argmax. (b) Sigmoid per tag: <span class="arithmatex">\(3\)</span> keluaran independen <span class="arithmatex">\((0{,}8808,\ 0{,}7311,\ 0{,}5)\)</span> yang tidak harus berjumlah <span class="arithmatex">\(1\)</span>; tentukan tag dengan ambang (misalnya <span class="arithmatex">\(0{,}5\)</span>).</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Softmax</strong> mengubah logit menjadi peluang positif berjumlah <span class="arithmatex">\(1\)</span>; <span class="arithmatex">\(p_i/p_j=e^{z_i-z_j}\)</span>; invarian terhadap pergeseran; urutan kelas terjaga.</li>
+<li>Hitung stabil dengan <em><strong>log-sum-exp</strong></em>: <span class="arithmatex">\(\ln p_k=z_k-\operatorname{LSE}(\mathbf{z})\)</span>; cross-entropy dari logit <span class="arithmatex">\(=\operatorname{LSE}-z_c\)</span>.</li>
+<li><strong>Temperature</strong> <span class="arithmatex">\(T\)</span> menajamkan (<span class="arithmatex">\(T&lt;1\)</span>) atau melembutkan (<span class="arithmatex">\(T&gt;1\)</span>) distribusi tanpa mengubah argmax.</li>
+<li>Multikelas <span class="arithmatex">\(\Rightarrow\)</span> softmax; multi-label <span class="arithmatex">\(\Rightarrow\)</span> sigmoid per label.</li>
+<li><strong>Entropi</strong> mengukur ketidakpastian; <strong>label smoothing</strong> menurunkan dorongan menuju peluang 1; <strong>perplexity</strong> <span class="arithmatex">\(=e^{\text{CE}}\)</span>.</li>
+<li>Peluang adalah keyakinan model dan perlu diperiksa kalibrasinya; softmax memaksa jumlah satu atas kelas yang ada.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung softmax dan memeriksa jumlahnya satu.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan invarian pergeseran dan rasio <span class="arithmatex">\(e^{z_i-z_j}\)</span>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung softmax dan cross-entropy stabil dengan <em>log-sum-exp</em>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung pengaruh temperature.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Memilih softmax vs sigmoid untuk multikelas vs multi-label.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung <em>label smoothing</em> dan perplexity.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan keterbatasan interpretasi probabilitas dan kalibrasi.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../12-attention-dan-self-attention/">Part 12 — Attention dan Self-Attention</a> memakai softmax untuk mengubah skor kemiripan query–key menjadi bobot yang berjumlah satu, lalu menghitung rata-rata berbobot dari value. Pastikan kamu nyaman dengan softmax stabil, dot product (<a href="../09-embedding-dan-representasi-vektor/">Part 9</a>), dan shape tensor (<a href="../02-tensor-dan-operasi-multidimensi/">Part 2</a>).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../10-matematika-pemrosesan-bahasa/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 10 - Matematika Pemrosesan Bahasa">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 10 - Matematika Pemrosesan Bahasa
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../12-attention-dan-self-attention/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 12 - Attention dan Self-Attention">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 12 - Attention dan Self-Attention
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4456 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/">
+      
+      
+        <link rel="prev" href="../04-sistem-persamaan-linear-matriks/">
+      
+      
+        <link rel="next" href="../06-limit-dan-kontinuitas/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 5 - Transformasi Linear - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-5-transformasi-linear" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 5 - Transformasi Linear
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-matriks-sebagai-transformasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Matriks sebagai Transformasi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-kolom-matriks-menunjukkan-ke-mana-vektor-basis-pindah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kolom Matriks Menunjukkan ke Mana Vektor Basis Pindah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-transformasi-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Transformasi Umum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-kombinasi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Kombinasi Linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-span" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Span
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-independensi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Independensi Linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-pengantar-nilai-eigen-dan-vektor-eigen-pengayaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pengantar Nilai Eigen dan Vektor Eigen (Pengayaan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-membaca-transformasi-dari-matriks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Membaca transformasi dari matriks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-kombinasi-linear-dan-span" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Kombinasi linear dan span
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-independensi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Independensi linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-nilai-eigen-dan-vektor-eigen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Nilai eigen dan vektor eigen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-transformasi-kombinasi-linear-independensi-dan-nilai-eigen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: transformasi, kombinasi linear, independensi, dan nilai eigen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-5-matematika-lanjutan-deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-matriks-sebagai-transformasi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Matriks sebagai Transformasi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-kolom-matriks-menunjukkan-ke-mana-vektor-basis-pindah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kolom Matriks Menunjukkan ke Mana Vektor Basis Pindah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-transformasi-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Transformasi Umum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-kombinasi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Kombinasi Linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-span" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Span
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-independensi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Independensi Linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-pengantar-nilai-eigen-dan-vektor-eigen-pengayaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pengantar Nilai Eigen dan Vektor Eigen (Pengayaan)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-membaca-transformasi-dari-matriks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Membaca transformasi dari matriks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-kombinasi-linear-dan-span" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Kombinasi linear dan span
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-independensi-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Independensi linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-nilai-eigen-dan-vektor-eigen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Nilai eigen dan vektor eigen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-transformasi-kombinasi-linear-independensi-dan-nilai-eigen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: transformasi, kombinasi linear, independensi, dan nilai eigen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 2 - Aljabar Linear dan Kalkulus
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-5-transformasi-linear">Part 5 — Transformasi Linear<a class="headerlink" href="#part-5-transformasi-linear" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>memandang sebuah matriks sebagai mesin yang mengubah vektor (transformasi linear);</li>
+<li>membaca matriks <span class="arithmatex">\(2 \times 2\)</span> dari kolom-kolomnya untuk mengetahui ke mana vektor basis berpindah;</li>
+<li>mengenali transformasi umum (peregangan, pencerminan, rotasi, geseran, proyeksi) beserta determinannya;</li>
+<li>menghitung kombinasi linear dan menafsirkan <span class="arithmatex">\(A\mathbf{x}\)</span> sebagai kombinasi linear kolom-kolom <span class="arithmatex">\(A\)</span>;</li>
+<li>menjelaskan span, independensi linear, basis, dan dimensi;</li>
+<li>menghubungkan independensi linear dengan determinan, rank, dan keberadaan invers;</li>
+<li>(pengayaan) menjelaskan nilai eigen dan vektor eigen secara pengantar.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../03-matriks/">Part 3 — Matriks</a> (perkalian matriks kali vektor, determinan, invers) dan <a href="../04-sistem-persamaan-linear-matriks/">Part 4</a> (pivot, rank secara informal, jenis solusi). Gambar di bagian ini memakai vektor sebagai panah seperti di <a href="../02-vektor/">Part 2</a>.</p>
+<h2 id="mengapa-materi-ini-penting">Mengapa Materi Ini Penting?<a class="headerlink" href="#mengapa-materi-ini-penting" title="Permanent link">&para;</a></h2>
+<p>Sampai sekarang kita memakai matriks sebagai tabel angka. Tetapi makna sebenarnya sebuah matriks adalah <strong>aksi</strong>: ia mengubah vektor menjadi vektor lain. Itulah yang dilakukan setiap lapisan jaringan saraf. Memahami transformasi linear membantu menjawab pertanyaan nyata: kapan sebuah transformasi dapat dibalik (tanpa kehilangan informasi), apa arti fitur yang saling bergantung, dan bagaimana kombinasi fitur membentuk ruang yang dapat dijangkau model.</p>
+<h2 id="konsep-dasar-dengan-bahasa-sederhana">Konsep Dasar dengan Bahasa Sederhana<a class="headerlink" href="#konsep-dasar-dengan-bahasa-sederhana" title="Permanent link">&para;</a></h2>
+<h3 id="1-matriks-sebagai-transformasi">1. Matriks sebagai Transformasi<a class="headerlink" href="#1-matriks-sebagai-transformasi" title="Permanent link">&para;</a></h3>
+<p>Sebuah matriks <span class="arithmatex">\(A\)</span> berukuran <span class="arithmatex">\(2 \times 2\)</span> mengubah setiap vektor <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^2\)</span> menjadi vektor lain <span class="arithmatex">\(T(\mathbf{x}) = A\mathbf{x} \in \mathbb{R}^2\)</span>. Pemetaan seperti ini disebut <strong>transformasi linear</strong> karena memenuhi dua sifat:</p>
+<ol>
+<li><strong>Aditif:</strong> <span class="arithmatex">\(T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})\)</span>.</li>
+<li><strong>Homogen:</strong> <span class="arithmatex">\(T(c\,\mathbf{u}) = c\,T(\mathbf{u})\)</span>.</li>
+</ol>
+<p>Keduanya berarti: "mengubah lalu menjumlahkan sama dengan menjumlahkan lalu mengubah", dan "memperbesar lalu mengubah sama dengan mengubah lalu memperbesar".</p>
+<p>Cek dengan angka. Misalkan <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span>, <span class="arithmatex">\(\mathbf{u} = (1, 2)\)</span>, dan <span class="arithmatex">\(\mathbf{v} = (3, -1)\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(A\mathbf{u} = (2 \cdot 1 + 1 \cdot 2,\ 0 + 2) = (4, 2)\)</span> dan <span class="arithmatex">\(A\mathbf{v} = (6 - 1,\ -1) = (5, -1)\)</span>.</li>
+<li><span class="arithmatex">\(A(\mathbf{u} + \mathbf{v}) = A(4, 1) = (9, 1)\)</span> dan <span class="arithmatex">\(A\mathbf{u} + A\mathbf{v} = (9, 1)\)</span>. Sama.</li>
+<li><span class="arithmatex">\(A(3\mathbf{u}) = A(3, 6) = (12, 6) = 3(4, 2) = 3\,A\mathbf{u}\)</span>. Sama.</li>
+</ul>
+<p>Konsekuensi penting: <strong>vektor nol selalu tetap nol</strong>, <span class="arithmatex">\(A\mathbf{0} = \mathbf{0}\)</span>.</p>
+<p><strong>Contoh yang bukan linear:</strong> geseran <span class="arithmatex">\(S(x, y) = (x + 1,\ y)\)</span>. Ia menggeser semua titik, termasuk titik asal: <span class="arithmatex">\(S(0, 0) = (1, 0) \neq (0, 0)\)</span>, sehingga bukan transformasi linear. Pemetaan <span class="arithmatex">\((x, y) \mapsto (x^2, y)\)</span> juga bukan linear: <span class="arithmatex">\(T(2, 0) = (4, 0)\)</span> tetapi <span class="arithmatex">\(2\,T(1, 0) = (2, 0)\)</span>.</p>
+<h3 id="2-kolom-matriks-menunjukkan-ke-mana-vektor-basis-pindah">2. Kolom Matriks Menunjukkan ke Mana Vektor Basis Pindah<a class="headerlink" href="#2-kolom-matriks-menunjukkan-ke-mana-vektor-basis-pindah" title="Permanent link">&para;</a></h3>
+<p><strong>Vektor basis standar</strong> pada bidang adalah <span class="arithmatex">\(\mathbf{e}_1 = (1, 0)\)</span> (satu langkah mendatar) dan <span class="arithmatex">\(\mathbf{e}_2 = (0, 1)\)</span> (satu langkah tegak). Setiap vektor dapat ditulis dengan keduanya: <span class="arithmatex">\((x, y) = x\,\mathbf{e}_1 + y\,\mathbf{e}_2\)</span>.</p>
+<p>Karena <span class="arithmatex">\(A\)</span> linear, <span class="arithmatex">\(A(x, y) = x\,A\mathbf{e}_1 + y\,A\mathbf{e}_2\)</span>, jadi <strong>cukup tahu <span class="arithmatex">\(A\mathbf{e}_1\)</span> dan <span class="arithmatex">\(A\mathbf{e}_2\)</span></strong>. Dan dari aturan perkalian matriks:</p>
+<div class="arithmatex">\[
+A\mathbf{e}_1 = \text{kolom ke-1 dari } A, \qquad A\mathbf{e}_2 = \text{kolom ke-2 dari } A
+\]</div>
+<p>Untuk <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span>: <span class="arithmatex">\(A\mathbf{e}_1 = (2, 0)\)</span> dan <span class="arithmatex">\(A\mathbf{e}_2 = (1, 1)\)</span>. Gambar berikut memperlihatkan <strong>persegi satuan</strong> (dibentuk oleh <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span>) sebelum dan sesudah diubah oleh <span class="arithmatex">\(A\)</span>.</p>
+<div style="max-width:380px;margin:1rem auto"><svg viewBox="0 0 380 250" width="100%" role="img" aria-labelledby="tl-t tl-d" xmlns="http://www.w3.org/2000/svg" style="color:inherit;font-family:inherit;font-size:13px"><title id="tl-t">Transformasi persegi satuan oleh matriks A</title><desc id="tl-d">Persegi satuan berwarna biru dengan sisi e1 = (1, 0) dan e2 = (0, 1) diubah oleh matriks A = [[2, 1], [0, 1]] menjadi jajar genjang merah dengan sisi A e1 = (2, 0) dan A e2 = (1, 1). Luasnya menjadi 2.</desc><defs><marker id="tl-b" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c6bc0"/></marker></defs><defs><marker id="tl-r" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e53935"/></marker></defs><defs><marker id="tl-k" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<g stroke="currentColor" stroke-opacity="0.15"><line x1="50" y1="50" x2="50" y2="190"/><line x1="120" y1="50" x2="120" y2="190"/><line x1="190" y1="50" x2="190" y2="190"/><line x1="260" y1="50" x2="260" y2="190"/><line x1="330" y1="50" x2="330" y2="190"/><line x1="50" y1="190" x2="330" y2="190"/><line x1="50" y1="120" x2="330" y2="120"/><line x1="50" y1="50" x2="330" y2="50"/></g><g stroke="currentColor" stroke-width="1.5"><line x1="46" y1="190" x2="342" y2="190" marker-end="url(#tl-k)"/><line x1="50" y1="194" x2="50" y2="38" marker-end="url(#tl-k)"/></g>
+<text x="50" y="206" text-anchor="middle" fill="currentColor">0</text>
+<text x="120" y="206" text-anchor="middle" fill="currentColor">1</text>
+<text x="190" y="206" text-anchor="middle" fill="currentColor">2</text>
+<text x="260" y="206" text-anchor="middle" fill="currentColor">3</text>
+<text x="330" y="206" text-anchor="middle" fill="currentColor">4</text>
+<text x="42" y="124" text-anchor="end" fill="currentColor">1</text>
+<text x="42" y="54" text-anchor="end" fill="currentColor">2</text>
+<polygon points="50,190 190,190 260,120 120,120" fill="#e53935" fill-opacity="0.15" stroke="#e53935" stroke-width="1.5"/>
+<polygon points="50,190 120,190 120,120 50,120" fill="#5c6bc0" fill-opacity="0.25" stroke="#5c6bc0" stroke-width="1.5"/>
+<line x1="50" y1="190" x2="120" y2="190" stroke="#5c6bc0" stroke-width="2.5"  marker-end="url(#tl-b)"/>
+<line x1="50" y1="190" x2="50" y2="120" stroke="#5c6bc0" stroke-width="2.5"  marker-end="url(#tl-b)"/>
+<line x1="50" y1="190" x2="190" y2="190" stroke="#e53935" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#tl-r)"/>
+<line x1="50" y1="190" x2="120" y2="120" stroke="#e53935" stroke-width="2.5"  marker-end="url(#tl-r)"/>
+<text x="85.0" y="180.0" fill="#5c6bc0" font-weight="bold" text-anchor="middle">e₁</text>
+<text x="60.0" y="132.0" fill="#5c6bc0" font-weight="bold" text-anchor="start">e₂</text>
+<text x="190" y="226" fill="#e53935" font-weight="bold" text-anchor="middle">A e₁ = (2, 0)</text>
+<text x="128" y="112" fill="#e53935" font-weight="bold" text-anchor="start">A e₂ = (1, 1)</text>
+<text x="183.0" y="155.0" fill="#e53935" font-weight="bold" text-anchor="start">luas = 2</text>
+</svg></div>
+
+<p><strong>Cara membaca gambar.</strong> Persegi biru adalah persegi satuan dengan sisi <span class="arithmatex">\(\mathbf{e}_1 = (1, 0)\)</span> dan <span class="arithmatex">\(\mathbf{e}_2 = (0, 1)\)</span>. Setelah diubah oleh <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(\mathbf{e}_1\)</span> pindah ke <span class="arithmatex">\(A\mathbf{e}_1 = (2, 0)\)</span> (panah merah putus-putus) dan <span class="arithmatex">\(\mathbf{e}_2\)</span> pindah ke <span class="arithmatex">\(A\mathbf{e}_2 = (1, 1)\)</span> (panah merah). Persegi berubah menjadi jajar genjang merah dengan titik sudut <span class="arithmatex">\((0, 0)\)</span>, <span class="arithmatex">\((2, 0)\)</span>, <span class="arithmatex">\((3, 1)\)</span>, dan <span class="arithmatex">\((1, 1)\)</span>. Alasan titik <span class="arithmatex">\((3, 1)\)</span>: itu <span class="arithmatex">\(A(1, 1) = A\mathbf{e}_1 + A\mathbf{e}_2 = (2, 0) + (1, 1)\)</span>.</p>
+<p>Luas persegi satuan adalah 1. Luas jajar genjang: alas 2 dan tinggi 1, yaitu <strong>2</strong>, sama dengan <span class="arithmatex">\(\det A = 2 \cdot 1 - 1 \cdot 0 = 2\)</span>. Jadi <strong>determinan adalah faktor perubahan luas</strong> (menggenapi janji di Part 3).</p>
+<h3 id="3-transformasi-umum">3. Transformasi Umum<a class="headerlink" href="#3-transformasi-umum" title="Permanent link">&para;</a></h3>
+<p>Dengan membaca kolom matriks, kita dapat mengenali beberapa transformasi dasar pada bidang:</p>
+<table>
+<thead>
+<tr>
+<th>Transformasi</th>
+<th>Matriks</th>
+<th><span class="arithmatex">\(A\mathbf{e}_1\)</span></th>
+<th><span class="arithmatex">\(A\mathbf{e}_2\)</span></th>
+<th><span class="arithmatex">\(\det A\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Peregangan sumbu <span class="arithmatex">\(x\)</span> dua kali</td>
+<td><span class="arithmatex">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((2, 0)\)</span></td>
+<td><span class="arithmatex">\((0, 1)\)</span></td>
+<td><span class="arithmatex">\(2\)</span></td>
+</tr>
+<tr>
+<td>Pembesaran dua kali</td>
+<td><span class="arithmatex">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((2, 0)\)</span></td>
+<td><span class="arithmatex">\((0, 2)\)</span></td>
+<td><span class="arithmatex">\(4\)</span></td>
+</tr>
+<tr>
+<td>Pencerminan terhadap sumbu <span class="arithmatex">\(x\)</span></td>
+<td><span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((1, 0)\)</span></td>
+<td><span class="arithmatex">\((0, -1)\)</span></td>
+<td><span class="arithmatex">\(-1\)</span></td>
+</tr>
+<tr>
+<td>Rotasi <span class="arithmatex">\(90^\circ\)</span> berlawanan jarum jam</td>
+<td><span class="arithmatex">\(\begin{bmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((0, 1)\)</span></td>
+<td><span class="arithmatex">\((-1, 0)\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+</tr>
+<tr>
+<td>Geseran (<em>shear</em>)</td>
+<td><span class="arithmatex">\(\begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((1, 0)\)</span></td>
+<td><span class="arithmatex">\((1, 1)\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+</tr>
+<tr>
+<td>Proyeksi ke sumbu <span class="arithmatex">\(x\)</span></td>
+<td><span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \end{bmatrix}\)</span></td>
+<td><span class="arithmatex">\((1, 0)\)</span></td>
+<td><span class="arithmatex">\((0, 0)\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Cara membaca determinan:</p>
+<ul>
+<li><strong><span class="arithmatex">\(\lvert \det \rvert &gt; 1\)</span></strong>: luas membesar; <strong><span class="arithmatex">\(&lt; 1\)</span></strong>: luas mengecil; <strong><span class="arithmatex">\(= 1\)</span></strong>: luas tetap (rotasi dan geseran).</li>
+<li><strong>Tanda negatif</strong> (<span class="arithmatex">\(-1\)</span> pada pencerminan): orientasi terbalik, seperti bayangan di cermin.</li>
+<li><strong><span class="arithmatex">\(\det = 0\)</span></strong> (proyeksi): seluruh bidang runtuh menjadi satu garis. Informasi hilang, sehingga transformasinya <strong>tidak dapat dibalik</strong> dan matriksnya tidak punya invers (Part 3).</li>
+</ul>
+<p>Rotasi sebesar sudut <span class="arithmatex">\(\theta\)</span> ditulis <span class="arithmatex">\(\begin{bmatrix} \cos\theta &amp; -\sin\theta \\ \sin\theta &amp; \cos\theta \end{bmatrix}\)</span>. Untuk <span class="arithmatex">\(\theta = 90^\circ\)</span>: <span class="arithmatex">\(\cos 90^\circ = 0\)</span> dan <span class="arithmatex">\(\sin 90^\circ = 1\)</span>, yang memberi matriks rotasi di tabel. Determinannya <span class="arithmatex">\(\cos^2\theta + \sin^2\theta = 1\)</span> untuk sudut apa pun, sesuai bahwa rotasi tidak mengubah luas.</p>
+<h3 id="4-kombinasi-linear">4. Kombinasi Linear<a class="headerlink" href="#4-kombinasi-linear" title="Permanent link">&para;</a></h3>
+<p><strong>Kombinasi linear</strong> dari vektor <span class="arithmatex">\(\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_k\)</span> adalah vektor yang dibentuk dengan mengalikan setiap vektor dengan skalar lalu menjumlahkannya:</p>
+<div class="arithmatex">\[
+\mathbf{w} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_k \mathbf{v}_k
+\]</div>
+<p>Skalar <span class="arithmatex">\(c_i\)</span> disebut koefisien. Ini memakai dua operasi dari Part 2 (perkalian skalar dan penjumlahan).</p>
+<p>Contoh: <span class="arithmatex">\(\mathbf{v}_1 = (1, 2)\)</span> dan <span class="arithmatex">\(\mathbf{v}_2 = (3, 1)\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(2\mathbf{v}_1 + \mathbf{v}_2 = (2, 4) + (3, 1) = (5, 5)\)</span>.</li>
+<li><span class="arithmatex">\(-\mathbf{v}_1 + 2\mathbf{v}_2 = (-1, -2) + (6, 2) = (5, 0)\)</span>.</li>
+</ul>
+<p><strong>Matriks kali vektor adalah kombinasi linear kolom.</strong> Misalkan <span class="arithmatex">\(A\)</span> punya kolom <span class="arithmatex">\(\mathbf{a}_1\)</span> dan <span class="arithmatex">\(\mathbf{a}_2\)</span>. Maka</p>
+<div class="arithmatex">\[
+A\mathbf{x} = x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2
+\]</div>
+<p>Contoh: <span class="arithmatex">\(A = \begin{bmatrix} 1 &amp; 3 \\ 2 &amp; 1 \end{bmatrix}\)</span> (kolom <span class="arithmatex">\((1, 2)\)</span> dan <span class="arithmatex">\((3, 1)\)</span>) dan <span class="arithmatex">\(\mathbf{x} = (2, 1)\)</span>:</p>
+<ul>
+<li>Cara baris dikali kolom (Part 3): <span class="arithmatex">\((1 \cdot 2 + 3 \cdot 1,\ 2 \cdot 2 + 1 \cdot 1) = (5, 5)\)</span>.</li>
+<li>Cara kombinasi kolom: <span class="arithmatex">\(2(1, 2) + 1(3, 1) = (5, 5)\)</span>.</li>
+</ul>
+<p>Keduanya sama. Ini memberi tafsiran baru untuk sistem <span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span>: <strong>adakah kombinasi kolom <span class="arithmatex">\(A\)</span> yang menghasilkan <span class="arithmatex">\(\mathbf{b}\)</span>?</strong> Solusinya, jika ada, adalah koefisien kombinasi itu.</p>
+<h3 id="5-span">5. Span<a class="headerlink" href="#5-span" title="Permanent link">&para;</a></h3>
+<p><strong>Span</strong> dari sekumpulan vektor adalah <strong>himpunan semua kombinasi linearnya</strong>. Ditulis <span class="arithmatex">\(\operatorname{span}\{\mathbf{v}_1, \ldots, \mathbf{v}_k\}\)</span>.</p>
+<ul>
+<li>Span satu vektor tak nol <span class="arithmatex">\(\mathbf{v}\)</span>: semua kelipatan <span class="arithmatex">\(c\,\mathbf{v}\)</span>, yaitu <strong>sebuah garis</strong> melalui titik asal.</li>
+<li>Span dua vektor yang <strong>tidak sejajar</strong> di bidang: <strong>seluruh bidang</strong>.</li>
+<li>Span dua vektor yang <strong>sejajar</strong>: hanya <strong>sebuah garis</strong>.</li>
+<li>Di ruang tiga dimensi, span dua vektor yang tidak sejajar adalah <strong>sebuah bidang</strong>.</li>
+</ul>
+<p>Menguji apakah <span class="arithmatex">\(\mathbf{b}\)</span> ada di span: selesaikan sistem yang koefisiennya adalah vektor-vektor itu. Contoh: apakah <span class="arithmatex">\(\mathbf{b} = (5, 5)\)</span> ada di <span class="arithmatex">\(\operatorname{span}\{(1, 2), (3, 1)\}\)</span>? Cari <span class="arithmatex">\(c_1\)</span> dan <span class="arithmatex">\(c_2\)</span> dengan <span class="arithmatex">\(c_1(1, 2) + c_2(3, 1) = (5, 5)\)</span>, yaitu <span class="arithmatex">\(c_1 + 3c_2 = 5\)</span> dan <span class="arithmatex">\(2c_1 + c_2 = 5\)</span>. Dari persamaan kedua <span class="arithmatex">\(c_2 = 5 - 2c_1\)</span>. Substitusi: <span class="arithmatex">\(c_1 + 15 - 6c_1 = 5\)</span>, jadi <span class="arithmatex">\(-5c_1 = -10\)</span> dan <span class="arithmatex">\(c_1 = 2\)</span>, lalu <span class="arithmatex">\(c_2 = 1\)</span>. <strong>Ya</strong>, dengan koefisien <span class="arithmatex">\((2, 1)\)</span> (cocok dengan contoh di atas).</p>
+<h3 id="6-independensi-linear">6. Independensi Linear<a class="headerlink" href="#6-independensi-linear" title="Permanent link">&para;</a></h3>
+<p>Sekumpulan vektor <strong>bebas linear</strong> (independen) jika <strong>satu-satunya</strong> kombinasi linear yang menghasilkan vektor nol adalah semua koefisien nol:</p>
+<div class="arithmatex">\[
+c_1 \mathbf{v}_1 + \cdots + c_k \mathbf{v}_k = \mathbf{0} \quad\Longrightarrow\quad c_1 = \cdots = c_k = 0
+\]</div>
+<p>Jika ada kombinasi dengan koefisien tidak semuanya nol yang menghasilkan vektor nol, vektor-vektor itu <strong>bergantung linear</strong> (dependen). Artinya, <strong>setidaknya satu vektor dapat ditulis sebagai kombinasi dari yang lain</strong>, sehingga ia tidak menambah informasi baru.</p>
+<div style="max-width:460px;margin:1rem auto"><svg viewBox="0 0 460 230" width="100%" role="img" aria-labelledby="sp-t sp-d" xmlns="http://www.w3.org/2000/svg" style="color:inherit;font-family:inherit;font-size:13px"><title id="sp-t">Independen dan bergantung linear</title><desc id="sp-d">Panel kiri: vektor u = (2, 1) dan v = (-1, 1) tidak sejajar sehingga kombinasinya mengisi seluruh bidang. Panel kanan: u = (2, 1) dan v = (4, 2) sejajar sehingga kombinasinya hanya berupa satu garis.</desc><defs><marker id="sp-b" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c6bc0"/></marker></defs><defs><marker id="sp-r" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e53935"/></marker></defs><defs><marker id="sp-k" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<rect x="18" y="54" width="204" height="170" rx="6" fill="#43a047" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.25"/>
+<g stroke="currentColor" stroke-width="1.3"><line x1="20" y1="150" x2="220" y2="150"/><line x1="80" y1="220" x2="80" y2="56"/></g>
+<line x1="80" y1="150" x2="140" y2="120" stroke="#5c6bc0" stroke-width="2.5"  marker-end="url(#sp-b)"/>
+<line x1="80" y1="150" x2="50" y2="120" stroke="#e53935" stroke-width="2.5"  marker-end="url(#sp-r)"/>
+<text x="148" y="124" fill="#5c6bc0" font-weight="bold">u = (2, 1)</text>
+<text x="44" y="112" fill="#e53935" font-weight="bold" text-anchor="middle">v = (-1, 1)</text>
+<text x="40" y="72" fill="currentColor">independen</text><text x="120" y="212" text-anchor="middle" fill="currentColor" font-size="12">span = seluruh bidang</text>
+<line x1="270" y1="180" x2="456.0" y2="87.0" stroke="#e53935" stroke-width="6" stroke-opacity="0.18"/>
+<g stroke="currentColor" stroke-width="1.3"><line x1="270" y1="150" x2="470" y2="150"/><line x1="330" y1="220" x2="330" y2="56"/></g>
+<line x1="330" y1="150" x2="390" y2="120" stroke="#5c6bc0" stroke-width="2.5"  marker-end="url(#sp-b)"/>
+<line x1="330" y1="150" x2="450" y2="90" stroke="#e53935" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#sp-r)"/>
+<text x="398" y="142" fill="#5c6bc0" font-weight="bold">u = (2, 1)</text>
+<text x="442" y="78" fill="#e53935" font-weight="bold" text-anchor="end">v = (4, 2)</text>
+<text x="285" y="72" fill="currentColor">bergantung</text><text x="370" y="212" text-anchor="middle" fill="currentColor" font-size="12">span = satu garis</text>
+</svg></div>
+
+<p><strong>Cara membaca gambar.</strong> Panel kiri: <span class="arithmatex">\(\mathbf{u} = (2, 1)\)</span> dan <span class="arithmatex">\(\mathbf{v} = (-1, 1)\)</span> menunjuk ke arah yang berbeda. Kombinasi dari keduanya dapat mencapai titik mana pun di bidang (span = seluruh bidang). Panel kanan: <span class="arithmatex">\(\mathbf{v} = (4, 2) = 2\mathbf{u}\)</span> berada pada garis yang sama dengan <span class="arithmatex">\(\mathbf{u}\)</span>. Kombinasi keduanya hanya menghasilkan titik-titik pada satu garis (garis merah muda), sehingga <span class="arithmatex">\(\mathbf{v}\)</span> tidak menambah apa pun.</p>
+<p><strong>Uji cepat untuk dua vektor di bidang:</strong> bentuk matriks dengan kedua vektor sebagai kolom dan hitung determinannya. Determinan <strong>tidak nol</strong> berarti independen; <strong>nol</strong> berarti bergantung.</p>
+<ul>
+<li><span class="arithmatex">\((1, 2)\)</span> dan <span class="arithmatex">\((3, 1)\)</span>: <span class="arithmatex">\(\det\begin{bmatrix} 1 &amp; 3 \\ 2 &amp; 1 \end{bmatrix} = 1 - 6 = -5 \neq 0\)</span>. <strong>Independen.</strong></li>
+<li><span class="arithmatex">\((2, 1)\)</span> dan <span class="arithmatex">\((4, 2)\)</span>: <span class="arithmatex">\(\det\begin{bmatrix} 2 &amp; 4 \\ 1 &amp; 2 \end{bmatrix} = 4 - 4 = 0\)</span>. <strong>Bergantung</strong> (karena <span class="arithmatex">\((4, 2) = 2(2, 1)\)</span>).</li>
+<li><span class="arithmatex">\((1, 0)\)</span> dan <span class="arithmatex">\((0, 1)\)</span>: <span class="arithmatex">\(\det = 1\)</span>. Independen.</li>
+</ul>
+<p><strong>Tiga vektor atau lebih di bidang selalu bergantung</strong> (ada terlalu banyak vektor untuk dua dimensi). Contoh: <span class="arithmatex">\((1, 0)\)</span>, <span class="arithmatex">\((0, 1)\)</span>, <span class="arithmatex">\((2, 3)\)</span>: <span class="arithmatex">\((2, 3) = 2(1, 0) + 3(0, 1)\)</span>.</p>
+<p><strong>Contoh di ruang tiga dimensi.</strong> <span class="arithmatex">\(\mathbf{v}_1 = (1, 0, 0)\)</span>, <span class="arithmatex">\(\mathbf{v}_2 = (0, 1, 0)\)</span>, <span class="arithmatex">\(\mathbf{v}_3 = (1, 1, 0)\)</span>. Karena <span class="arithmatex">\(\mathbf{v}_3 = \mathbf{v}_1 + \mathbf{v}_2\)</span>, ketiganya bergantung. Semuanya terletak pada bidang <span class="arithmatex">\(xy\)</span>, sehingga spannya hanya sebuah bidang (bukan seluruh ruang).</p>
+<p><strong>Basis dan dimensi.</strong></p>
+<ul>
+<li><strong>Basis</strong> adalah sekumpulan vektor yang <strong>independen</strong> dan <strong>span-nya seluruh ruang</strong>. Pada bidang, dua vektor yang tidak sejajar adalah basis, misalnya <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span>.</li>
+<li><strong>Dimensi</strong> ruang adalah banyak vektor dalam basisnya (selalu sama untuk basis mana pun). Bidang berdimensi 2, ruang berdimensi 3.</li>
+</ul>
+<p><strong>Hubungan dengan Part 4 dan Part 3.</strong> Untuk matriks <span class="arithmatex">\(A\)</span> persegi, hal-hal berikut setara:</p>
+<ul>
+<li>kolom-kolom <span class="arithmatex">\(A\)</span> <strong>independen</strong>;</li>
+<li><span class="arithmatex">\(\det A \neq 0\)</span>;</li>
+<li><span class="arithmatex">\(A\)</span> punya invers;</li>
+<li>eliminasi menghasilkan <strong>pivot sebanyak kolom</strong> (rank penuh);</li>
+<li><span class="arithmatex">\(A\mathbf{x} = \mathbf{b}\)</span> punya tepat satu solusi untuk setiap <span class="arithmatex">\(\mathbf{b}\)</span>.</li>
+</ul>
+<p><strong>Rank</strong> adalah banyak kolom (atau baris) yang independen, sama dengan banyak pivot pada eliminasi. Pada matriks <span class="arithmatex">\(\begin{bmatrix} 2 &amp; 4 \\ 1 &amp; 2 \end{bmatrix}\)</span>, kolom kedua adalah dua kali kolom pertama, jadi rank 1 (bukan 2), <span class="arithmatex">\(\det = 0\)</span>, dan tidak ada invers.</p>
+<h3 id="7-pengantar-nilai-eigen-dan-vektor-eigen-pengayaan">7. Pengantar Nilai Eigen dan Vektor Eigen (Pengayaan)<a class="headerlink" href="#7-pengantar-nilai-eigen-dan-vektor-eigen-pengayaan" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Subbagian pengayaan</p>
+<p>Bagian ini memperkenalkan gagasannya. Ia dibutuhkan lagi untuk PCA di level berikutnya, tetapi tidak wajib untuk bagian lain di Level 2.</p>
+</div>
+<p>Pada kebanyakan transformasi, sebuah vektor berubah <strong>arah</strong> dan <strong>panjang</strong>. Vektor yang istimewa adalah yang <strong>arahnya tidak berubah</strong>: hanya diperpanjang atau diperpendek. Vektor <span class="arithmatex">\(\mathbf{v} \neq \mathbf{0}\)</span> disebut <strong>vektor eigen</strong> dari <span class="arithmatex">\(A\)</span> jika</p>
+<div class="arithmatex">\[
+A\mathbf{v} = \lambda\,\mathbf{v}
+\]</div>
+<p>dengan skalar <span class="arithmatex">\(\lambda\)</span> yang disebut <strong>nilai eigen</strong> (<em>eigenvalue</em>). Kata <em>eigen</em> berarti "milik sendiri" (dari bahasa Jerman).</p>
+<p><strong>Contoh.</strong> <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(A(1, 1) = (2 + 1,\ 1 + 2) = (3, 3) = 3\,(1, 1)\)</span>. Arah tetap, panjang menjadi tiga kali: <span class="arithmatex">\(\lambda = 3\)</span>.</li>
+<li><span class="arithmatex">\(A(1, -1) = (2 - 1,\ 1 - 2) = (1, -1) = 1\,(1, -1)\)</span>. Arah tetap, panjang tetap: <span class="arithmatex">\(\lambda = 1\)</span>.</li>
+<li>Sebaliknya <span class="arithmatex">\((1, 0)\)</span> bukan vektor eigen: <span class="arithmatex">\(A(1, 0) = (2, 1)\)</span> bukan kelipatan <span class="arithmatex">\((1, 0)\)</span>.</li>
+</ul>
+<p><strong>Cara mencari nilai eigen matriks <span class="arithmatex">\(2 \times 2\)</span>.</strong> Persamaan <span class="arithmatex">\(A\mathbf{v} = \lambda\mathbf{v}\)</span> setara dengan <span class="arithmatex">\((A - \lambda I)\mathbf{v} = \mathbf{0}\)</span>. Agar ada <span class="arithmatex">\(\mathbf{v}\)</span> bukan nol, matriks <span class="arithmatex">\(A - \lambda I\)</span> harus singular, yaitu determinannya nol:</p>
+<div class="arithmatex">\[
+\det(A - \lambda I) = 0
+\]</div>
+<p>Untuk contoh di atas:</p>
+<div class="arithmatex">\[
+\det\begin{bmatrix} 2 - \lambda &amp; 1 \\ 1 &amp; 2 - \lambda \end{bmatrix}
+= (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda - 1)(\lambda - 3) = 0
+\]</div>
+<p>Jadi <span class="arithmatex">\(\lambda = 1\)</span> atau <span class="arithmatex">\(\lambda = 3\)</span>. Untuk <span class="arithmatex">\(\lambda = 3\)</span>: <span class="arithmatex">\(A - 3I = \begin{bmatrix} -1 &amp; 1 \\ 1 &amp; -1 \end{bmatrix}\)</span>, dan <span class="arithmatex">\((A - 3I)\mathbf{v} = \mathbf{0}\)</span> memberi <span class="arithmatex">\(-v_1 + v_2 = 0\)</span>, yaitu <span class="arithmatex">\(\mathbf{v} = (1, 1)\)</span> (atau kelipatannya).</p>
+<p><strong>Pemeriksaan cepat.</strong> Jumlah nilai eigen sama dengan <strong>trace</strong> (jumlah diagonal) <span class="arithmatex">\(= 2 + 2 = 4 = 3 + 1\)</span>, dan hasil kalinya sama dengan determinan <span class="arithmatex">\(= 4 - 1 = 3 = 3 \times 1\)</span>.</p>
+<p>Tidak semua matriks punya nilai eigen <strong>real</strong>: rotasi <span class="arithmatex">\(90^\circ\)</span> memutar setiap vektor sehingga tidak ada arah yang tetap. Persamaannya <span class="arithmatex">\(\lambda^2 + 1 = 0\)</span> tidak punya akar real.</p>
+<p><strong>Mengapa penting di ML (pratinjau).</strong> Arah-arah utama sebaran data (PCA) adalah vektor eigen dari matriks kovarians data, dan nilai eigennya menyatakan seberapa besar sebaran sepanjang arah itu. Level 4 membahasnya.</p>
+<h2 id="istilah-yang-perlu-dipahami">Istilah yang Perlu Dipahami<a class="headerlink" href="#istilah-yang-perlu-dipahami" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Istilah</th>
+<th>Arti sederhana</th>
+<th>Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transformasi linear</td>
+<td>pemetaan vektor yang menjaga penjumlahan dan perkalian skalar</td>
+<td><span class="arithmatex">\(T(\mathbf{x}) = A\mathbf{x}\)</span></td>
+</tr>
+<tr>
+<td>Vektor basis standar</td>
+<td>vektor satuan sepanjang sumbu</td>
+<td><span class="arithmatex">\(\mathbf{e}_1 = (1, 0)\)</span></td>
+</tr>
+<tr>
+<td>Persegi satuan</td>
+<td>persegi dengan sisi <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span></td>
+<td>luas 1</td>
+</tr>
+<tr>
+<td>Geseran (<em>shear</em>)</td>
+<td>transformasi yang memiringkan bidang</td>
+<td><span class="arithmatex">\(\begin{bmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span></td>
+</tr>
+<tr>
+<td>Proyeksi</td>
+<td>transformasi yang meratakan ke garis</td>
+<td><span class="arithmatex">\(\det = 0\)</span></td>
+</tr>
+<tr>
+<td>Kombinasi linear</td>
+<td>jumlah kelipatan vektor</td>
+<td><span class="arithmatex">\(2\mathbf{v}_1 + \mathbf{v}_2\)</span></td>
+</tr>
+<tr>
+<td>Span</td>
+<td>himpunan semua kombinasi linear</td>
+<td>garis atau bidang</td>
+</tr>
+<tr>
+<td>Bebas (independen) linear</td>
+<td>tidak ada vektor yang kombinasi lainnya</td>
+<td><span class="arithmatex">\((1,2)\)</span> dan <span class="arithmatex">\((3,1)\)</span></td>
+</tr>
+<tr>
+<td>Bergantung (dependen) linear</td>
+<td>ada vektor yang kombinasi lainnya</td>
+<td><span class="arithmatex">\((2,1)\)</span> dan <span class="arithmatex">\((4,2)\)</span></td>
+</tr>
+<tr>
+<td>Basis</td>
+<td>vektor independen yang span-nya seluruh ruang</td>
+<td><span class="arithmatex">\(\mathbf{e}_1, \mathbf{e}_2\)</span></td>
+</tr>
+<tr>
+<td>Dimensi</td>
+<td>banyak vektor dalam basis</td>
+<td>2 untuk bidang</td>
+</tr>
+<tr>
+<td>Rank</td>
+<td>banyak kolom independen (banyak pivot)</td>
+<td>1 atau 2</td>
+</tr>
+<tr>
+<td>Nilai eigen <span class="arithmatex">\(\lambda\)</span></td>
+<td>faktor pengali arah yang tetap</td>
+<td><span class="arithmatex">\(3\)</span></td>
+</tr>
+<tr>
+<td>Vektor eigen</td>
+<td>vektor yang arahnya tak berubah</td>
+<td><span class="arithmatex">\((1, 1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<p><strong>Transformasi linear oleh matriks:</strong></p>
+<div class="arithmatex">\[
+T(\mathbf{x}) = A\mathbf{x}, \qquad T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}), \qquad T(c\mathbf{u}) = c\,T(\mathbf{u})
+\]</div>
+<ul>
+<li><span class="arithmatex">\(A\)</span> matriks, <span class="arithmatex">\(\mathbf{x}\)</span> vektor dengan banyak elemen sama dengan banyak kolom <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(c\)</span> skalar.</li>
+</ul>
+<p><strong>Kolom sebagai gambar vektor basis:</strong> <span class="arithmatex">\(A\mathbf{e}_j\)</span> adalah kolom ke-<span class="arithmatex">\(j\)</span> dari <span class="arithmatex">\(A\)</span>.</p>
+<p><strong>Perkalian sebagai kombinasi kolom:</strong></p>
+<div class="arithmatex">\[
+A\mathbf{x} = x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 + \cdots + x_n \mathbf{a}_n
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\mathbf{a}_j\)</span> adalah kolom ke-<span class="arithmatex">\(j\)</span> dari <span class="arithmatex">\(A\)</span> dan <span class="arithmatex">\(x_j\)</span> adalah elemen ke-<span class="arithmatex">\(j\)</span> dari <span class="arithmatex">\(\mathbf{x}\)</span>.</li>
+</ul>
+<p><strong>Faktor luas:</strong> luas bayangan <span class="arithmatex">\(= \lvert \det A \rvert \times\)</span> luas semula (untuk <span class="arithmatex">\(A\)</span> berukuran <span class="arithmatex">\(2 \times 2\)</span>).</p>
+<p><strong>Uji independen dua vektor di bidang:</strong> <span class="arithmatex">\(\det[\mathbf{u}\ \mathbf{v}] \neq 0\)</span>.</p>
+<p><strong>Nilai eigen:</strong></p>
+<div class="arithmatex">\[
+A\mathbf{v} = \lambda\mathbf{v}, \qquad \det(A - \lambda I) = 0
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\lambda\)</span> skalar, <span class="arithmatex">\(\mathbf{v} \neq \mathbf{0}\)</span>, <span class="arithmatex">\(I\)</span> matriks identitas. Untuk <span class="arithmatex">\(2 \times 2\)</span>: <span class="arithmatex">\(\lambda^2 - (\operatorname{tr} A)\lambda + \det A = 0\)</span>, dengan <span class="arithmatex">\(\operatorname{tr} A = a + d\)</span>.</li>
+</ul>
+<h2 id="penjelasan-langkah-demi-langkah">Penjelasan Langkah demi Langkah<a class="headerlink" href="#penjelasan-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<p><strong>Menggambar efek matriks <span class="arithmatex">\(2 \times 2\)</span> pada persegi satuan:</strong></p>
+<ol>
+<li>Baca kolom 1 dan kolom 2 dari <span class="arithmatex">\(A\)</span>: itu <span class="arithmatex">\(A\mathbf{e}_1\)</span> dan <span class="arithmatex">\(A\mathbf{e}_2\)</span>.</li>
+<li>Gambar kedua panah dari titik asal.</li>
+<li>Lengkapi jajar genjang: titik keempatnya adalah jumlah kedua panah, <span class="arithmatex">\(A\mathbf{e}_1 + A\mathbf{e}_2\)</span>.</li>
+<li>Hitung luas <span class="arithmatex">\(= \lvert \det A \rvert\)</span> dan periksa dengan gambar.</li>
+</ol>
+<h2 id="contoh-soal-dan-pembahasan">Contoh Soal dan Pembahasan<a class="headerlink" href="#contoh-soal-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-membaca-transformasi-dari-matriks">Contoh 1 — Membaca transformasi dari matriks<a class="headerlink" href="#contoh-1-membaca-transformasi-dari-matriks" title="Permanent link">&para;</a></h3>
+<p>Untuk <span class="arithmatex">\(A = \begin{bmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{bmatrix}\)</span>: ke mana <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span> pindah, berapa <span class="arithmatex">\(A(2, 1)\)</span>, dan berapa faktor luasnya?</p>
+<ol>
+<li>Kolom 1: <span class="arithmatex">\(A\mathbf{e}_1 = (3, 0)\)</span>. Kolom 2: <span class="arithmatex">\(A\mathbf{e}_2 = (1, 2)\)</span>.</li>
+<li><span class="arithmatex">\(A(2, 1) = 2\,(3, 0) + 1\,(1, 2) = (6, 0) + (1, 2) = (7, 2)\)</span>.</li>
+<li>Cek dengan baris dikali kolom: <span class="arithmatex">\((3 \cdot 2 + 1 \cdot 1,\ 0 \cdot 2 + 2 \cdot 1) = (7, 2)\)</span>. Sama.</li>
+<li><span class="arithmatex">\(\det A = 3 \cdot 2 - 1 \cdot 0 = 6\)</span>. Luas diperbesar 6 kali.</li>
+</ol>
+<h3 id="contoh-2-kombinasi-linear-dan-span">Contoh 2 — Kombinasi linear dan span<a class="headerlink" href="#contoh-2-kombinasi-linear-dan-span" title="Permanent link">&para;</a></h3>
+<p>Apakah <span class="arithmatex">\((5, 0)\)</span> ada di span <span class="arithmatex">\(\{(1, 2), (3, 1)\}\)</span>? Bagaimana dengan <span class="arithmatex">\((1, 0)\)</span> di span <span class="arithmatex">\(\{(2, 4)\}\)</span>?</p>
+<ol>
+<li>Pertama: cari <span class="arithmatex">\(c_1, c_2\)</span> dengan <span class="arithmatex">\(c_1 + 3c_2 = 5\)</span> dan <span class="arithmatex">\(2c_1 + c_2 = 0\)</span>. Dari persamaan kedua <span class="arithmatex">\(c_2 = -2c_1\)</span>. Substitusi: <span class="arithmatex">\(c_1 - 6c_1 = 5\)</span>, jadi <span class="arithmatex">\(c_1 = -1\)</span> dan <span class="arithmatex">\(c_2 = 2\)</span>. <strong>Ya</strong>: <span class="arithmatex">\(-1(1, 2) + 2(3, 1) = (5, 0)\)</span> (cocok dengan contoh sebelumnya).</li>
+<li>Kedua: span <span class="arithmatex">\(\{(2, 4)\}\)</span> adalah semua <span class="arithmatex">\(c(2, 4) = (2c, 4c)\)</span>. Untuk <span class="arithmatex">\((1, 0)\)</span> butuh <span class="arithmatex">\(2c = 1\)</span> dan <span class="arithmatex">\(4c = 0\)</span>, yang tidak mungkin bersamaan. <strong>Tidak.</strong></li>
+</ol>
+<h3 id="contoh-3-independensi-linear">Contoh 3 — Independensi linear<a class="headerlink" href="#contoh-3-independensi-linear" title="Permanent link">&para;</a></h3>
+<p>Tentukan apakah <span class="arithmatex">\((1, 2)\)</span>, <span class="arithmatex">\((3, 1)\)</span> independen; apakah <span class="arithmatex">\((1, 0, 0)\)</span>, <span class="arithmatex">\((0, 1, 0)\)</span>, <span class="arithmatex">\((1, 1, 0)\)</span> independen; dan apakah <span class="arithmatex">\((1, 0)\)</span>, <span class="arithmatex">\((0, 1)\)</span>, <span class="arithmatex">\((2, 3)\)</span> independen.</p>
+<ol>
+<li><span class="arithmatex">\((1, 2)\)</span> dan <span class="arithmatex">\((3, 1)\)</span>: <span class="arithmatex">\(\det = 1 \cdot 1 - 3 \cdot 2 = -5 \neq 0\)</span>. <strong>Independen.</strong></li>
+<li>Tiga vektor di ruang: <span class="arithmatex">\((1, 1, 0) = (1, 0, 0) + (0, 1, 0)\)</span>. <strong>Bergantung.</strong> Eliminasi memberi rank 2, bukan 3.</li>
+<li>Tiga vektor di bidang selalu bergantung: <span class="arithmatex">\((2, 3) = 2(1, 0) + 3(0, 1)\)</span>. <strong>Bergantung.</strong></li>
+</ol>
+<h3 id="contoh-4-nilai-eigen-dan-vektor-eigen">Contoh 4 — Nilai eigen dan vektor eigen<a class="headerlink" href="#contoh-4-nilai-eigen-dan-vektor-eigen" title="Permanent link">&para;</a></h3>
+<p>Cari nilai eigen <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}\)</span> dan periksa vektor eigennya.</p>
+<ol>
+<li>Persamaan karakteristik: <span class="arithmatex">\(\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = 0\)</span>.</li>
+<li>Faktor: <span class="arithmatex">\((\lambda - 1)(\lambda - 3) = 0\)</span>, jadi <span class="arithmatex">\(\lambda_1 = 3\)</span> dan <span class="arithmatex">\(\lambda_2 = 1\)</span>.</li>
+<li>Untuk <span class="arithmatex">\(\lambda = 3\)</span>: <span class="arithmatex">\(-v_1 + v_2 = 0\)</span> memberi <span class="arithmatex">\(\mathbf{v} = (1, 1)\)</span>. Periksa <span class="arithmatex">\(A(1, 1) = (3, 3) = 3(1, 1)\)</span>.</li>
+<li>Untuk <span class="arithmatex">\(\lambda = 1\)</span>: <span class="arithmatex">\(A - I = \begin{bmatrix} 1 &amp; 1 \\ 1 &amp; 1 \end{bmatrix}\)</span>, jadi <span class="arithmatex">\(v_1 + v_2 = 0\)</span>, <span class="arithmatex">\(\mathbf{v} = (1, -1)\)</span>. Periksa <span class="arithmatex">\(A(1, -1) = (1, -1) = 1\,(1, -1)\)</span>.</li>
+<li>Cek: jumlah <span class="arithmatex">\(3 + 1 = 4 = \operatorname{tr} A\)</span> dan hasil kali <span class="arithmatex">\(3 \cdot 1 = 3 = \det A\)</span>.</li>
+</ol>
+<h2 id="contoh-tambahan-dengan-kesulitan-bertahap">Contoh Tambahan dengan Kesulitan Bertahap<a class="headerlink" href="#contoh-tambahan-dengan-kesulitan-bertahap" title="Permanent link">&para;</a></h2>
+<p><strong>Mudah.</strong> Pencerminan terhadap sumbu <span class="arithmatex">\(x\)</span> mengubah <span class="arithmatex">\((x, y)\)</span> menjadi <span class="arithmatex">\((x, -y)\)</span>: matriksnya <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{bmatrix}\)</span>. Titik <span class="arithmatex">\((3, 2)\)</span> menjadi <span class="arithmatex">\((3, -2)\)</span>.</p>
+<p><strong>Sedang.</strong> Rotasi <span class="arithmatex">\(90^\circ\)</span>: <span class="arithmatex">\(\begin{bmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{bmatrix}\)</span> mengubah <span class="arithmatex">\((2, 1)\)</span> menjadi <span class="arithmatex">\((0 \cdot 2 - 1 \cdot 1,\ 1 \cdot 2 + 0) = (-1, 2)\)</span>. Panjangnya sama: <span class="arithmatex">\(\sqrt{4 + 1} = \sqrt{1 + 4}\)</span>.</p>
+<p><strong>Sedang.</strong> Proyeksi <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \end{bmatrix}\)</span> mengubah <span class="arithmatex">\((3, 5)\)</span> dan <span class="arithmatex">\((3, -7)\)</span> keduanya menjadi <span class="arithmatex">\((3, 0)\)</span>. Dua vektor berbeda menjadi sama, sehingga tidak dapat dikembalikan (<span class="arithmatex">\(\det = 0\)</span>).</p>
+<p><strong>Menantang.</strong> Matriks <span class="arithmatex">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 3 \end{bmatrix}\)</span> punya nilai eigen <span class="arithmatex">\(2\)</span> dan <span class="arithmatex">\(3\)</span> dengan vektor eigen <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span>: <span class="arithmatex">\(A\mathbf{e}_1 = 2\mathbf{e}_1\)</span> dan <span class="arithmatex">\(A\mathbf{e}_2 = 3\mathbf{e}_2\)</span>. Matriks diagonal meregangkan setiap sumbu secara terpisah.</p>
+<h2 id="visualisasi-atau-interpretasi-grafik">Visualisasi atau Interpretasi Grafik<a class="headerlink" href="#visualisasi-atau-interpretasi-grafik" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Jajar genjang pada gambar pertama</strong> menunjukkan seluruh isi matriks: kolom sebagai gambar vektor basis, luas sebagai determinan.</li>
+<li><strong>Panel independen dan bergantung</strong> menunjukkan beda antara span yang mengisi bidang dan span yang hanya garis.</li>
+<li><strong>Vektor eigen</strong> adalah panah yang tetap berada di garis yang sama setelah transformasi; hanya panjangnya berubah.</li>
+<li><strong>Matriks singular</strong> (<span class="arithmatex">\(\det = 0\)</span>) selalu meratakan bidang menjadi garis atau titik.</li>
+</ul>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kesalahan</th>
+<th>Mengapa salah</th>
+<th>Yang benar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menganggap geseran <span class="arithmatex">\((x+1, y)\)</span> transformasi linear</td>
+<td>titik asal berpindah</td>
+<td>linear harus memetakan <span class="arithmatex">\(\mathbf{0}\)</span> ke <span class="arithmatex">\(\mathbf{0}\)</span></td>
+</tr>
+<tr>
+<td>Membaca baris matriks sebagai gambar <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span></td>
+<td>gambar vektor basis adalah <strong>kolom</strong></td>
+<td><span class="arithmatex">\(A\mathbf{e}_j\)</span> = kolom ke-<span class="arithmatex">\(j\)</span></td>
+</tr>
+<tr>
+<td>Menganggap determinan negatif berarti luas negatif</td>
+<td>tanda menandai orientasi terbalik</td>
+<td>luas <span class="arithmatex">\(= \lvert \det \rvert\)</span></td>
+</tr>
+<tr>
+<td>Menganggap dua vektor dengan elemen berbeda pasti independen</td>
+<td><span class="arithmatex">\((2, 1)\)</span> dan <span class="arithmatex">\((4, 2)\)</span> berbeda tetapi sejajar</td>
+<td>uji determinan</td>
+</tr>
+<tr>
+<td>Menganggap tiga vektor di bidang bisa independen</td>
+<td>maksimal 2 vektor independen di bidang</td>
+<td>pasti bergantung</td>
+</tr>
+<tr>
+<td>Mengira span dua vektor selalu seluruh bidang</td>
+<td>hanya bila tidak sejajar</td>
+<td>sejajar memberi garis</td>
+</tr>
+<tr>
+<td>Menganggap vektor eigen itu unik</td>
+<td>setiap kelipatan tak nol dari vektor eigen juga vektor eigen dengan <span class="arithmatex">\(\lambda\)</span> yang sama</td>
+<td><span class="arithmatex">\((1, 1)\)</span>, <span class="arithmatex">\((2, 2)\)</span>, <span class="arithmatex">\((-3, -3)\)</span> semuanya vektor eigen dengan <span class="arithmatex">\(\lambda = 3\)</span></td>
+</tr>
+<tr>
+<td>Menyatakan <span class="arithmatex">\(\mathbf{0}\)</span> sebagai vektor eigen</td>
+<td>definisi mensyaratkan <span class="arithmatex">\(\mathbf{v} \neq \mathbf{0}\)</span></td>
+<td>pilih <span class="arithmatex">\(\mathbf{v}\)</span> bukan nol</td>
+</tr>
+<tr>
+<td>Mengira semua matriks punya nilai eigen real</td>
+<td>rotasi <span class="arithmatex">\(90^\circ\)</span> tidak punya</td>
+<td>periksa diskriminan</td>
+</tr>
+<tr>
+<td>Menganggap matriks singular dapat dibalik dengan "pembulatan"</td>
+<td>informasi hilang</td>
+<td>tidak ada invers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hubungan-dengan-machine-learning">Hubungan dengan Machine Learning<a class="headerlink" href="#hubungan-dengan-machine-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Lapisan jaringan saraf adalah transformasi linear</strong> (ditambah nonlinearitas). Bobot <span class="arithmatex">\(W\)</span> memetakan vektor masukan ke vektor keluaran: <span class="arithmatex">\(W\mathbf{x}\)</span>.</li>
+<li><strong>Fitur yang bergantung linear</strong> (misalnya tinggi dalam cm dan tinggi dalam inci, yang satu adalah kelipatan lainnya) membuat kolom matriks fitur <span class="arithmatex">\(X\)</span> bergantung. Rank <span class="arithmatex">\(X\)</span> lebih kecil dari banyak kolom, <span class="arithmatex">\(X^{\top}X\)</span> singular, dan bobot model tidak unik (Part 4). Pada data nyata, ketergantungan hampir sempurna juga menimbulkan masalah numerik.</li>
+<li><strong>Span dan kapasitas model.</strong> Model linear dapat membentuk keluaran yang berada di span dari fitur-fiturnya. Fitur baru yang independen memperluas jangkauan model; fitur yang bergantung tidak menambah apa pun.</li>
+<li><strong>Determinan dan invers.</strong> Transformasi dengan <span class="arithmatex">\(\det = 0\)</span> menghilangkan informasi, jadi tidak dapat dibalik.</li>
+<li><strong>Nilai eigen dan vektor eigen (pengayaan).</strong> Dipakai pada PCA, pada analisis kestabilan pelatihan, dan pada algoritma peringkat halaman.</li>
+</ul>
+<h3 id="python-transformasi-kombinasi-linear-independensi-dan-nilai-eigen">Python: transformasi, kombinasi linear, independensi, dan nilai eigen<a class="headerlink" href="#python-transformasi-kombinasi-linear-independensi-dan-nilai-eigen" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">baris</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">baris</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">det2</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">A</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>   <span class="c1"># [2, 0] [1, 1], kolom-kolom A</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>                       <span class="c1"># [3, 1], titik sudut jajar genjang</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">det2</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>                                 <span class="c1"># 2, faktor luas</span>
+</span></code></pre></div>
+<p>Kolom matriks adalah gambar vektor basis. Memeriksa sifat linear dengan angka:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">jumlah</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">jumlah</span><span class="p">))</span>                                   <span class="c1"># [9, 1]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">([</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u</span><span class="p">),</span> <span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">))])</span> <span class="c1"># [9, 1], sama</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">u</span><span class="p">]))</span>                       <span class="c1"># [12, 6]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">print</span><span class="p">([</span><span class="mi">3</span> <span class="o">*</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">matvec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u</span><span class="p">)])</span>                       <span class="c1"># [12, 6], sama</span>
+</span></code></pre></div>
+<p>Matriks kali vektor sebagai kombinasi linear kolom:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">kombinasi</span><span class="p">(</span><span class="n">koef</span><span class="p">,</span> <span class="n">vektor</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vektor</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">return</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">vk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">vk</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">koef</span><span class="p">,</span> <span class="n">vektor</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">B</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>                    <span class="c1"># [5, 5]</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">kombinasi</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span>  <span class="c1"># [5, 5], 2*(1,2) + 1*(3,1)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">kombinasi</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span> <span class="c1"># [5, 0]</span>
+</span></code></pre></div>
+<p>Uji independensi dua vektor dengan determinan, dan contoh tiga dimensi:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">independen</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="n">det2</span><span class="p">([[</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]]])</span> <span class="o">!=</span> <span class="mi">0</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">independen</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>   <span class="c1"># True</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">independen</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>   <span class="c1"># False, karena (4,2) = 2*(2,1)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">independen</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>   <span class="c1"># True</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">kombinasi</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>   <span class="c1"># [1, 1, 0], sama dengan v3</span>
+</span></code></pre></div>
+<p>Nilai eigen matriks <span class="arithmatex">\(2 \times 2\)</span> dari rumus <span class="arithmatex">\(\lambda^2 - (\operatorname{tr} A)\lambda + \det A = 0\)</span>, lalu pemeriksaan <span class="arithmatex">\(A\mathbf{v} = \lambda\mathbf{v}\)</span>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">nilai_eigen</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">tr</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">det2</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">disc</span> <span class="o">=</span> <span class="n">tr</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">d</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">if</span> <span class="n">disc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="k">return</span> <span class="s2">"tidak ada nilai eigen real"</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">akar</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">disc</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">return</span> <span class="p">((</span><span class="n">tr</span> <span class="o">+</span> <span class="n">akar</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">tr</span> <span class="o">-</span> <span class="n">akar</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">C</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">nilai_eigen</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>                   <span class="c1"># (3.0, 1.0)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>                <span class="c1"># [3, 3], sama dengan 3 * (1, 1)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]))</span>               <span class="c1"># [1, -1], sama dengan 1 * (1, -1)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">nilai_eigen</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>   <span class="c1"># tidak ada nilai eigen real (rotasi 90 derajat)</span>
+</span></code></pre></div>
+<p>Fitur yang bergantung membuat prediksi tidak unik:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>   <span class="c1"># kolom kedua = 2 * kolom pertama</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">matvec</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>   <span class="c1"># [2, 4, 6] untuk keduanya</span>
+</span></code></pre></div>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Apakah linear? (a) <span class="arithmatex">\(T(x, y) = (2x + y,\ x - y)\)</span> (b) <span class="arithmatex">\(T(x, y) = (x + 1,\ y)\)</span> (c) <span class="arithmatex">\(T(x, y) = (x^2,\ y)\)</span>. Jika bukan, tunjukkan dengan angka.</li>
+<li>Untuk <span class="arithmatex">\(A = \begin{bmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{bmatrix}\)</span>: tentukan <span class="arithmatex">\(A\mathbf{e}_1\)</span>, <span class="arithmatex">\(A\mathbf{e}_2\)</span>, dan <span class="arithmatex">\(A(2, 1)\)</span> lewat kombinasi kolom. Periksa dengan baris dikali kolom.</li>
+<li>Kenali transformasi dan determinannya: (a) <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{bmatrix}\)</span> (b) <span class="arithmatex">\(\begin{bmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{bmatrix}\)</span> (c) <span class="arithmatex">\(\begin{bmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{bmatrix}\)</span> (d) <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 0 \end{bmatrix}\)</span></li>
+<li>Persegi satuan diubah oleh <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{bmatrix}\)</span>. Tentukan keempat titik sudut bayangannya dan luasnya.</li>
+<li>Dengan <span class="arithmatex">\(\mathbf{v}_1 = (1, 2)\)</span> dan <span class="arithmatex">\(\mathbf{v}_2 = (3, 1)\)</span>, hitung <span class="arithmatex">\(2\mathbf{v}_1 + \mathbf{v}_2\)</span> dan <span class="arithmatex">\(-\mathbf{v}_1 + 2\mathbf{v}_2\)</span>.</li>
+<li>Apakah ada di span? (a) <span class="arithmatex">\((5, 5)\)</span> di span <span class="arithmatex">\(\{(1, 2), (3, 1)\}\)</span> (b) <span class="arithmatex">\((1, 0)\)</span> di span <span class="arithmatex">\(\{(2, 4)\}\)</span> (c) <span class="arithmatex">\((3, 6)\)</span> di span <span class="arithmatex">\(\{(1, 2)\}\)</span></li>
+<li>Tentukan independen atau bergantung: (a) <span class="arithmatex">\((1, 2)\)</span> dan <span class="arithmatex">\((3, 1)\)</span> (b) <span class="arithmatex">\((2, 1)\)</span> dan <span class="arithmatex">\((4, 2)\)</span> (c) <span class="arithmatex">\((1, 0)\)</span>, <span class="arithmatex">\((0, 1)\)</span>, <span class="arithmatex">\((2, 3)\)</span></li>
+<li>Apakah <span class="arithmatex">\((1, 0, 0)\)</span>, <span class="arithmatex">\((0, 1, 0)\)</span>, <span class="arithmatex">\((1, 1, 0)\)</span> independen? Berapa dimensi spannya?</li>
+<li>Untuk <span class="arithmatex">\(A = \begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}\)</span> (pengayaan): periksa bahwa <span class="arithmatex">\((1, 1)\)</span> vektor eigen dengan <span class="arithmatex">\(\lambda = 3\)</span> dan <span class="arithmatex">\((1, -1)\)</span> dengan <span class="arithmatex">\(\lambda = 1\)</span>. Cari nilai eigen dari <span class="arithmatex">\(\det(A - \lambda I) = 0\)</span> dan periksa dengan trace dan determinan. Apakah <span class="arithmatex">\((1, 0)\)</span> vektor eigen?</li>
+<li>(ML) Matriks fitur <span class="arithmatex">\(X = \begin{bmatrix} 1 &amp; 2 \\ 2 &amp; 4 \\ 3 &amp; 6 \end{bmatrix}\)</span>. Apa hubungan kedua kolom? Hitung <span class="arithmatex">\(X\mathbf{w}\)</span> untuk <span class="arithmatex">\(\mathbf{w} = (2, 0)\)</span> dan <span class="arithmatex">\(\mathbf{w} = (0, 1)\)</span>. Apa artinya bagi bobot model?</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p>(a) <strong>Linear</strong>: <span class="arithmatex">\(T(x, y) = \begin{bmatrix} 2 &amp; 1 \\ 1 &amp; -1 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix}\)</span>. (b) <strong>Bukan</strong>: <span class="arithmatex">\(T(0, 0) = (1, 0) \neq (0, 0)\)</span>. (c) <strong>Bukan</strong>: <span class="arithmatex">\(T(2, 0) = (4, 0)\)</span> tetapi <span class="arithmatex">\(2\,T(1, 0) = 2(1, 0) = (2, 0)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p><span class="arithmatex">\(A\mathbf{e}_1 = (3, 0)\)</span> dan <span class="arithmatex">\(A\mathbf{e}_2 = (1, 2)\)</span>. <span class="arithmatex">\(A(2, 1) = 2(3, 0) + 1(1, 2) = (7, 2)\)</span>. Baris dikali kolom: <span class="arithmatex">\((3 \cdot 2 + 1 \cdot 1,\ 0 \cdot 2 + 2 \cdot 1) = (7, 2)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>(a) pencerminan terhadap sumbu <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(\det = -1\)</span>. (b) rotasi <span class="arithmatex">\(90^\circ\)</span> berlawanan jarum jam, <span class="arithmatex">\(\det = 1\)</span>. (c) pembesaran dua kali, <span class="arithmatex">\(\det = 4\)</span>. (d) proyeksi ke sumbu <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(\det = 0\)</span> (tidak dapat dibalik).</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p><span class="arithmatex">\(A(0, 0) = (0, 0)\)</span>. <span class="arithmatex">\(A(1, 0) = (2, 0)\)</span>. <span class="arithmatex">\(A(1, 1) = (3, 1)\)</span>. <span class="arithmatex">\(A(0, 1) = (1, 1)\)</span>. Luas <span class="arithmatex">\(= \lvert \det A \rvert = 2\)</span> (alas 2, tinggi 1).</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p><span class="arithmatex">\(2\mathbf{v}_1 + \mathbf{v}_2 = (2, 4) + (3, 1) = (5, 5)\)</span>. <span class="arithmatex">\(-\mathbf{v}_1 + 2\mathbf{v}_2 = (-1, -2) + (6, 2) = (5, 0)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p>(a) <strong>Ya</strong>: <span class="arithmatex">\(2(1, 2) + 1(3, 1) = (5, 5)\)</span>. (b) <strong>Tidak</strong>: butuh <span class="arithmatex">\(2c = 1\)</span> dan <span class="arithmatex">\(4c = 0\)</span>. (c) <strong>Ya</strong>: <span class="arithmatex">\(3(1, 2) = (3, 6)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>(a) <span class="arithmatex">\(\det = 1 - 6 = -5 \neq 0\)</span>: <strong>independen</strong>. (b) <span class="arithmatex">\(\det = 4 - 4 = 0\)</span> (<span class="arithmatex">\((4, 2) = 2(2, 1)\)</span>): <strong>bergantung</strong>. (c) Tiga vektor di bidang: <strong>bergantung</strong>, karena <span class="arithmatex">\((2, 3) = 2(1, 0) + 3(0, 1)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p><strong>Bergantung</strong>, karena <span class="arithmatex">\((1, 1, 0) = (1, 0, 0) + (0, 1, 0)\)</span>. Spannya adalah bidang <span class="arithmatex">\(xy\)</span>, jadi dimensinya <strong>2</strong>.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p><span class="arithmatex">\(A(1, 1) = (3, 3) = 3(1, 1)\)</span> dan <span class="arithmatex">\(A(1, -1) = (1, -1) = 1(1, -1)\)</span>. <span class="arithmatex">\(\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = 0\)</span>, jadi <span class="arithmatex">\(\lambda = 1\)</span> atau <span class="arithmatex">\(3\)</span>. Trace <span class="arithmatex">\(= 4 = 1 + 3\)</span>, determinan <span class="arithmatex">\(= 3 = 1 \cdot 3\)</span>. <span class="arithmatex">\((1, 0)\)</span> <strong>bukan</strong> vektor eigen: <span class="arithmatex">\(A(1, 0) = (2, 1)\)</span> bukan kelipatan <span class="arithmatex">\((1, 0)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>Kolom kedua adalah dua kali kolom pertama (kolom bergantung, rank 1). <span class="arithmatex">\(X(2, 0) = 2(1, 2, 3) = (2, 4, 6)\)</span> dan <span class="arithmatex">\(X(0, 1) = (2, 4, 6)\)</span>. Dua bobot berbeda memberi prediksi yang persis sama, sehingga bobot <strong>tidak unik</strong> dan tidak dapat ditentukan dari data.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Matriks adalah transformasi linear: <span class="arithmatex">\(T(\mathbf{x}) = A\mathbf{x}\)</span> menjaga penjumlahan dan perkalian skalar dan memetakan <span class="arithmatex">\(\mathbf{0}\)</span> ke <span class="arithmatex">\(\mathbf{0}\)</span>.</li>
+<li><strong>Kolom ke-<span class="arithmatex">\(j\)</span> dari <span class="arithmatex">\(A\)</span></strong> adalah gambar vektor basis <span class="arithmatex">\(\mathbf{e}_j\)</span>. <span class="arithmatex">\(\lvert \det A \rvert\)</span> adalah faktor perubahan luas; tanda negatif berarti orientasi terbalik; nol berarti bidang runtuh (tanpa invers).</li>
+<li>Kombinasi linear: <span class="arithmatex">\(\sum c_i \mathbf{v}_i\)</span>. <span class="arithmatex">\(A\mathbf{x}\)</span> adalah kombinasi linear kolom-kolom <span class="arithmatex">\(A\)</span> dengan koefisien elemen <span class="arithmatex">\(\mathbf{x}\)</span>.</li>
+<li>Span adalah himpunan semua kombinasi linear. Dua vektor tak sejajar di bidang meng-span seluruh bidang.</li>
+<li>Vektor independen jika tak ada yang kombinasi lainnya. Untuk dua vektor di bidang: <span class="arithmatex">\(\det \neq 0\)</span>. Basis = independen + span seluruh ruang; dimensi = banyak vektor basis. Rank = banyak kolom independen.</li>
+<li>(Pengayaan) <span class="arithmatex">\(A\mathbf{v} = \lambda\mathbf{v}\)</span>: vektor eigen mempertahankan arah; nilai eigen dari <span class="arithmatex">\(\det(A - \lambda I) = 0\)</span>; jumlahnya trace, hasil kalinya determinan.</li>
+<li>ML: fitur bergantung membuat parameter tidak unik; lapisan jaringan saraf adalah transformasi linear.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan dua sifat transformasi linear dan memeriksanya dengan angka.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Membaca kolom matriks sebagai gambar <span class="arithmatex">\(\mathbf{e}_1\)</span> dan <span class="arithmatex">\(\mathbf{e}_2\)</span> dan menggambar jajar genjang bayangan.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mengenali pencerminan, rotasi, geseran, proyeksi, dan menyebut determinannya.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung kombinasi linear dan menulis <span class="arithmatex">\(A\mathbf{x}\)</span> sebagai kombinasi kolom.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menentukan apakah sebuah vektor ada di span sekumpulan vektor.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menguji independensi dua vektor dengan determinan dan menjelaskan basis, dimensi, dan rank.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghubungkan kolom bergantung dengan determinan nol dan invers yang tidak ada.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> (Pengayaan) Memeriksa vektor eigen dan mencari nilai eigen matriks <span class="arithmatex">\(2 \times 2\)</span>.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../06-limit-dan-kontinuitas/">Part 6 — Limit dan Kontinuitas</a> memulai jalur kalkulus dan tidak membutuhkan Part 5. Part 8 — Turunan Parsial dan Gradien kembali memakai vektor, dan Part 12 menggabungkan seluruh aljabar linear (Part 1 sampai 5) dalam evaluasi akhir Level 2. Pengantar nilai eigen akan dipakai lagi di Level 4 untuk PCA.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../04-sistem-persamaan-linear-matriks/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 4 - Sistem Persamaan Linear (Bentuk Matriks)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../06-limit-dan-kontinuitas/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 6 - Limit dan Kontinuitas">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 6 - Limit dan Kontinuitas
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

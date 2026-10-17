@@ -1,0 +1,4525 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-2-aljabar-linear-dan-kalkulus/02-vektor/">
+      
+      
+        <link rel="prev" href="../01-pengantar-aljabar-linear/">
+      
+      
+        <link rel="next" href="../03-matriks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 2 - Vektor - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-2-vektor" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 2 - Vektor
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-vektor-sebagai-panah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vektor sebagai Panah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-penjumlahan-dan-pengurangan-vektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Penjumlahan dan Pengurangan Vektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-perkalian-vektor-dengan-skalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Perkalian Vektor dengan Skalar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-norma-vektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Norma Vektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-jarak-euclidean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Jarak Euclidean
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dot Product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-pengantar-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pengantar Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-operasi-dasar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Operasi dasar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-norma-dan-vektor-satuan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Norma dan vektor satuan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-jarak-dan-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Jarak dan dot product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-menguji-tegak-lurus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Menguji tegak lurus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Cosine similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-operasi-vektor-dengan-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: operasi vektor dengan list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-5-matematika-lanjutan-deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-vektor-sebagai-panah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Vektor sebagai Panah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-penjumlahan-dan-pengurangan-vektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Penjumlahan dan Pengurangan Vektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-perkalian-vektor-dengan-skalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Perkalian Vektor dengan Skalar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-norma-vektor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Norma Vektor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-jarak-euclidean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Jarak Euclidean
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dot Product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-pengantar-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Pengantar Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-operasi-dasar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Operasi dasar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-norma-dan-vektor-satuan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Norma dan vektor satuan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-jarak-dan-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Jarak dan dot product
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-menguji-tegak-lurus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Menguji tegak lurus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Cosine similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-operasi-vektor-dengan-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: operasi vektor dengan list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 2 - Aljabar Linear dan Kalkulus
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-2-aljabar-linear-dan-kalkulus/02-vektor.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-2-vektor">Part 2 — Vektor<a class="headerlink" href="#part-2-vektor" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>menjumlah, mengurang, dan mengalikan vektor dengan skalar, baik secara hitung maupun secara geometri;</li>
+<li>menghitung norma L1 dan L2 serta membuat vektor satuan;</li>
+<li>menghitung jarak Euclidean dan jarak Manhattan antara dua titik data;</li>
+<li>menghitung dot product dan menafsirkannya, termasuk menentukan apakah dua vektor tegak lurus;</li>
+<li>menjelaskan dan menghitung cosine similarity;</li>
+<li>menulis prediksi model linear sebagai <span class="arithmatex">\(\mathbf{w} \cdot \mathbf{x} + b\)</span>.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../01-pengantar-aljabar-linear/">Part 1 — Pengantar Aljabar Linear</a> (vektor, elemen, dimensi). Juga dibutuhkan: <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/">akar dan kuadrat</a>, <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/">nilai absolut</a>, serta notasi <span class="arithmatex">\(\sum\)</span> dari <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/">Level 0 — Part 8</a>. <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/">Level 1 — Part 11</a> membahas kosinus, tetapi ringkasannya diulang di bagian cosine similarity sehingga part itu tidak wajib.</p>
+<h2 id="mengapa-materi-ini-penting">Mengapa Materi Ini Penting?<a class="headerlink" href="#mengapa-materi-ini-penting" title="Permanent link">&para;</a></h2>
+<p>Operasi pada vektor adalah "kosakata" yang dipakai terus di Machine Learning: menjumlahkan data, mengukur seberapa jauh dua data, mengukur seberapa mirip dua data, dan menghitung prediksi dari banyak fitur sekaligus. Algoritma seperti k-nearest neighbors, sistem rekomendasi, dan pencarian teks bertumpu pada jarak dan kemiripan. Prediksi regresi linear adalah sebuah dot product.</p>
+<h2 id="konsep-dasar-dengan-bahasa-sederhana">Konsep Dasar dengan Bahasa Sederhana<a class="headerlink" href="#konsep-dasar-dengan-bahasa-sederhana" title="Permanent link">&para;</a></h2>
+<h3 id="1-vektor-sebagai-panah">1. Vektor sebagai Panah<a class="headerlink" href="#1-vektor-sebagai-panah" title="Permanent link">&para;</a></h3>
+<p>Dari Part 1: vektor dua elemen <span class="arithmatex">\((3, 2)\)</span> dapat dipandang sebagai <strong>panah</strong> dari titik asal ke titik <span class="arithmatex">\((3, 2)\)</span>. Elemen vektor menyatakan <strong>pergeseran</strong>: 3 ke kanan, lalu 2 ke atas. Panah memiliki <strong>arah</strong> dan <strong>panjang</strong>.</p>
+<p>Pandangan panah membantu memahami operasi vektor. Untuk vektor berdimensi 3 atau lebih, kita tidak dapat menggambar panah, tetapi aturan hitungnya sama.</p>
+<h3 id="2-penjumlahan-dan-pengurangan-vektor">2. Penjumlahan dan Pengurangan Vektor<a class="headerlink" href="#2-penjumlahan-dan-pengurangan-vektor" title="Permanent link">&para;</a></h3>
+<p><strong>Penjumlahan</strong> dilakukan <strong>elemen demi elemen</strong>, dengan syarat kedua vektor <strong>berdimensi sama</strong>:</p>
+<div class="arithmatex">\[
+\mathbf{u} + \mathbf{v} =
+\begin{bmatrix} u_1 + v_1 \\ u_2 + v_2 \end{bmatrix}
+\]</div>
+<p>Contoh: <span class="arithmatex">\(\mathbf{u} = (1, 3)\)</span> dan <span class="arithmatex">\(\mathbf{v} = (3, 2)\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{u} + \mathbf{v} = (1 + 3,\ 3 + 2) = (4, 5)\)</span>.</li>
+<li><span class="arithmatex">\(\mathbf{u} - \mathbf{v} = (1 - 3,\ 3 - 2) = (-2, 1)\)</span>.</li>
+<li><span class="arithmatex">\(\mathbf{v} - \mathbf{u} = (3 - 1,\ 2 - 3) = (2, -1)\)</span>.</li>
+</ul>
+<p>Syarat dimensi sama: <span class="arithmatex">\((1, 2, 3) + (4, 5)\)</span> <strong>tidak terdefinisi</strong>, sebab elemen ketiga tidak punya pasangan.</p>
+<div style="max-width:420px;margin:1rem auto"><svg viewBox="0 0 420 370" width="100%" role="img" aria-labelledby="vp-t vp-d" xmlns="http://www.w3.org/2000/svg" style="color:inherit;font-family:inherit;font-size:13px"><title id="vp-t">Penjumlahan dua vektor</title><desc id="vp-d">Vektor u = (1, 3) berwarna biru, vektor v = (3, 2) berwarna merah, dan jumlahnya u + v = (4, 5) berwarna hijau. Garis putus-putus menunjukkan jajar genjang dari kedua vektor.</desc><defs><marker id="vp-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c6bc0"/></marker></defs><defs><marker id="vp-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e53935"/></marker></defs><defs><marker id="vp-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#43a047"/></marker></defs><defs><marker id="vp-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<g stroke="currentColor" stroke-opacity="0.15"><line x1="50" y1="330" x2="50" y2="30"/><line x1="110" y1="330" x2="110" y2="30"/><line x1="170" y1="330" x2="170" y2="30"/><line x1="230" y1="330" x2="230" y2="30"/><line x1="290" y1="330" x2="290" y2="30"/><line x1="350" y1="330" x2="350" y2="30"/><line x1="50" y1="330" x2="350" y2="330"/><line x1="50" y1="270" x2="350" y2="270"/><line x1="50" y1="210" x2="350" y2="210"/><line x1="50" y1="150" x2="350" y2="150"/><line x1="50" y1="90" x2="350" y2="90"/><line x1="50" y1="30" x2="350" y2="30"/></g><g stroke="currentColor" stroke-width="1.5"><line x1="50" y1="330" x2="360" y2="330" marker-end="url(#vp-k)"/><line x1="50" y1="330" x2="50" y2="20" marker-end="url(#vp-k)"/></g><g fill="currentColor"><text x="50" y="346" text-anchor="middle">0</text><text x="110" y="346" text-anchor="middle">1</text><text x="170" y="346" text-anchor="middle">2</text><text x="230" y="346" text-anchor="middle">3</text><text x="290" y="346" text-anchor="middle">4</text><text x="350" y="346" text-anchor="middle">5</text><text x="42" y="274" text-anchor="end">1</text><text x="42" y="214" text-anchor="end">2</text><text x="42" y="154" text-anchor="end">3</text><text x="42" y="94" text-anchor="end">4</text><text x="42" y="34" text-anchor="end">5</text><text x="364" y="346" font-style="italic">x</text><text x="58" y="18" font-style="italic">y</text></g>
+<line x1="50" y1="330" x2="110" y2="150" stroke="#5c6bc0" stroke-width="2.5"  marker-end="url(#vp-b)"/>
+<line x1="50" y1="330" x2="230" y2="210" stroke="#e53935" stroke-width="2.5"  marker-end="url(#vp-r)"/>
+<line x1="50" y1="330" x2="290" y2="30" stroke="#43a047" stroke-width="3"  marker-end="url(#vp-g)"/>
+<line x1="110" y1="150" x2="290" y2="30" stroke="#e53935" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.7" marker-end="url(#vp-r)"/>
+<line x1="230" y1="210" x2="290" y2="30" stroke="#5c6bc0" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.7" marker-end="url(#vp-b)"/>
+<text x="120" y="146" fill="#5c6bc0" font-weight="bold">u = (1, 3)</text>
+<text x="238" y="214" fill="#e53935" font-weight="bold">v = (3, 2)</text>
+<text x="298" y="26" fill="#43a047" font-weight="bold">u + v = (4, 5)</text>
+</svg></div>
+
+<p><strong>Cara membaca gambar.</strong> Panah biru adalah <span class="arithmatex">\(\mathbf{u} = (1, 3)\)</span> dan panah merah adalah <span class="arithmatex">\(\mathbf{v} = (3, 2)\)</span>, keduanya dari titik asal. Panah hijau adalah <span class="arithmatex">\(\mathbf{u} + \mathbf{v} = (4, 5)\)</span>. Garis putus-putus menunjukkan cara membentuknya: dari ujung <span class="arithmatex">\(\mathbf{u}\)</span> bergeraklah sejauh <span class="arithmatex">\(\mathbf{v}\)</span> (garis merah putus-putus), atau dari ujung <span class="arithmatex">\(\mathbf{v}\)</span> bergeraklah sejauh <span class="arithmatex">\(\mathbf{u}\)</span> (garis biru putus-putus). Keduanya berakhir di titik yang sama, <span class="arithmatex">\((4, 5)\)</span>. Artinya urutan tidak penting: <span class="arithmatex">\(\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}\)</span>.</p>
+<p>Secara geometri, <span class="arithmatex">\(\mathbf{u} - \mathbf{v}\)</span> adalah panah dari <strong>ujung <span class="arithmatex">\(\mathbf{v}\)</span> ke ujung <span class="arithmatex">\(\mathbf{u}\)</span></strong>. Pada gambar, itu panah dari <span class="arithmatex">\((3, 2)\)</span> ke <span class="arithmatex">\((1, 3)\)</span>, yaitu pergeseran <span class="arithmatex">\((-2, 1)\)</span>.</p>
+<h3 id="3-perkalian-vektor-dengan-skalar">3. Perkalian Vektor dengan Skalar<a class="headerlink" href="#3-perkalian-vektor-dengan-skalar" title="Permanent link">&para;</a></h3>
+<p><strong>Perkalian dengan skalar</strong> <span class="arithmatex">\(c\)</span> mengalikan <strong>setiap elemen</strong> dengan <span class="arithmatex">\(c\)</span>:</p>
+<div class="arithmatex">\[
+c\,\mathbf{v} = \begin{bmatrix} c\,v_1 \\ c\,v_2 \end{bmatrix}
+\]</div>
+<p>Contoh dengan <span class="arithmatex">\(\mathbf{u} = (1, 3)\)</span> dan <span class="arithmatex">\(\mathbf{v} = (3, 2)\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(3\mathbf{u} = (3, 9)\)</span> (panah searah, tiga kali lebih panjang).</li>
+<li><span class="arithmatex">\(-2\mathbf{v} = (-6, -4)\)</span> (panah berbalik arah, dua kali lebih panjang).</li>
+<li><span class="arithmatex">\(\tfrac{1}{2}(4, 6) = (2, 3)\)</span> (separuh panjang).</li>
+<li><span class="arithmatex">\(0 \cdot \mathbf{v} = (0, 0)\)</span>, yaitu <strong>vektor nol</strong>.</li>
+</ul>
+<p>Aturan: <span class="arithmatex">\(c &gt; 1\)</span> memperpanjang, <span class="arithmatex">\(0 &lt; c &lt; 1\)</span> memperpendek, <span class="arithmatex">\(c &lt; 0\)</span> membalik arah, dan <span class="arithmatex">\(c = 0\)</span> menghasilkan vektor nol.</p>
+<p><strong>Kombinasi.</strong> Penjumlahan dan perkalian skalar boleh digabung: <span class="arithmatex">\(3\mathbf{u} - 2\mathbf{v} = (3, 9) - (6, 4) = (-3, 5)\)</span>.</p>
+<p><strong>Sifat yang berlaku</strong> (dapat dicek dengan angka): <span class="arithmatex">\(c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}\)</span>. Untuk <span class="arithmatex">\(c = 2\)</span>: <span class="arithmatex">\(2(4, 5) = (8, 10)\)</span> dan <span class="arithmatex">\(2(1, 3) + 2(3, 2) = (2, 6) + (6, 4) = (8, 10)\)</span>.</p>
+<h3 id="4-norma-vektor">4. Norma Vektor<a class="headerlink" href="#4-norma-vektor" title="Permanent link">&para;</a></h3>
+<p><strong>Norma</strong> (<em>norm</em>) adalah ukuran <strong>panjang</strong> sebuah vektor. Ada beberapa jenis; dua yang paling sering dipakai:</p>
+<p><strong>Norma L2 (Euclidean).</strong> Panjang "garis lurus", diperoleh dari teorema Pythagoras (Level 1, Part 5):</p>
+<div class="arithmatex">\[
+\lVert \mathbf{v} \rVert_2 = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2}
+\]</div>
+<p>Contoh: <span class="arithmatex">\(\mathbf{v} = (3, 4)\)</span>. <span class="arithmatex">\(\lVert \mathbf{v} \rVert_2 = \sqrt{9 + 16} = \sqrt{25} = 5\)</span>.</p>
+<p><strong>Norma L1 (Manhattan).</strong> Jumlah nilai absolut semua elemen:</p>
+<div class="arithmatex">\[
+\lVert \mathbf{v} \rVert_1 = \lvert v_1 \rvert + \lvert v_2 \rvert + \cdots + \lvert v_n \rvert
+\]</div>
+<p>Contoh: <span class="arithmatex">\(\lVert (3, 4) \rVert_1 = 3 + 4 = 7\)</span>. Namanya "Manhattan" karena sama dengan jarak berjalan di kota berpetak: 3 blok ke satu arah, lalu 4 blok ke arah lain, total 7, bukan lurus 5.</p>
+<p>Contoh dengan negatif dan tiga elemen: <span class="arithmatex">\(\mathbf{c} = (1, -2, 2)\)</span>. <span class="arithmatex">\(\lVert \mathbf{c} \rVert_2 = \sqrt{1 + 4 + 4} = 3\)</span> dan <span class="arithmatex">\(\lVert \mathbf{c} \rVert_1 = 1 + 2 + 2 = 5\)</span>. Nilai absolut membuat elemen negatif tetap menambah panjang.</p>
+<p>Sifat penting norma:</p>
+<ul>
+<li><span class="arithmatex">\(\lVert \mathbf{v} \rVert \geq 0\)</span>, dan <span class="arithmatex">\(= 0\)</span> hanya jika <span class="arithmatex">\(\mathbf{v}\)</span> vektor nol.</li>
+<li><span class="arithmatex">\(\lVert c\mathbf{v} \rVert = \lvert c \rvert\,\lVert \mathbf{v} \rVert\)</span>. Contoh: <span class="arithmatex">\(\lVert 2(3, 4) \rVert_2 = \lVert (6, 8) \rVert_2 = 10 = 2 \times 5\)</span>.</li>
+<li><strong>Ketaksamaan segitiga:</strong> <span class="arithmatex">\(\lVert \mathbf{u} + \mathbf{v} \rVert \leq \lVert \mathbf{u} \rVert + \lVert \mathbf{v} \rVert\)</span>. Contoh: <span class="arithmatex">\(\mathbf{u} = (3, 4)\)</span>, <span class="arithmatex">\(\mathbf{v} = (1, 0)\)</span>: <span class="arithmatex">\(\lVert (4, 4) \rVert_2 = \sqrt{32} \approx 5{,}657 \leq 5 + 1 = 6\)</span>. Garis lurus tidak pernah lebih panjang daripada jalan memutar.</li>
+</ul>
+<p><strong>Vektor satuan</strong> (<em>unit vector</em>) adalah vektor dengan norma L2 sama dengan 1. Untuk mendapatkannya, bagi vektor dengan normanya: <span class="arithmatex">\(\hat{\mathbf{v}} = \dfrac{\mathbf{v}}{\lVert \mathbf{v} \rVert_2}\)</span>. Untuk <span class="arithmatex">\((3, 4)\)</span>: <span class="arithmatex">\(\left(\tfrac{3}{5}, \tfrac{4}{5}\right) = (0{,}6;\ 0{,}8)\)</span>, yang normanya <span class="arithmatex">\(\sqrt{0{,}36 + 0{,}64} = 1\)</span>. Vektor satuan mempertahankan arah dan menghapus panjang. Vektor nol tidak punya vektor satuan (pembagian dengan nol).</p>
+<h3 id="5-jarak-euclidean">5. Jarak Euclidean<a class="headerlink" href="#5-jarak-euclidean" title="Permanent link">&para;</a></h3>
+<p><strong>Jarak Euclidean</strong> antara dua titik data <span class="arithmatex">\(\mathbf{a}\)</span> dan <span class="arithmatex">\(\mathbf{b}\)</span> adalah <strong>norma L2 dari selisihnya</strong>:</p>
+<div class="arithmatex">\[
+d(\mathbf{a}, \mathbf{b}) = \lVert \mathbf{a} - \mathbf{b} \rVert_2
+= \sqrt{(a_1 - b_1)^2 + \cdots + (a_n - b_n)^2}
+\]</div>
+<p>Ini rumus jarak dua titik di Level 1 yang diperluas ke dimensi berapa pun.</p>
+<p>Contoh: <span class="arithmatex">\(\mathbf{a} = (1, 2, 3)\)</span> dan <span class="arithmatex">\(\mathbf{b} = (4, 6, 3)\)</span>. Selisih: <span class="arithmatex">\(\mathbf{a} - \mathbf{b} = (-3, -4, 0)\)</span>. Jarak: <span class="arithmatex">\(\sqrt{9 + 16 + 0} = 5\)</span>. Jarak Manhattan (norma L1 dari selisih): <span class="arithmatex">\(3 + 4 + 0 = 7\)</span>.</p>
+<p><strong>Jarak mengikuti skala fitur.</strong> Misalkan dua orang dengan fitur (usia dalam tahun, pendapatan dalam ribu rupiah): <span class="arithmatex">\(\mathbf{a} = (25, 5000)\)</span> dan <span class="arithmatex">\(\mathbf{b} = (60, 5100)\)</span>. Selisih usia 35 kontribusi <span class="arithmatex">\(35^2 = 1225\)</span>, sedangkan selisih pendapatan 100 kontribusi <span class="arithmatex">\(100^2 = 10.000\)</span>. Jaraknya <span class="arithmatex">\(\sqrt{11.225} \approx 105{,}9\)</span>, dan hampir seluruhnya ditentukan oleh pendapatan karena angkanya lebih besar. Karena itu, fitur biasanya diubah ke skala yang sebanding (<em>scaling</em>) sebelum menghitung jarak, yang dibahas di level berikutnya.</p>
+<h3 id="6-dot-product">6. Dot Product<a class="headerlink" href="#6-dot-product" title="Permanent link">&para;</a></h3>
+<p><strong>Dot product</strong> (hasil kali titik, <em>inner product</em>) dua vektor berdimensi sama adalah <strong>jumlah dari hasil kali elemen-elemen yang berpasangan</strong>:</p>
+<div class="arithmatex">\[
+\mathbf{a} \cdot \mathbf{b} = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n = \sum_{i=1}^{n} a_i b_i
+\]</div>
+<p><strong>Hasilnya skalar</strong> (satu bilangan), bukan vektor.</p>
+<p>Contoh: <span class="arithmatex">\((1, 2, 3) \cdot (4, 5, 6) = 1 \times 4 + 2 \times 5 + 3 \times 6 = 4 + 10 + 18 = 32\)</span>.</p>
+<p>Syarat: dimensi harus sama. Sifat yang berlaku: <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \mathbf{b} \cdot \mathbf{a}\)</span> dan <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{a} = \lVert \mathbf{a} \rVert_2^2\)</span>. Cek: <span class="arithmatex">\((3, 4) \cdot (3, 4) = 9 + 16 = 25 = 5^2\)</span>.</p>
+<p><strong>Tafsiran geometri.</strong> Untuk sudut <span class="arithmatex">\(\theta\)</span> di antara kedua vektor:</p>
+<div class="arithmatex">\[
+\mathbf{a} \cdot \mathbf{b} = \lVert \mathbf{a} \rVert_2\,\lVert \mathbf{b} \rVert_2 \cos\theta
+\]</div>
+<p>Karena panjang selalu tak negatif, tanda dot product ditentukan oleh <span class="arithmatex">\(\cos\theta\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Dot product</th>
+<th><span class="arithmatex">\(\cos\theta\)</span></th>
+<th>Arti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>positif</td>
+<td>positif</td>
+<td>sudut lancip: kira-kira searah</td>
+</tr>
+<tr>
+<td>nol</td>
+<td>nol</td>
+<td>sudut <span class="arithmatex">\(90^\circ\)</span>: <strong>tegak lurus</strong> (ortogonal)</td>
+</tr>
+<tr>
+<td>negatif</td>
+<td>negatif</td>
+<td>sudut tumpul: kira-kira berlawanan</td>
+</tr>
+</tbody>
+</table>
+<p>Cek dengan <span class="arithmatex">\(\mathbf{a} = (1, 0)\)</span> dan <span class="arithmatex">\(\mathbf{b} = (1, 1)\)</span> (sudut <span class="arithmatex">\(45^\circ\)</span>): <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = 1\)</span>. Sisi kanan: <span class="arithmatex">\(1 \times \sqrt{2} \times \cos 45^\circ = \sqrt{2} \times \dfrac{\sqrt{2}}{2} = 1\)</span>. Sama.</p>
+<p><strong>Tegak lurus.</strong> <span class="arithmatex">\((2, -1) \cdot (1, 2) = 2 - 2 = 0\)</span>, jadi kedua vektor tegak lurus. Contoh lain: <span class="arithmatex">\((3, 0) \cdot (-2, 5) = -6\)</span> (negatif: sudut tumpul).</p>
+<p><strong>Dot product sebagai jumlah berbobot.</strong> Pada Part 1, prediksi rumah dihitung dengan "kalikan pasangan lalu jumlahkan". Itu persis dot product:</p>
+<div class="arithmatex">\[
+\hat{y} = \mathbf{w} \cdot \mathbf{x} + b
+\]</div>
+<p>Untuk <span class="arithmatex">\(\mathbf{w} = (2, 10, -1)\)</span>, <span class="arithmatex">\(\mathbf{x} = (60, 2, 5)\)</span>, dan <span class="arithmatex">\(b = 20\)</span>: <span class="arithmatex">\(\mathbf{w} \cdot \mathbf{x} = 120 + 20 - 5 = 135\)</span>, sehingga <span class="arithmatex">\(\hat{y} = 135 + 20 = 155\)</span>. Sama seperti Part 1, kini dengan notasi ringkas yang berlaku untuk dimensi berapa pun.</p>
+<h3 id="7-pengantar-cosine-similarity">7. Pengantar Cosine Similarity<a class="headerlink" href="#7-pengantar-cosine-similarity" title="Permanent link">&para;</a></h3>
+<p><strong>Cosine similarity</strong> (kemiripan kosinus) mengukur <strong>seberapa searah</strong> dua vektor, <strong>tanpa memperhatikan panjangnya</strong>. Rumusnya diperoleh dari tafsiran geometri dot product di atas:</p>
+<div class="arithmatex">\[
+\cos\theta = \frac{\mathbf{a} \cdot \mathbf{b}}{\lVert \mathbf{a} \rVert_2\,\lVert \mathbf{b} \rVert_2}
+\]</div>
+<p><strong>Ringkasan kosinus</strong> (dari Level 1, Part 11): untuk sudut <span class="arithmatex">\(\theta\)</span> antara dua vektor, <span class="arithmatex">\(\cos 0^\circ = 1\)</span> (searah), <span class="arithmatex">\(\cos 90^\circ = 0\)</span> (tegak lurus), dan <span class="arithmatex">\(\cos 180^\circ = -1\)</span> (berlawanan). Nilainya selalu berada di antara <span class="arithmatex">\(-1\)</span> dan <span class="arithmatex">\(1\)</span>. Kamu tidak perlu menghitung sudutnya; cukup memakai rumus dari dot product dan norma.</p>
+<p>Syarat: kedua vektor bukan vektor nol (jika tidak, penyebutnya nol).</p>
+<div style="max-width:420px;margin:1rem auto"><svg viewBox="0 0 420 300" width="100%" role="img" aria-labelledby="vs-t vs-d" xmlns="http://www.w3.org/2000/svg" style="color:inherit;font-family:inherit;font-size:13px"><title id="vs-t">Sudut antara dua vektor</title><desc id="vs-d">Vektor a = (1, 0) mendatar berwarna biru dan vektor b = (1, 1) berwarna merah membentuk sudut 45 derajat di titik asal.</desc><defs><marker id="vs-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c6bc0"/></marker></defs><defs><marker id="vs-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e53935"/></marker></defs><defs><marker id="vs-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#43a047"/></marker></defs><defs><marker id="vs-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<g stroke="currentColor" stroke-opacity="0.15"><line x1="60" y1="260" x2="60" y2="60"/><line x1="160" y1="260" x2="160" y2="60"/><line x1="260" y1="260" x2="260" y2="60"/><line x1="360" y1="260" x2="360" y2="60"/><line x1="60" y1="260" x2="360" y2="260"/><line x1="60" y1="160" x2="360" y2="160"/><line x1="60" y1="60" x2="360" y2="60"/></g><g stroke="currentColor" stroke-width="1.5"><line x1="60" y1="260" x2="370" y2="260" marker-end="url(#vs-k)"/><line x1="60" y1="260" x2="60" y2="50" marker-end="url(#vs-k)"/></g><g fill="currentColor"><text x="60" y="276" text-anchor="middle">0</text><text x="160" y="276" text-anchor="middle">1</text><text x="260" y="276" text-anchor="middle">2</text><text x="360" y="276" text-anchor="middle">3</text><text x="52" y="164" text-anchor="end">1</text><text x="52" y="64" text-anchor="end">2</text><text x="374" y="276" font-style="italic">x</text><text x="68" y="48" font-style="italic">y</text></g>
+<line x1="60" y1="260" x2="160" y2="260" stroke="#5c6bc0" stroke-width="2.5" marker-end="url(#vs-b)"/>
+<line x1="60" y1="260" x2="160" y2="160" stroke="#e53935" stroke-width="2.5" marker-end="url(#vs-r)"/>
+<path d="M110.0,260 A45,45 0 0 0 95.4,224.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="122.0" y="244.0" fill="currentColor">θ = 45°</text>
+<text x="166" y="252" fill="#5c6bc0" font-weight="bold">a = (1, 0)</text>
+<text x="166" y="156" fill="#e53935" font-weight="bold">b = (1, 1)</text>
+</svg></div>
+
+<p><strong>Cara membaca gambar.</strong> Vektor <span class="arithmatex">\(\mathbf{a} = (1, 0)\)</span> (biru) mendatar, dan <span class="arithmatex">\(\mathbf{b} = (1, 1)\)</span> (merah) miring ke atas. Busur menandai sudut <span class="arithmatex">\(\theta = 45^\circ\)</span> di antara keduanya.</p>
+<p>Hitung: <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = 1\)</span>, <span class="arithmatex">\(\lVert \mathbf{a} \rVert_2 = 1\)</span>, <span class="arithmatex">\(\lVert \mathbf{b} \rVert_2 = \sqrt{2}\)</span>, sehingga <span class="arithmatex">\(\cos\theta = \dfrac{1}{1 \cdot \sqrt{2}} = \dfrac{\sqrt{2}}{2} \approx 0{,}7071\)</span>. Ini cocok dengan <span class="arithmatex">\(\cos 45^\circ\)</span>.</p>
+<p>Contoh lain:</p>
+<table>
+<thead>
+<tr>
+<th>Pasangan</th>
+<th>Perhitungan</th>
+<th><span class="arithmatex">\(\cos\theta\)</span></th>
+<th>Arti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\((2, 0)\)</span> dan <span class="arithmatex">\((5, 0)\)</span></td>
+<td><span class="arithmatex">\(\dfrac{10}{2 \cdot 5}\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td>searah penuh (panjang tidak berpengaruh)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\((1, 0)\)</span> dan <span class="arithmatex">\((0, 5)\)</span></td>
+<td><span class="arithmatex">\(\dfrac{0}{1 \cdot 5}\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+<td>tegak lurus</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\((1, 1)\)</span> dan <span class="arithmatex">\((-1, -1)\)</span></td>
+<td><span class="arithmatex">\(\dfrac{-2}{\sqrt{2}\sqrt{2}}\)</span></td>
+<td><span class="arithmatex">\(-1\)</span></td>
+<td>berlawanan arah</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\((3, 4)\)</span> dan <span class="arithmatex">\((6, 8)\)</span></td>
+<td><span class="arithmatex">\(\dfrac{50}{5 \cdot 10}\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td>searah (kelipatan)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mengapa mengabaikan panjang?</strong> Pada teks, dokumen panjang punya hitungan kata yang lebih besar daripada dokumen pendek, padahal topiknya bisa sama. Misalkan hitungan tiga kata untuk tiga dokumen: <span class="arithmatex">\(\mathbf{d}_1 = (2, 1, 0)\)</span>, <span class="arithmatex">\(\mathbf{d}_2 = (4, 2, 0)\)</span>, dan <span class="arithmatex">\(\mathbf{d}_3 = (0, 1, 3)\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{d}_2 = 2\mathbf{d}_1\)</span> (dokumen yang dua kali lebih panjang dengan proporsi kata yang sama): <span class="arithmatex">\(\cos = 1\)</span>, topik sama.</li>
+<li><span class="arithmatex">\(\mathbf{d}_1\)</span> dan <span class="arithmatex">\(\mathbf{d}_3\)</span>: <span class="arithmatex">\(\dfrac{0 + 1 + 0}{\sqrt{5}\sqrt{10}} = \dfrac{1}{\sqrt{50}} \approx 0{,}1414\)</span>: sangat berbeda.</li>
+</ul>
+<p>Jarak Euclidean <span class="arithmatex">\(\mathbf{d}_1\)</span> ke <span class="arithmatex">\(\mathbf{d}_2\)</span> adalah <span class="arithmatex">\(\sqrt{4 + 1 + 0} \approx 2{,}236\)</span>, dan ke <span class="arithmatex">\(\mathbf{d}_3\)</span> adalah <span class="arithmatex">\(\sqrt{4 + 0 + 9} \approx 3{,}606\)</span>. Di contoh ini keduanya sepakat bahwa <span class="arithmatex">\(\mathbf{d}_2\)</span> lebih dekat, tetapi jarak Euclidean menganggap <span class="arithmatex">\(\mathbf{d}_1\)</span> dan <span class="arithmatex">\(\mathbf{d}_2\)</span> "berbeda" karena panjangnya berbeda, sedangkan cosine similarity menganggapnya sama.</p>
+<p><strong>Jarak kosinus</strong> (<em>cosine distance</em>) sering didefinisikan sebagai <span class="arithmatex">\(1 - \cos\theta\)</span>: bernilai 0 untuk searah dan makin besar untuk makin berbeda.</p>
+<h2 id="istilah-yang-perlu-dipahami">Istilah yang Perlu Dipahami<a class="headerlink" href="#istilah-yang-perlu-dipahami" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Istilah</th>
+<th>Arti sederhana</th>
+<th>Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Penjumlahan vektor</td>
+<td>jumlahkan elemen yang berpasangan</td>
+<td><span class="arithmatex">\((1,3) + (3,2) = (4,5)\)</span></td>
+</tr>
+<tr>
+<td>Perkalian skalar</td>
+<td>kalikan setiap elemen dengan bilangan</td>
+<td><span class="arithmatex">\(3(1,3) = (3,9)\)</span></td>
+</tr>
+<tr>
+<td>Vektor nol</td>
+<td>semua elemen nol</td>
+<td><span class="arithmatex">\((0, 0)\)</span></td>
+</tr>
+<tr>
+<td>Norma (<em>norm</em>)</td>
+<td>ukuran panjang vektor</td>
+<td><span class="arithmatex">\(\lVert (3,4) \rVert_2 = 5\)</span></td>
+</tr>
+<tr>
+<td>Norma L2 (Euclidean)</td>
+<td>akar jumlah kuadrat elemen</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Norma L1 (Manhattan)</td>
+<td>jumlah nilai absolut elemen</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Vektor satuan</td>
+<td>vektor dengan norma 1</td>
+<td><span class="arithmatex">\((0{,}6;\ 0{,}8)\)</span></td>
+</tr>
+<tr>
+<td>Jarak Euclidean</td>
+<td>norma L2 dari selisih dua vektor</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Dot product</td>
+<td>jumlah hasil kali elemen berpasangan</td>
+<td><span class="arithmatex">\((1,2,3)\cdot(4,5,6) = 32\)</span></td>
+</tr>
+<tr>
+<td>Ortogonal</td>
+<td>tegak lurus; dot product nol</td>
+<td><span class="arithmatex">\((2,-1)\cdot(1,2) = 0\)</span></td>
+</tr>
+<tr>
+<td>Cosine similarity</td>
+<td>kosinus sudut antara dua vektor</td>
+<td><span class="arithmatex">\(0{,}7071\)</span> untuk <span class="arithmatex">\(45^\circ\)</span></td>
+</tr>
+<tr>
+<td>Ketaksamaan segitiga</td>
+<td><span class="arithmatex">\(\lVert \mathbf{u}+\mathbf{v} \rVert \leq \lVert \mathbf{u} \rVert + \lVert \mathbf{v} \rVert\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Fitur (<em>feature</em>)</td>
+<td>satu sifat yang diukur</td>
+<td>usia</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<p>Di semua rumus, <span class="arithmatex">\(\mathbf{a}\)</span>, <span class="arithmatex">\(\mathbf{b}\)</span>, <span class="arithmatex">\(\mathbf{u}\)</span>, <span class="arithmatex">\(\mathbf{v} \in \mathbb{R}^n\)</span> adalah vektor berdimensi sama, dan <span class="arithmatex">\(c\)</span> adalah skalar.</p>
+<table>
+<thead>
+<tr>
+<th>Operasi</th>
+<th>Rumus</th>
+<th>Syarat</th>
+<th>Hasil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Penjumlahan</td>
+<td><span class="arithmatex">\((\mathbf{u} + \mathbf{v})_i = u_i + v_i\)</span></td>
+<td>dimensi sama</td>
+<td>vektor</td>
+</tr>
+<tr>
+<td>Perkalian skalar</td>
+<td><span class="arithmatex">\((c\mathbf{v})_i = c\,v_i\)</span></td>
+<td></td>
+<td>vektor</td>
+</tr>
+<tr>
+<td>Norma L2</td>
+<td><span class="arithmatex">\(\lVert \mathbf{v} \rVert_2 = \sqrt{\sum_{i=1}^{n} v_i^2}\)</span></td>
+<td></td>
+<td>skalar <span class="arithmatex">\(\geq 0\)</span></td>
+</tr>
+<tr>
+<td>Norma L1</td>
+<td><span class="arithmatex">\(\lVert \mathbf{v} \rVert_1 = \sum_{i=1}^{n} \lvert v_i \rvert\)</span></td>
+<td></td>
+<td>skalar <span class="arithmatex">\(\geq 0\)</span></td>
+</tr>
+<tr>
+<td>Vektor satuan</td>
+<td><span class="arithmatex">\(\hat{\mathbf{v}} = \dfrac{\mathbf{v}}{\lVert \mathbf{v} \rVert_2}\)</span></td>
+<td><span class="arithmatex">\(\mathbf{v} \neq \mathbf{0}\)</span></td>
+<td>vektor</td>
+</tr>
+<tr>
+<td>Jarak Euclidean</td>
+<td><span class="arithmatex">\(d(\mathbf{a}, \mathbf{b}) = \lVert \mathbf{a} - \mathbf{b} \rVert_2\)</span></td>
+<td>dimensi sama</td>
+<td>skalar <span class="arithmatex">\(\geq 0\)</span></td>
+</tr>
+<tr>
+<td>Dot product</td>
+<td><span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^{n} a_i b_i\)</span></td>
+<td>dimensi sama</td>
+<td>skalar</td>
+</tr>
+<tr>
+<td>Cosine similarity</td>
+<td><span class="arithmatex">\(\cos\theta = \dfrac{\mathbf{a} \cdot \mathbf{b}}{\lVert \mathbf{a} \rVert_2 \lVert \mathbf{b} \rVert_2}\)</span></td>
+<td><span class="arithmatex">\(\mathbf{a}, \mathbf{b} \neq \mathbf{0}\)</span></td>
+<td>skalar di <span class="arithmatex">\([-1, 1]\)</span></td>
+</tr>
+<tr>
+<td>Prediksi linear</td>
+<td><span class="arithmatex">\(\hat{y} = \mathbf{w} \cdot \mathbf{x} + b\)</span></td>
+<td><span class="arithmatex">\(\mathbf{w}, \mathbf{x}\)</span> dimensi sama</td>
+<td>skalar</td>
+</tr>
+</tbody>
+</table>
+<p>Penjelasan simbol: <span class="arithmatex">\(\mathbf{0}\)</span> adalah vektor nol; <span class="arithmatex">\(\hat{\mathbf{v}}\)</span> (v topi tebal) adalah vektor satuan; angka 2 dan 1 di bawah garis ganda (<span class="arithmatex">\(\lVert \cdot \rVert_2\)</span>) menandai jenis norma; <span class="arithmatex">\(v_i\)</span> adalah elemen ke-<span class="arithmatex">\(i\)</span>; <span class="arithmatex">\(\sum_{i=1}^{n}\)</span> menjumlahkan untuk <span class="arithmatex">\(i = 1\)</span> sampai <span class="arithmatex">\(n\)</span> (Level 0).</p>
+<h2 id="penjelasan-langkah-demi-langkah">Penjelasan Langkah demi Langkah<a class="headerlink" href="#penjelasan-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<p><strong>Menghitung cosine similarity <span class="arithmatex">\(\mathbf{a} = (1, 2, 3)\)</span> dan <span class="arithmatex">\(\mathbf{b} = (4, 5, 6)\)</span>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Langkah</th>
+<th>Perhitungan</th>
+<th>Hasil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Dot product</td>
+<td><span class="arithmatex">\(1 \cdot 4 + 2 \cdot 5 + 3 \cdot 6 = 4 + 10 + 18\)</span></td>
+<td><span class="arithmatex">\(32\)</span></td>
+</tr>
+<tr>
+<td>2. Norma <span class="arithmatex">\(\mathbf{a}\)</span></td>
+<td><span class="arithmatex">\(\sqrt{1 + 4 + 9} = \sqrt{14}\)</span></td>
+<td><span class="arithmatex">\(\approx 3{,}7417\)</span></td>
+</tr>
+<tr>
+<td>3. Norma <span class="arithmatex">\(\mathbf{b}\)</span></td>
+<td><span class="arithmatex">\(\sqrt{16 + 25 + 36} = \sqrt{77}\)</span></td>
+<td><span class="arithmatex">\(\approx 8{,}7750\)</span></td>
+</tr>
+<tr>
+<td>4. Hasil kali norma</td>
+<td><span class="arithmatex">\(\sqrt{14} \times \sqrt{77} = \sqrt{1078}\)</span></td>
+<td><span class="arithmatex">\(\approx 32{,}8329\)</span></td>
+</tr>
+<tr>
+<td>5. Bagi</td>
+<td><span class="arithmatex">\(\dfrac{32}{32{,}8329}\)</span></td>
+<td><span class="arithmatex">\(\approx 0{,}9746\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Nilai <span class="arithmatex">\(0{,}9746\)</span> dekat dengan 1: kedua vektor hampir searah (sudut sekitar <span class="arithmatex">\(12{,}9^\circ\)</span>).</p>
+<h2 id="contoh-soal-dan-pembahasan">Contoh Soal dan Pembahasan<a class="headerlink" href="#contoh-soal-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-operasi-dasar">Contoh 1 — Operasi dasar<a class="headerlink" href="#contoh-1-operasi-dasar" title="Permanent link">&para;</a></h3>
+<p>Diketahui <span class="arithmatex">\(\mathbf{u} = (1, 3)\)</span> dan <span class="arithmatex">\(\mathbf{v} = (3, 2)\)</span>. Hitung <span class="arithmatex">\(\mathbf{u} + \mathbf{v}\)</span>, <span class="arithmatex">\(3\mathbf{u} - 2\mathbf{v}\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{u} + \mathbf{v} = (1 + 3,\ 3 + 2) = (4, 5)\)</span>.</li>
+<li><span class="arithmatex">\(3\mathbf{u} = (3, 9)\)</span> dan <span class="arithmatex">\(2\mathbf{v} = (6, 4)\)</span>.</li>
+<li><span class="arithmatex">\(3\mathbf{u} - 2\mathbf{v} = (3 - 6,\ 9 - 4) = (-3, 5)\)</span>.</li>
+<li>Cek elemen pertama dari awal: <span class="arithmatex">\(3(1) - 2(3) = 3 - 6 = -3\)</span>. Cocok.</li>
+</ol>
+<h3 id="contoh-2-norma-dan-vektor-satuan">Contoh 2 — Norma dan vektor satuan<a class="headerlink" href="#contoh-2-norma-dan-vektor-satuan" title="Permanent link">&para;</a></h3>
+<p>Hitung norma L1 dan L2 dari <span class="arithmatex">\(\mathbf{v} = (-5, 12)\)</span>, lalu buat vektor satuannya.</p>
+<ol>
+<li>L2: <span class="arithmatex">\(\sqrt{(-5)^2 + 12^2} = \sqrt{25 + 144} = \sqrt{169} = 13\)</span>.</li>
+<li>L1: <span class="arithmatex">\(\lvert -5 \rvert + \lvert 12 \rvert = 5 + 12 = 17\)</span>.</li>
+<li>Vektor satuan: <span class="arithmatex">\(\dfrac{1}{13}(-5, 12) = \left(-\tfrac{5}{13}, \tfrac{12}{13}\right) \approx (-0{,}385;\ 0{,}923)\)</span>.</li>
+<li>Cek norma: <span class="arithmatex">\(\tfrac{25}{169} + \tfrac{144}{169} = \tfrac{169}{169} = 1\)</span>.</li>
+</ol>
+<h3 id="contoh-3-jarak-dan-dot-product">Contoh 3 — Jarak dan dot product<a class="headerlink" href="#contoh-3-jarak-dan-dot-product" title="Permanent link">&para;</a></h3>
+<p>Hitung jarak Euclidean antara <span class="arithmatex">\(\mathbf{a} = (1, 2, 3)\)</span> dan <span class="arithmatex">\(\mathbf{b} = (4, 6, 3)\)</span>, serta <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b}\)</span>.</p>
+<ol>
+<li>Selisih: <span class="arithmatex">\(\mathbf{a} - \mathbf{b} = (-3, -4, 0)\)</span>.</li>
+<li>Jarak: <span class="arithmatex">\(\sqrt{9 + 16 + 0} = 5\)</span>.</li>
+<li>Dot product: <span class="arithmatex">\(1 \cdot 4 + 2 \cdot 6 + 3 \cdot 3 = 4 + 12 + 9 = 25\)</span>.</li>
+<li>Cek: <span class="arithmatex">\(\lVert \mathbf{a} \rVert^2 + \lVert \mathbf{b} \rVert^2 - 2\,\mathbf{a} \cdot \mathbf{b} = 14 + 61 - 50 = 25 = d^2\)</span>. Hubungan ini juga benar (jarak kuadrat berasal dari dot product).</li>
+</ol>
+<h3 id="contoh-4-menguji-tegak-lurus">Contoh 4 — Menguji tegak lurus<a class="headerlink" href="#contoh-4-menguji-tegak-lurus" title="Permanent link">&para;</a></h3>
+<p>Apakah <span class="arithmatex">\((2, -1)\)</span> dan <span class="arithmatex">\((1, 2)\)</span> tegak lurus? Bagaimana dengan <span class="arithmatex">\((3, 0)\)</span> dan <span class="arithmatex">\((-2, 5)\)</span>?</p>
+<ol>
+<li><span class="arithmatex">\((2, -1) \cdot (1, 2) = 2 \cdot 1 + (-1) \cdot 2 = 2 - 2 = 0\)</span>. Dot product nol, jadi <strong>tegak lurus</strong>.</li>
+<li><span class="arithmatex">\((3, 0) \cdot (-2, 5) = 3(-2) + 0 \cdot 5 = -6\)</span>. Tidak nol, jadi <strong>tidak tegak lurus</strong>. Karena negatif, sudutnya tumpul.</li>
+</ol>
+<h3 id="contoh-5-cosine-similarity">Contoh 5 — Cosine similarity<a class="headerlink" href="#contoh-5-cosine-similarity" title="Permanent link">&para;</a></h3>
+<p>Hitung cosine similarity <span class="arithmatex">\(\mathbf{d}_1 = (2, 1, 0)\)</span> dan <span class="arithmatex">\(\mathbf{d}_3 = (0, 1, 3)\)</span>.</p>
+<ol>
+<li>Dot product: <span class="arithmatex">\(2 \cdot 0 + 1 \cdot 1 + 0 \cdot 3 = 1\)</span>.</li>
+<li>Norma: <span class="arithmatex">\(\lVert \mathbf{d}_1 \rVert = \sqrt{4 + 1 + 0} = \sqrt{5}\)</span> dan <span class="arithmatex">\(\lVert \mathbf{d}_3 \rVert = \sqrt{0 + 1 + 9} = \sqrt{10}\)</span>.</li>
+<li><span class="arithmatex">\(\cos\theta = \dfrac{1}{\sqrt{5}\sqrt{10}} = \dfrac{1}{\sqrt{50}} \approx \dfrac{1}{7{,}071} \approx 0{,}1414\)</span>.</li>
+<li>Interpretasi: nilainya dekat 0, jadi kedua dokumen berbeda topik.</li>
+</ol>
+<h2 id="contoh-tambahan-dengan-kesulitan-bertahap">Contoh Tambahan dengan Kesulitan Bertahap<a class="headerlink" href="#contoh-tambahan-dengan-kesulitan-bertahap" title="Permanent link">&para;</a></h2>
+<p><strong>Mudah.</strong> <span class="arithmatex">\((2, 5) + (1, -3) = (3, 2)\)</span> dan <span class="arithmatex">\(4(1, -2) = (4, -8)\)</span>.</p>
+<p><strong>Sedang.</strong> Jarak <span class="arithmatex">\((0, 0)\)</span> ke <span class="arithmatex">\((6, 8)\)</span> adalah <span class="arithmatex">\(\sqrt{36 + 64} = 10\)</span>, dan jarak Manhattan-nya <span class="arithmatex">\(6 + 8 = 14\)</span>.</p>
+<p><strong>Sedang.</strong> <span class="arithmatex">\((3, 4) \cdot (3, 4) = 25 = \lVert (3, 4) \rVert_2^2\)</span>. Dot product sebuah vektor dengan dirinya sendiri adalah norma kuadratnya.</p>
+<p><strong>Menantang.</strong> Prediksi <span class="arithmatex">\(\hat{y} = \mathbf{w} \cdot \mathbf{x} + b\)</span> dengan <span class="arithmatex">\(\mathbf{w} = (0{,}5;\ 2)\)</span>, <span class="arithmatex">\(\mathbf{x} = (10, 3)\)</span>, <span class="arithmatex">\(b = 1\)</span>: <span class="arithmatex">\(0{,}5 \times 10 + 2 \times 3 + 1 = 5 + 6 + 1 = 12\)</span>.</p>
+<h2 id="visualisasi-atau-interpretasi-grafik">Visualisasi atau Interpretasi Grafik<a class="headerlink" href="#visualisasi-atau-interpretasi-grafik" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Penjumlahan:</strong> panah disambung ujung ke pangkal, atau dibentuk jajar genjang. Hasilnya panah dari titik asal ke ujung gabungan.</li>
+<li><strong>Perkalian skalar:</strong> memperpanjang, memperpendek, atau membalik panah pada garis yang sama.</li>
+<li><strong>Norma:</strong> panjang panah (L2, garis lurus); L1 adalah jarak menyusuri sumbu.</li>
+<li><strong>Dot product dan sudut:</strong> makin kecil sudut, makin besar kosinus dan makin besar dot product (untuk panjang tetap).</li>
+<li><strong>Cosine similarity:</strong> hanya sudut yang dihitung. Vektor yang sama arah tetapi panjang berbeda mendapat nilai 1.</li>
+</ul>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kesalahan</th>
+<th>Mengapa salah</th>
+<th>Yang benar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menjumlahkan vektor berdimensi berbeda</td>
+<td>elemen tidak berpasangan</td>
+<td>tidak terdefinisi</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\lVert (3, 4) \rVert_2 = 3 + 4 = 7\)</span></td>
+<td>itu norma L1</td>
+<td><span class="arithmatex">\(\sqrt{9 + 16} = 5\)</span></td>
+</tr>
+<tr>
+<td>Lupa nilai absolut pada norma L1 untuk elemen negatif</td>
+<td>panjang tidak boleh berkurang</td>
+<td><span class="arithmatex">\(\lvert -2 \rvert = 2\)</span></td>
+</tr>
+<tr>
+<td>Menulis <span class="arithmatex">\(\sqrt{a^2 + b^2} = a + b\)</span></td>
+<td>akar tidak dipecah pada penjumlahan</td>
+<td><span class="arithmatex">\(\sqrt{9 + 16} = 5 \neq 7\)</span></td>
+</tr>
+<tr>
+<td>Menganggap dot product berupa vektor</td>
+<td>hasilnya skalar</td>
+<td><span class="arithmatex">\((1,2)\cdot(3,4) = 11\)</span>, bukan <span class="arithmatex">\((3, 8)\)</span></td>
+</tr>
+<tr>
+<td>Menyimpulkan dot product nol berarti salah satu vektor nol</td>
+<td>bisa juga tegak lurus</td>
+<td><span class="arithmatex">\((2,-1)\cdot(1,2) = 0\)</span></td>
+</tr>
+<tr>
+<td>Menghitung cosine similarity dengan vektor nol</td>
+<td>penyebutnya nol</td>
+<td>tidak terdefinisi</td>
+</tr>
+<tr>
+<td>Menganggap cosine similarity memakai panjang</td>
+<td>panjang dibagi habis</td>
+<td><span class="arithmatex">\((1,1)\)</span> dan <span class="arithmatex">\((10,10)\)</span> memberi <span class="arithmatex">\(1\)</span></td>
+</tr>
+<tr>
+<td>Membandingkan jarak antar fitur berskala sangat beda tanpa penyesuaian</td>
+<td>fitur besar mendominasi</td>
+<td>ubah skala fitur dulu</td>
+</tr>
+<tr>
+<td>Mengira <span class="arithmatex">\(\mathbf{u} - \mathbf{v} = \mathbf{v} - \mathbf{u}\)</span></td>
+<td>pengurangan membalik arah</td>
+<td><span class="arithmatex">\((1,3)-(3,2) = (-2, 1)\)</span>, <span class="arithmatex">\((3,2)-(1,3) = (2,-1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="hubungan-dengan-machine-learning">Hubungan dengan Machine Learning<a class="headerlink" href="#hubungan-dengan-machine-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Prediksi linear.</strong> <span class="arithmatex">\(\hat{y} = \mathbf{w} \cdot \mathbf{x} + b\)</span> adalah dot product bobot dan fitur ditambah bias. Bentuk ini dipakai di regresi linear, regresi logistik, dan setiap neuron di jaringan saraf.</li>
+<li><strong>k-nearest neighbors.</strong> Prediksi untuk data baru memakai jarak Euclidean ke data lama: yang terdekat paling berpengaruh. Skala fitur harus dijaga.</li>
+<li><strong>Cosine similarity.</strong> Dipakai di pencarian teks, sistem rekomendasi, dan pembandingan <em>embedding</em> (vektor yang mewakili kata atau kalimat), karena arah lebih penting daripada panjang.</li>
+<li><strong>Norma L1 dan L2.</strong> Dipakai pada regularisasi (menghukum bobot yang besar) di level berikutnya: L1 mendorong banyak bobot menjadi tepat nol, L2 mengecilkan semuanya.</li>
+<li><strong>Vektor satuan</strong> (normalisasi) sering dipakai agar hanya arah yang diperhitungkan.</li>
+</ul>
+<h3 id="python-operasi-vektor-dengan-list">Python: operasi vektor dengan <code>list</code><a class="headerlink" href="#python-operasi-vektor-dengan-list" title="Permanent link">&para;</a></h3>
+<p>Fungsi berikut hanya memakai <code>list</code>, <code>zip</code>, dan <code>math</code>, sehingga setiap rumus terlihat jelas.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">tambah</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">ui</span> <span class="o">+</span> <span class="n">vi</span> <span class="k">for</span> <span class="n">ui</span><span class="p">,</span> <span class="n">vi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">kali_skalar</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="o">*</span> <span class="n">vi</span> <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ai</span> <span class="o">*</span> <span class="n">bi</span> <span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">norma2</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vi</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">v</span><span class="p">))</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">norma1</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">vi</span><span class="p">)</span> <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">v</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">jarak</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">return</span> <span class="n">norma2</span><span class="p">([</span><span class="n">ai</span> <span class="o">-</span> <span class="n">bi</span> <span class="k">for</span> <span class="n">ai</span><span class="p">,</span> <span class="n">bi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)])</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">def</span><span class="w"> </span><span class="nf">kosinus</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="k">return</span> <span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">norma2</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">norma2</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span></code></pre></div>
+<p>Operasi dasar dan norma:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">tambah</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>                    <span class="c1"># [4, 5]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">tambah</span><span class="p">(</span><span class="n">kali_skalar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">u</span><span class="p">),</span> <span class="n">kali_skalar</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">v</span><span class="p">)))</span>   <span class="c1"># [-3, 5]</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">norma2</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>    <span class="c1"># 5.0</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">norma1</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>    <span class="c1"># 7</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">norma2</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">]),</span> <span class="n">norma1</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">]))</span>   <span class="c1"># 13.0 17</span>
+</span></code></pre></div>
+<p>Jarak dan dot product:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">jarak</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>       <span class="c1"># 5.0</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>         <span class="c1"># 25</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>   <span class="c1"># 5.0, fungsi bawaan untuk jarak Euclidean</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">dot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>   <span class="c1"># 32</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">dot</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>        <span class="c1"># 0, tegak lurus</span>
+</span></code></pre></div>
+<p>Cosine similarity, termasuk contoh teks:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>        <span class="c1"># 0.7071</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 0.9746</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]))</span>                  <span class="c1"># 1.0</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 1.0</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># 0.1414</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">sudut</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">kosinus</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])))</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">sudut</span><span class="p">))</span>                              <span class="c1"># 45</span>
+</span></code></pre></div>
+<p>Dalam perhitungan desimal, hasil yang secara matematis tepat 1 kadang tampil sedikit menyimpang (misalnya <code>0.9999999999999999</code>) karena pendekatan (Level 0, Part 1), sehingga <code>round</code> berguna untuk dibaca.</p>
+<p>Prediksi model linear, ditulis sebagai dot product:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">b</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># 155</span>
+</span></code></pre></div>
+<p>Memeriksa syarat dimensi sebelum menjumlah:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># print(tambah([1, 2, 3], [4, 5]))   # tidak memberi galat: zip memotong yang lebih panjang!</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">tambah</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>     <span class="c1"># [5, 7], hasilnya salah dan tanpa peringatan</span>
+</span></code></pre></div>
+<p>Perhatikan peringatan di atas: <code>zip</code> diam-diam memotong vektor yang lebih panjang, sehingga kesalahan dimensi tidak terdeteksi. Dalam kode nyata, periksa <code>len(u) == len(v)</code> terlebih dahulu.</p>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Dengan <span class="arithmatex">\(\mathbf{u} = (1, 3)\)</span> dan <span class="arithmatex">\(\mathbf{v} = (3, 2)\)</span>, hitung <span class="arithmatex">\(\mathbf{u} + \mathbf{v}\)</span>, <span class="arithmatex">\(\mathbf{u} - \mathbf{v}\)</span>, dan <span class="arithmatex">\(\mathbf{v} - \mathbf{u}\)</span>.</li>
+<li>Hitung: (a) <span class="arithmatex">\(3\mathbf{u}\)</span> (b) <span class="arithmatex">\(-2\mathbf{v}\)</span> (c) <span class="arithmatex">\(\tfrac{1}{2}(4, 6)\)</span> (d) <span class="arithmatex">\(3\mathbf{u} - 2\mathbf{v}\)</span></li>
+<li>Hitung norma L2 dan L1: (a) <span class="arithmatex">\((3, 4)\)</span> (b) <span class="arithmatex">\((-5, 12)\)</span> (c) <span class="arithmatex">\((1, -2, 2)\)</span></li>
+<li>Buat vektor satuan dari <span class="arithmatex">\((3, 4)\)</span> dan dari <span class="arithmatex">\((0, -2)\)</span>. Buktikan normanya 1.</li>
+<li>Hitung jarak Euclidean dan jarak Manhattan: (a) <span class="arithmatex">\((1, 2, 3)\)</span> dan <span class="arithmatex">\((4, 6, 3)\)</span> (b) <span class="arithmatex">\((0, 0)\)</span> dan <span class="arithmatex">\((6, 8)\)</span></li>
+<li>Hitung dot product: (a) <span class="arithmatex">\((1, 2, 3) \cdot (4, 5, 6)\)</span> (b) <span class="arithmatex">\((2, -1) \cdot (1, 2)\)</span> (c) <span class="arithmatex">\((3, 0) \cdot (-2, 5)\)</span>. Mana yang tegak lurus?</li>
+<li>Hitung cosine similarity: (a) <span class="arithmatex">\((1, 0)\)</span> dan <span class="arithmatex">\((1, 1)\)</span> (b) <span class="arithmatex">\((3, 4)\)</span> dan <span class="arithmatex">\((6, 8)\)</span> (c) <span class="arithmatex">\((1, 1)\)</span> dan <span class="arithmatex">\((-1, -1)\)</span> (d) <span class="arithmatex">\((1, 0)\)</span> dan <span class="arithmatex">\((0, 5)\)</span>. Tafsirkan masing-masing.</li>
+<li>Tiga dokumen: <span class="arithmatex">\(\mathbf{d}_1 = (2, 1, 0)\)</span>, <span class="arithmatex">\(\mathbf{d}_2 = (4, 2, 0)\)</span>, <span class="arithmatex">\(\mathbf{d}_3 = (0, 1, 3)\)</span>. Hitung cosine similarity <span class="arithmatex">\(\mathbf{d}_1\)</span> dengan <span class="arithmatex">\(\mathbf{d}_2\)</span> dan dengan <span class="arithmatex">\(\mathbf{d}_3\)</span>. Mana yang paling mirip dengan <span class="arithmatex">\(\mathbf{d}_1\)</span>?</li>
+<li>Model <span class="arithmatex">\(\hat{y} = \mathbf{w} \cdot \mathbf{x} + b\)</span> dengan <span class="arithmatex">\(\mathbf{w} = (0{,}5;\ 2)\)</span> dan <span class="arithmatex">\(b = 1\)</span>. Hitung prediksi untuk <span class="arithmatex">\(\mathbf{x} = (10, 3)\)</span>.</li>
+<li>Temukan kesalahan: (a) "<span class="arithmatex">\((1, 2, 3) + (4, 5)\)</span> sama dengan <span class="arithmatex">\((5, 7, 3)\)</span>." (b) "<span class="arithmatex">\((1, 2) \cdot (3, 4) = (3, 8)\)</span>." (c) "Norma <span class="arithmatex">\((3, 4)\)</span> adalah <span class="arithmatex">\(3 + 4 = 7\)</span>."</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p><span class="arithmatex">\(\mathbf{u} + \mathbf{v} = (4, 5)\)</span>. <span class="arithmatex">\(\mathbf{u} - \mathbf{v} = (1 - 3,\ 3 - 2) = (-2, 1)\)</span>. <span class="arithmatex">\(\mathbf{v} - \mathbf{u} = (3 - 1,\ 2 - 3) = (2, -1)\)</span>. Dua pengurangan itu berlawanan tanda.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p>(a) <span class="arithmatex">\((3, 9)\)</span>. (b) <span class="arithmatex">\((-6, -4)\)</span>. (c) <span class="arithmatex">\((2, 3)\)</span>. (d) <span class="arithmatex">\(3\mathbf{u} - 2\mathbf{v} = (3, 9) - (6, 4) = (-3, 5)\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>(a) L2 <span class="arithmatex">\(= \sqrt{9 + 16} = 5\)</span>; L1 <span class="arithmatex">\(= 3 + 4 = 7\)</span>. (b) L2 <span class="arithmatex">\(= \sqrt{25 + 144} = 13\)</span>; L1 <span class="arithmatex">\(= 5 + 12 = 17\)</span>. (c) L2 <span class="arithmatex">\(= \sqrt{1 + 4 + 4} = 3\)</span>; L1 <span class="arithmatex">\(= 1 + 2 + 2 = 5\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p><span class="arithmatex">\((3, 4)\)</span> dibagi 5: <span class="arithmatex">\((0{,}6;\ 0{,}8)\)</span>; norma <span class="arithmatex">\(\sqrt{0{,}36 + 0{,}64} = 1\)</span>. <span class="arithmatex">\((0, -2)\)</span>: normanya 2, jadi vektor satuan <span class="arithmatex">\((0, -1)\)</span>; norma <span class="arithmatex">\(\sqrt{0 + 1} = 1\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p>(a) Selisih <span class="arithmatex">\((-3, -4, 0)\)</span>. Euclidean <span class="arithmatex">\(\sqrt{9 + 16 + 0} = 5\)</span>; Manhattan <span class="arithmatex">\(3 + 4 + 0 = 7\)</span>. (b) Selisih <span class="arithmatex">\((-6, -8)\)</span>. Euclidean <span class="arithmatex">\(\sqrt{36 + 64} = 10\)</span>; Manhattan <span class="arithmatex">\(6 + 8 = 14\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p>(a) <span class="arithmatex">\(4 + 10 + 18 = 32\)</span>. (b) <span class="arithmatex">\(2 - 2 = 0\)</span>. (c) <span class="arithmatex">\(-6 + 0 = -6\)</span>. Hanya (b) yang tegak lurus (dot product nol).</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>(a) <span class="arithmatex">\(\dfrac{1}{1 \cdot \sqrt{2}} \approx 0{,}7071\)</span>: searah sebagian (sudut <span class="arithmatex">\(45^\circ\)</span>). (b) <span class="arithmatex">\(\dfrac{18 + 32}{5 \cdot 10} = 1\)</span>: searah penuh. (c) <span class="arithmatex">\(\dfrac{-2}{\sqrt{2}\sqrt{2}} = -1\)</span>: berlawanan arah. (d) <span class="arithmatex">\(\dfrac{0}{1 \cdot 5} = 0\)</span>: tegak lurus.</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p><span class="arithmatex">\(\cos(\mathbf{d}_1, \mathbf{d}_2) = \dfrac{8 + 2 + 0}{\sqrt{5}\sqrt{20}} = \dfrac{10}{\sqrt{100}} = 1\)</span>. <span class="arithmatex">\(\cos(\mathbf{d}_1, \mathbf{d}_3) = \dfrac{1}{\sqrt{5}\sqrt{10}} \approx 0{,}1414\)</span>. <span class="arithmatex">\(\mathbf{d}_2\)</span> paling mirip dengan <span class="arithmatex">\(\mathbf{d}_1\)</span> (nilai 1, karena <span class="arithmatex">\(\mathbf{d}_2 = 2\mathbf{d}_1\)</span>).</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p><span class="arithmatex">\(\mathbf{w} \cdot \mathbf{x} = 0{,}5 \times 10 + 2 \times 3 = 5 + 6 = 11\)</span>. Prediksi <span class="arithmatex">\(\hat{y} = 11 + 1 = 12\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>(a) Vektor berdimensi berbeda (3 dan 2) tidak dapat dijumlahkan; penjumlahan tidak terdefinisi. (b) Dot product adalah skalar: <span class="arithmatex">\(1 \cdot 3 + 2 \cdot 4 = 11\)</span>. (c) Itu norma L1. Norma L2 adalah <span class="arithmatex">\(\sqrt{9 + 16} = 5\)</span>.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Penjumlahan dan perkalian skalar dilakukan elemen demi elemen; penjumlahan membutuhkan dimensi sama. Secara geometri: panah disambung, atau diperpanjang, diperpendek, dibalik.</li>
+<li>Norma L2 <span class="arithmatex">\(= \sqrt{\sum v_i^2}\)</span> (panjang garis lurus), norma L1 <span class="arithmatex">\(= \sum \lvert v_i \rvert\)</span> (jarak menyusuri sumbu). Vektor satuan <span class="arithmatex">\(= \mathbf{v} / \lVert \mathbf{v} \rVert_2\)</span>.</li>
+<li>Jarak Euclidean <span class="arithmatex">\(= \lVert \mathbf{a} - \mathbf{b} \rVert_2\)</span>; jarak terpengaruh skala fitur.</li>
+<li>Dot product <span class="arithmatex">\(\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i\)</span> berupa skalar, <span class="arithmatex">\(= \lVert \mathbf{a} \rVert \lVert \mathbf{b} \rVert \cos\theta\)</span>. Nol berarti tegak lurus.</li>
+<li>Cosine similarity <span class="arithmatex">\(= \dfrac{\mathbf{a} \cdot \mathbf{b}}{\lVert \mathbf{a} \rVert \lVert \mathbf{b} \rVert}\)</span> berada di <span class="arithmatex">\([-1, 1]\)</span> dan mengabaikan panjang.</li>
+<li>Prediksi linear adalah <span class="arithmatex">\(\hat{y} = \mathbf{w} \cdot \mathbf{x} + b\)</span>.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjumlah, mengurang, dan mengalikan vektor dengan skalar, termasuk menyebut syarat dimensi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung norma L1 dan L2 serta membentuk vektor satuan.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung jarak Euclidean dan menjelaskan pengaruh skala fitur.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung dot product dan menguji ketegaklurusan.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung dan menafsirkan cosine similarity, termasuk nilai 1, 0, dan <span class="arithmatex">\(-1\)</span>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menulis prediksi model linear sebagai dot product.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan mengapa fungsi Python berbasis <code>zip</code> perlu pemeriksaan dimensi.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../03-matriks/">Part 3 — Matriks</a> membutuhkan: operasi vektor dan dot product (perkalian matriks pada dasarnya adalah dot product berulang). <a href="../08-turunan-parsial-dan-gradien/">Part 8 — Turunan Parsial dan Gradien</a> membutuhkan: vektor, norma, dan arah, karena gradien adalah sebuah vektor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01-pengantar-aljabar-linear/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 1 - Pengantar Aljabar Linear">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 1 - Pengantar Aljabar Linear
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-matriks/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 3 - Matriks">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 3 - Matriks
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

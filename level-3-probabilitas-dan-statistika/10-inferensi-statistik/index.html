@@ -1,0 +1,4583 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-3-probabilitas-dan-statistika/10-inferensi-statistik/">
+      
+      
+        <link rel="prev" href="../09-distribusi-sampling-dan-clt/">
+      
+      
+        <link rel="next" href="../11-korelasi-kovarians-dan-standardisasi/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 10 - Inferensi Statistik - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-10-inferensi-statistik" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 10 - Inferensi Statistik
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-0-fondasi-matematika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/07-variabel-dan-persamaan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-0-fondasi-matematika/08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2-aljabar-linear-dan-kalkulus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-estimasi-titik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Estimasi Titik
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pengantar-estimasi-kemungkinan-maksimum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pengantar Estimasi Kemungkinan Maksimum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-interval-kepercayaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Interval Kepercayaan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-uji-hipotesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Uji Hipotesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-kesalahan-tipe-i-dan-tipe-ii-serta-kuasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Kesalahan Tipe I dan Tipe II, serta Kuasa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-banyak-pengujian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Banyak Pengujian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-signifikansi-statistik-versus-kepentingan-praktis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Signifikansi Statistik versus Kepentingan Praktis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-ci-dengan-distribusi-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — CI dengan distribusi \(t\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-ci-dengan-z-dan-tingkat-kepercayaan-berbeda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — CI dengan \(z\) dan tingkat kepercayaan berbeda
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-uji-z-dua-sisi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Uji \(z\) dua sisi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-pengaruh-ukuran-sampel-pada-keputusan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Pengaruh ukuran sampel pada keputusan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-perbandingan-dua-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Perbandingan dua model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-interval-uji-kuasa-dan-simulasi-cakupan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: interval, uji, kuasa, dan simulasi cakupan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-5-matematika-lanjutan-deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konsep-dasar-dengan-bahasa-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Konsep Dasar dengan Bahasa Sederhana
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Konsep Dasar dengan Bahasa Sederhana">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-estimasi-titik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Estimasi Titik
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pengantar-estimasi-kemungkinan-maksimum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pengantar Estimasi Kemungkinan Maksimum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-interval-kepercayaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Interval Kepercayaan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-uji-hipotesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Uji Hipotesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-kesalahan-tipe-i-dan-tipe-ii-serta-kuasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Kesalahan Tipe I dan Tipe II, serta Kuasa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-banyak-pengujian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Banyak Pengujian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-signifikansi-statistik-versus-kepentingan-praktis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Signifikansi Statistik versus Kepentingan Praktis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-ci-dengan-distribusi-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — CI dengan distribusi \(t\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-ci-dengan-z-dan-tingkat-kepercayaan-berbeda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — CI dengan \(z\) dan tingkat kepercayaan berbeda
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-uji-z-dua-sisi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Uji \(z\) dua sisi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-pengaruh-ukuran-sampel-pada-keputusan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Pengaruh ukuran sampel pada keputusan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-perbandingan-dua-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Perbandingan dua model
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisasi-atau-interpretasi-grafik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualisasi atau Interpretasi Grafik
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-interval-uji-kuasa-dan-simulasi-cakupan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: interval, uji, kuasa, dan simulasi cakupan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat-untuk-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat untuk Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 3 - Probabilitas dan Statistika
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-3-probabilitas-dan-statistika/10-inferensi-statistik.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-10-inferensi-statistik">Part 10 — Inferensi Statistik<a class="headerlink" href="#part-10-inferensi-statistik" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>membedakan estimasi titik dan estimasi interval, serta estimator dan nilai estimasi;</li>
+<li>menjelaskan secara intuitif gagasan estimasi kemungkinan maksimum (<em>maximum likelihood</em>) pada contoh Bernoulli;</li>
+<li>menghitung interval kepercayaan untuk rata-rata (dengan <span class="arithmatex">\(z\)</span> dan <span class="arithmatex">\(t\)</span>) dan untuk proporsi;</li>
+<li>menyatakan tafsir interval kepercayaan yang <strong>benar</strong> dan mengenali tafsir yang keliru;</li>
+<li>merumuskan hipotesis nol (<span class="arithmatex">\(H_0\)</span>) dan hipotesis alternatif (<span class="arithmatex">\(H_1\)</span>), serta menjalankan uji <span class="arithmatex">\(z\)</span>, uji <span class="arithmatex">\(t\)</span>, dan uji proporsi secara dasar;</li>
+<li>menyatakan arti <strong>p-value</strong> yang tepat dan menghindari salah tafsir yang umum;</li>
+<li>menjelaskan tingkat signifikansi <span class="arithmatex">\(\alpha\)</span>, kesalahan Tipe I dan Tipe II, dan kuasa uji;</li>
+<li>membedakan signifikansi statistik dari kepentingan praktis, dan mengenali bahaya banyak pengujian;</li>
+<li>menghubungkan inferensi dengan perbandingan model dan pengujian A/B.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../09-distribusi-sampling-dan-clt/">Part 9 — Distribusi Sampling dan Central Limit Theorem</a> (galat baku, CLT), <a href="../08-distribusi-probabilitas-umum/">Part 8</a> (Normal, <span class="arithmatex">\(z\)</span>-score, Binomial), <a href="../04-dasar-probabilitas/">Part 4</a> (komplemen), dan sedikit <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/">Level 2 — Part 7</a> (turunan dan titik kritis, untuk bagian pengantar kemungkinan maksimum).</p>
+<h2 id="mengapa-materi-ini-penting">Mengapa Materi Ini Penting?<a class="headerlink" href="#mengapa-materi-ini-penting" title="Permanent link">&para;</a></h2>
+<p>Kita jarang tertarik pada sampel itu sendiri; kita ingin tahu tentang populasi atau tentang kinerja model pada data yang belum pernah dilihat. <strong>Inferensi statistik</strong> adalah seperangkat cara yang jujur untuk beranjak dari sampel ke kesimpulan tentang populasi, <strong>beserta ukuran seberapa yakin kita</strong>.</p>
+<p>Dalam Machine Learning, inferensi dipakai untuk menjawab pertanyaan seperti: "apakah model B benar-benar lebih baik dari model A, atau hanya kebetulan pada data uji ini?" dan "berapa rentang wajar akurasi sebenarnya?". Sayangnya, inferensi juga merupakan topik yang paling sering disalahpahami; part ini sengaja menekankan tafsir yang tepat.</p>
+<h2 id="konsep-dasar-dengan-bahasa-sederhana">Konsep Dasar dengan Bahasa Sederhana<a class="headerlink" href="#konsep-dasar-dengan-bahasa-sederhana" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["Pertanyaan tentang populasi&lt;br&gt;atau tentang model"] --&gt; B["Kumpulkan sampel&lt;br&gt;(acak, independen)"]
+    B --&gt; C["Hitung statistik&lt;br&gt;dari sampel"]
+    C --&gt; D["Estimasi:&lt;br&gt;nilai titik dan interval kepercayaan"]
+    C --&gt; E["Uji hipotesis:&lt;br&gt;H0 vs H1, statistik uji, p-value"]
+    D --&gt; F["Tafsirkan dengan hati-hati:&lt;br&gt;ukuran efek, asumsi, ketidakpastian"]
+    E --&gt; F</code></pre>
+<p>Dua tugas utama inferensi: <strong>estimasi</strong> (berapa nilai parameter?) dan <strong>uji hipotesis</strong> (apakah data konsisten dengan suatu klaim?). Keduanya bertumpu pada distribusi sampling (Part 9).</p>
+<h3 id="1-estimasi-titik">1. Estimasi Titik<a class="headerlink" href="#1-estimasi-titik" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Estimator</strong> adalah aturan (rumus) untuk memperkirakan parameter dari sampel, misalnya <span class="arithmatex">\(\bar{X}\)</span> untuk <span class="arithmatex">\(\mu\)</span>. Sebagai fungsi dari sampel acak, ia berupa variabel acak.</li>
+<li><strong>Estimasi</strong> (nilai estimasi) adalah angka yang dihasilkan dari sampel tertentu, misalnya <span class="arithmatex">\(\bar{x} = 14{,}75\)</span>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Estimator</th>
+<th>Catatan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rata-rata <span class="arithmatex">\(\mu\)</span></td>
+<td><span class="arithmatex">\(\bar{X}\)</span></td>
+<td>tak bias (Part 9)</td>
+</tr>
+<tr>
+<td>varians <span class="arithmatex">\(\sigma^2\)</span></td>
+<td><span class="arithmatex">\(S^2\)</span> dengan pembagi <span class="arithmatex">\(n - 1\)</span></td>
+<td>tak bias (Part 2)</td>
+</tr>
+<tr>
+<td>proporsi <span class="arithmatex">\(p\)</span></td>
+<td><span class="arithmatex">\(\hat{p}\)</span> = bagian sukses</td>
+<td>tak bias (Part 9)</td>
+</tr>
+</tbody>
+</table>
+<p>Estimator yang baik umumnya <strong>tak bias</strong> (rata-ratanya sama dengan parameter) dan <strong>konsisten</strong> (mendekati parameter bila <span class="arithmatex">\(n\)</span> membesar). Estimasi titik saja tidak menyatakan seberapa yakin kita; itu tugas interval.</p>
+<h3 id="2-pengantar-estimasi-kemungkinan-maksimum">2. Pengantar Estimasi Kemungkinan Maksimum<a class="headerlink" href="#2-pengantar-estimasi-kemungkinan-maksimum" title="Permanent link">&para;</a></h3>
+<p>Salah satu cara umum membangun estimator adalah <strong>kemungkinan maksimum</strong> (<em>maximum likelihood</em>): pilih nilai parameter yang <strong>membuat data yang diamati paling mungkin</strong>. Ini hanya pengantar intuitif; pembahasan lengkap ada di Level 4.</p>
+<p><strong>Contoh Bernoulli.</strong> Pada 10 percobaan kita mengamati <span class="arithmatex">\(k = 7\)</span> sukses. Jika peluang sukses sebenarnya <span class="arithmatex">\(p\)</span>, peluang urutan hasil tertentu dengan 7 sukses dan 3 gagal adalah:</p>
+<div class="arithmatex">\[
+L(p) = p^7\,(1 - p)^3
+\]</div>
+<p><span class="arithmatex">\(L(p)\)</span> disebut <strong>fungsi likelihood</strong>: peluang data <strong>sebagai fungsi dari parameter</strong>. Mencoba beberapa nilai <span class="arithmatex">\(p\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(p\)</span></th>
+<th><span class="arithmatex">\(L(p) = p^7(1 - p)^3\)</span></th>
+<th><span class="arithmatex">\(\ln L(p)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0,3</td>
+<td>0,000075</td>
+<td><span class="arithmatex">\(-9{,}4978\)</span></td>
+</tr>
+<tr>
+<td>0,5</td>
+<td>0,000977</td>
+<td><span class="arithmatex">\(-6{,}9315\)</span></td>
+</tr>
+<tr>
+<td>0,6</td>
+<td>0,001792</td>
+<td><span class="arithmatex">\(-6{,}3247\)</span></td>
+</tr>
+<tr>
+<td><strong>0,7</strong></td>
+<td><strong>0,002224</strong></td>
+<td><strong><span class="arithmatex">\(-6{,}1086\)</span></strong></td>
+</tr>
+<tr>
+<td>0,8</td>
+<td>0,001678</td>
+<td><span class="arithmatex">\(-6{,}3903\)</span></td>
+</tr>
+<tr>
+<td>0,9</td>
+<td>0,000478</td>
+<td><span class="arithmatex">\(-7{,}6453\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Nilai terbesar ada di <span class="arithmatex">\(p = 0{,}7 = 7/10\)</span>, yaitu proporsi sampel. Secara umum, dengan <span class="arithmatex">\(k\)</span> sukses dari <span class="arithmatex">\(n\)</span>, logaritma likelihood adalah <span class="arithmatex">\(\ell(p) = k\ln p + (n - k)\ln(1 - p)\)</span>. Menyamakan turunannya dengan nol (titik kritis, Level 2):</p>
+<div class="arithmatex">\[
+\ell'(p) = \frac{k}{p} - \frac{n - k}{1 - p} = 0
+\quad\Longrightarrow\quad
+\hat{p} = \frac{k}{n}
+\]</div>
+<p>Jadi estimator kemungkinan maksimum untuk <span class="arithmatex">\(p\)</span> adalah proporsi sampel, yang cocok dengan intuisi. Logaritma dipakai karena mengubah perkalian menjadi penjumlahan dan tidak mengubah lokasi nilai maksimum.</p>
+<div class="admonition note">
+<p class="admonition-title">Koneksi ke Machine Learning</p>
+<p>Negatif dari log-likelihood Bernoulli, <span class="arithmatex">\(-[y\ln p + (1 - y)\ln(1 - p)]\)</span>, adalah fungsi kerugian <em>binary cross-entropy</em> pada klasifikasi biner. Melatih model dengan kerugian itu setara dengan mencari parameter dengan kemungkinan maksimum. Penjabarannya ada di level lanjutan.</p>
+</div>
+<h3 id="3-interval-kepercayaan">3. Interval Kepercayaan<a class="headerlink" href="#3-interval-kepercayaan" title="Permanent link">&para;</a></h3>
+<p><strong>Interval kepercayaan</strong> (<em>confidence interval</em>, CI) memberi rentang nilai wajar bagi parameter, bukan hanya satu angka. Bentuk umum:</p>
+<div class="arithmatex">\[
+\text{estimasi} \;\pm\; (\text{nilai kritis}) \times \text{galat baku}
+\]</div>
+<p><strong>Rata-rata, <span class="arithmatex">\(\sigma\)</span> diketahui</strong> (atau <span class="arithmatex">\(n\)</span> besar):</p>
+<div class="arithmatex">\[
+\bar{x} \;\pm\; z^{*}\,\frac{\sigma}{\sqrt{n}}
+\]</div>
+<p>Nilai kritis <span class="arithmatex">\(z^{*}\)</span> untuk tingkat kepercayaan:</p>
+<table>
+<thead>
+<tr>
+<th>Tingkat</th>
+<th><span class="arithmatex">\(z^{*}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90%</td>
+<td>1,645</td>
+</tr>
+<tr>
+<td>95%</td>
+<td>1,960</td>
+</tr>
+<tr>
+<td>99%</td>
+<td>2,576</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rata-rata, <span class="arithmatex">\(\sigma\)</span> tidak diketahui</strong> (kasus umum): pakai <span class="arithmatex">\(s\)</span> sebagai pengganti <span class="arithmatex">\(\sigma\)</span> dan ganti <span class="arithmatex">\(z^{*}\)</span> dengan nilai kritis dari <strong>distribusi <span class="arithmatex">\(t\)</span></strong> dengan <span class="arithmatex">\(n - 1\)</span> derajat kebebasan:</p>
+<div class="arithmatex">\[
+\bar{x} \;\pm\; t^{*}_{n-1}\,\frac{s}{\sqrt{n}}
+\]</div>
+<p>Distribusi <span class="arithmatex">\(t\)</span> mirip Normal tetapi berekor lebih berat, untuk memperhitungkan ketidakpastian tambahan karena <span class="arithmatex">\(\sigma\)</span> diperkirakan oleh <span class="arithmatex">\(s\)</span>. Untuk <span class="arithmatex">\(n\)</span> kecil, <span class="arithmatex">\(t^{*}\)</span> lebih besar dari <span class="arithmatex">\(z^{*}\)</span>; untuk <span class="arithmatex">\(n\)</span> besar keduanya hampir sama. Nilai kritis <span class="arithmatex">\(t\)</span> untuk tingkat 95% (dua sisi):</p>
+<table>
+<thead>
+<tr>
+<th>Derajat kebebasan</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>5</th>
+<th>7</th>
+<th>10</th>
+<th>20</th>
+<th>30</th>
+<th>60</th>
+<th>tak hingga</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(t^{*}\)</span></td>
+<td>12,706</td>
+<td>4,303</td>
+<td>3,182</td>
+<td>2,571</td>
+<td>2,365</td>
+<td>2,228</td>
+<td>2,086</td>
+<td>2,042</td>
+<td>2,000</td>
+<td>1,960</td>
+</tr>
+</tbody>
+</table>
+<p>(Derajat kebebasan = <span class="arithmatex">\(n - 1\)</span> untuk satu sampel. Syarat: data kira-kira Normal, atau <span class="arithmatex">\(n\)</span> cukup besar menurut CLT.)</p>
+<p><strong>Contoh: Data A dari Part 2</strong> (<span class="arithmatex">\(n = 8\)</span>, <span class="arithmatex">\(\bar{x} = 14{,}75\)</span>, <span class="arithmatex">\(s = 3{,}0119\)</span>). Galat baku <span class="arithmatex">\(= \dfrac{3{,}0119}{\sqrt{8}} = 1{,}0649\)</span>. Dengan <span class="arithmatex">\(t^{*}_7 = 2{,}365\)</span>: margin <span class="arithmatex">\(= 2{,}365 \times 1{,}0649 = 2{,}518\)</span>, sehingga CI 95% <span class="arithmatex">\(= [12{,}23;\ 17{,}27]\)</span> jam per minggu. Bila memakai <span class="arithmatex">\(z^{*} = 1{,}96\)</span> secara keliru, rentangnya <span class="arithmatex">\([12{,}66;\ 16{,}84]\)</span>: <strong>terlalu sempit</strong> untuk sampel sekecil ini.</p>
+<p><strong>Interval kepercayaan untuk proporsi</strong> (pendekatan Normal):</p>
+<div class="arithmatex">\[
+\hat{p} \;\pm\; z^{*}\sqrt{\frac{\hat{p}\,(1 - \hat{p})}{n}}
+\]</div>
+<p>Syarat: <span class="arithmatex">\(n\hat{p}\)</span> dan <span class="arithmatex">\(n(1 - \hat{p})\)</span> sekurang-kurangnya sekitar <span class="arithmatex">\(10\)</span>. Untuk <span class="arithmatex">\(n\)</span> kecil atau <span class="arithmatex">\(\hat{p}\)</span> dekat <span class="arithmatex">\(0\)</span> atau <span class="arithmatex">\(1\)</span> pendekatan ini kurang baik dan tersedia metode yang lebih akurat (misalnya interval Wilson). Contoh: akurasi <span class="arithmatex">\(\hat{p} = 0{,}8\)</span> pada <span class="arithmatex">\(n = 100\)</span>: galat baku <span class="arithmatex">\(0{,}04\)</span>, CI 95% <span class="arithmatex">\(= [0{,}722;\ 0{,}878]\)</span>. Pada <span class="arithmatex">\(n = 1000\)</span>: <span class="arithmatex">\([0{,}775;\ 0{,}825]\)</span>.</p>
+<p><strong>Apa yang memengaruhi lebar interval?</strong> Lebar <span class="arithmatex">\(\propto \dfrac{\text{nilai kritis} \times \text{sebaran}}{\sqrt{n}}\)</span>: lebih sempit bila <span class="arithmatex">\(n\)</span> besar atau data kurang bervariasi; lebih lebar bila tingkat kepercayaan dinaikkan (99% lebih lebar dari 95%).</p>
+<p><strong>Tafsir yang benar.</strong> Pernyataan "kepercayaan 95%" menyangkut <strong>prosedurnya</strong>: jika kita mengulang pengambilan sampel dan membangun interval dengan cara yang sama berkali-kali, sekitar 95% interval yang terbentuk akan memuat parameter yang sebenarnya. Untuk <strong>satu</strong> interval yang sudah dihitung, parameter sebenarnya (yang tetap) berada di dalamnya atau tidak; kita tidak tahu yang mana.</p>
+<p>Simulasi untuk melihatnya: sampel <span class="arithmatex">\(n = 25\)</span> dari <span class="arithmatex">\(\mathcal{N}(50, 10^2)\)</span>, interval <span class="arithmatex">\(\bar{x} \pm 1{,}96 \times 2\)</span> (<span class="arithmatex">\(\mathrm{SE} = 10/\sqrt{25} = 2\)</span>). Dalam 10.000 pengulangan, interval memuat <span class="arithmatex">\(\mu = 50\)</span> pada <span class="arithmatex">\(94{,}75\%\)</span> kali, sangat dekat dengan 95%.</p>
+<div class="admonition warning">
+<p class="admonition-title">Tafsir yang keliru</p>
+<p>"Ada peluang 95% bahwa <span class="arithmatex">\(\mu\)</span> berada di antara 12,23 dan 17,27" <strong>bukan</strong> tafsir yang tepat dalam kerangka klasik di sini, karena <span class="arithmatex">\(\mu\)</span> dianggap tetap, bukan variabel acak. Yang acak adalah intervalnya. Tafsir yang tepat: "interval ini dihasilkan oleh prosedur yang memuat parameter pada 95% pengulangan". Juga keliru: "95% data berada dalam interval ini" (interval kepercayaan membicarakan parameter, bukan data individu).</p>
+</div>
+<h3 id="4-uji-hipotesis">4. Uji Hipotesis<a class="headerlink" href="#4-uji-hipotesis" title="Permanent link">&para;</a></h3>
+<p><strong>Uji hipotesis</strong> adalah cara memutuskan apakah data cukup bertentangan dengan suatu klaim.</p>
+<ul>
+<li><strong>Hipotesis nol <span class="arithmatex">\(H_0\)</span>:</strong> klaim "tidak ada efek / tidak ada beda" yang kita uji, misalnya <span class="arithmatex">\(\mu = 50\)</span>.</li>
+<li><strong>Hipotesis alternatif <span class="arithmatex">\(H_1\)</span>:</strong> apa yang kita curigai bila <span class="arithmatex">\(H_0\)</span> salah. <strong>Dua sisi</strong>: <span class="arithmatex">\(\mu \neq 50\)</span>. <strong>Satu sisi</strong>: <span class="arithmatex">\(\mu &gt; 50\)</span> atau <span class="arithmatex">\(\mu &lt; 50\)</span>.</li>
+<li><strong>Statistik uji:</strong> angka dari sampel yang mengukur seberapa jauh data dari <span class="arithmatex">\(H_0\)</span>, dalam satuan galat baku:</li>
+</ul>
+<div class="arithmatex">\[
+\text{statistik uji} = \frac{\text{estimasi} - \text{nilai di } H_0}{\text{galat baku}}
+\]</div>
+<p>Untuk rata-rata: <span class="arithmatex">\(z = \dfrac{\bar{x} - \mu_0}{\sigma/\sqrt{n}}\)</span> (uji <span class="arithmatex">\(z\)</span>, <span class="arithmatex">\(\sigma\)</span> diketahui) atau <span class="arithmatex">\(t = \dfrac{\bar{x} - \mu_0}{s/\sqrt{n}}\)</span> (uji <span class="arithmatex">\(t\)</span>, dengan <span class="arithmatex">\(n - 1\)</span> derajat kebebasan).</p>
+<p><strong>Nilai-p (<em>p-value</em>).</strong> Nilai-p adalah:</p>
+<blockquote>
+<p>peluang memperoleh hasil <strong>sekurang-kurangnya seekstrem</strong> yang kita amati, <strong>dengan anggapan <span class="arithmatex">\(H_0\)</span> benar</strong>.</p>
+</blockquote>
+<p>Semakin kecil nilai-p, semakin sulit data menjelaskan diri dengan kebetulan saja jika <span class="arithmatex">\(H_0\)</span> benar. Nilai-p dihitung dari distribusi statistik uji di bawah <span class="arithmatex">\(H_0\)</span>.</p>
+<p><strong>Tingkat signifikansi <span class="arithmatex">\(\alpha\)</span></strong> adalah ambang yang ditetapkan <strong>sebelum</strong> melihat data (lazim <span class="arithmatex">\(0{,}05\)</span>):</p>
+<ul>
+<li>jika nilai-p <span class="arithmatex">\(\leq \alpha\)</span>: <strong>tolak <span class="arithmatex">\(H_0\)</span></strong> (hasil "signifikan secara statistik");</li>
+<li>jika nilai-p <span class="arithmatex">\(&gt; \alpha\)</span>: <strong>gagal menolak <span class="arithmatex">\(H_0\)</span></strong>.</li>
+</ul>
+<p>Perhatikan kata "gagal menolak", bukan "menerima <span class="arithmatex">\(H_0\)</span>": data yang tidak cukup kuat bukan bukti bahwa <span class="arithmatex">\(H_0\)</span> benar; boleh jadi sampelnya terlalu kecil.</p>
+<div class="admonition warning">
+<p class="admonition-title">Apa yang BUKAN nilai-p</p>
+<p>Nilai-p <strong>bukan</strong>:</p>
+<ul>
+<li>peluang bahwa <span class="arithmatex">\(H_0\)</span> benar (nilai-p menganggap <span class="arithmatex">\(H_0\)</span> benar, bukan menghitung peluangnya);</li>
+<li>peluang bahwa hasil terjadi "hanya karena kebetulan";</li>
+<li>peluang bahwa kita keliru bila menolak <span class="arithmatex">\(H_0\)</span>;</li>
+<li>ukuran besar atau pentingnya efek.</li>
+</ul>
+<p>Untuk menghitung peluang <span class="arithmatex">\(H_0\)</span> benar diperlukan prior dan Teorema Bayes (Part 6), dan itu pertanyaan yang berbeda.</p>
+</div>
+<p><strong>Contoh uji <span class="arithmatex">\(z\)</span>.</strong> Klaim: rata-rata <span class="arithmatex">\(\mu_0 = 50\)</span>. Sampel <span class="arithmatex">\(n = 36\)</span>, <span class="arithmatex">\(\bar{x} = 52{,}4\)</span>, <span class="arithmatex">\(\sigma = 9\)</span> (diketahui). <span class="arithmatex">\(H_0: \mu = 50\)</span> lawan <span class="arithmatex">\(H_1: \mu \neq 50\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(\mathrm{SE} = \dfrac{9}{6} = 1{,}5\)</span>; <span class="arithmatex">\(z = \dfrac{52{,}4 - 50}{1{,}5} = 1{,}6\)</span>.</li>
+<li>Nilai-p dua sisi <span class="arithmatex">\(= 2\,[1 - \Phi(1{,}6)] = 2(0{,}0548) \approx 0{,}1096\)</span>.</li>
+<li>Karena <span class="arithmatex">\(0{,}1096 &gt; 0{,}05\)</span>: <strong>gagal menolak</strong> <span class="arithmatex">\(H_0\)</span>. Data <strong>tidak cukup</strong> meyakinkan bahwa <span class="arithmatex">\(\mu \neq 50\)</span>.</li>
+<li>CI 95% yang sesuai: <span class="arithmatex">\(52{,}4 \pm 1{,}96(1{,}5) = [49{,}46;\ 55{,}34]\)</span> memuat <span class="arithmatex">\(50\)</span>, konsisten dengan keputusan itu.</li>
+</ul>
+<p><strong>Hubungan CI dan uji dua sisi.</strong> Pada uji <span class="arithmatex">\(z\)</span> atau <span class="arithmatex">\(t\)</span> dua sisi dengan <span class="arithmatex">\(\alpha = 0{,}05\)</span>, <span class="arithmatex">\(H_0: \mu = \mu_0\)</span> ditolak <strong>jika dan hanya jika</strong> CI 95% <strong>tidak</strong> memuat <span class="arithmatex">\(\mu_0\)</span>. CI lebih informatif karena sekaligus menunjukkan <strong>rentang</strong> nilai yang masuk akal, bukan sekadar keputusan ya-atau-tidak.</p>
+<p><strong>Contoh uji <span class="arithmatex">\(t\)</span> (satu sisi).</strong> Klaim: rata-rata waktu belajar lebih dari 12 jam. <span class="arithmatex">\(H_0: \mu = 12\)</span> lawan <span class="arithmatex">\(H_1: \mu &gt; 12\)</span>. Data A (<span class="arithmatex">\(n = 8\)</span>, <span class="arithmatex">\(\bar{x} = 14{,}75\)</span>, <span class="arithmatex">\(s = 3{,}0119\)</span>):</p>
+<ul>
+<li><span class="arithmatex">\(t = \dfrac{14{,}75 - 12}{1{,}0649} \approx 2{,}582\)</span> dengan <span class="arithmatex">\(7\)</span> derajat kebebasan.</li>
+<li>Nilai kritis satu sisi pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>: <span class="arithmatex">\(t^{*}_{0{,}95;\,7} = 1{,}895\)</span>. Karena <span class="arithmatex">\(2{,}582 &gt; 1{,}895\)</span>, tolak <span class="arithmatex">\(H_0\)</span>.</li>
+<li>Nilai-p satu sisi <span class="arithmatex">\(\approx 0{,}018\)</span> (dihitung dengan perangkat lunak statistik, SciPy; bukan dependensi buku ini). Dua sisi <span class="arithmatex">\(\approx 0{,}036\)</span>.</li>
+<li>Kesimpulan: data memberi bukti yang cukup kuat (pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>) bahwa rata-rata waktu belajar lebih dari 12 jam. Dengan <span class="arithmatex">\(n = 8\)</span> saja, asumsi kenormalan data perlu diperiksa.</li>
+</ul>
+<p><strong>Contoh uji proporsi.</strong> Koin dilempar 100 kali, muncul kepala 60 kali. <span class="arithmatex">\(H_0: p = 0{,}5\)</span> lawan <span class="arithmatex">\(H_1: p \neq 0{,}5\)</span>.</p>
+<ul>
+<li>Dengan pendekatan Normal: <span class="arithmatex">\(z = \dfrac{0{,}6 - 0{,}5}{\sqrt{0{,}25/100}} = \dfrac{0{,}1}{0{,}05} = 2{,}0\)</span>, nilai-p <span class="arithmatex">\(= 2[1 - \Phi(2)] \approx 0{,}0455\)</span>. Kesimpulan: tolak <span class="arithmatex">\(H_0\)</span> pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>.</li>
+<li>Dengan perhitungan <strong>eksak</strong> Binomial: <span class="arithmatex">\(P(X \geq 60) = 0{,}0284\)</span>, dua sisi <span class="arithmatex">\(= 0{,}0569\)</span>. Kesimpulan: <strong>gagal menolak</strong> <span class="arithmatex">\(H_0\)</span>.</li>
+<li>Dengan koreksi kontinuitas (<span class="arithmatex">\(z = 1{,}9\)</span>): nilai-p <span class="arithmatex">\(\approx 0{,}0574\)</span>, dekat dengan hasil eksak.</li>
+</ul>
+<p>Dua metode berbeda melintasi ambang <span class="arithmatex">\(0{,}05\)</span>. Pelajarannya: (1) pendekatan Normal untuk data diskret bisa sedikit meleset; (2) hasil yang jatuh dekat ambang sebaiknya tidak ditafsirkan sebagai "ya-atau-tidak" yang tegas; (3) <span class="arithmatex">\(\alpha = 0{,}05\)</span> adalah <strong>konvensi</strong>, bukan batas alam.</p>
+<p><strong>Contoh uji dua proporsi (pengujian A/B).</strong> Versi A: 120 dari 1.000 pengguna berkonversi (<span class="arithmatex">\(0{,}12\)</span>). Versi B: 150 dari 1.000 (<span class="arithmatex">\(0{,}15\)</span>). <span class="arithmatex">\(H_0\)</span>: kedua proporsi sama.</p>
+<ul>
+<li>Proporsi gabungan <span class="arithmatex">\(= \dfrac{270}{2000} = 0{,}135\)</span>; <span class="arithmatex">\(\mathrm{SE} = \sqrt{0{,}135 \times 0{,}865 \times \dfrac{2}{1000}} = 0{,}0153\)</span>.</li>
+<li><span class="arithmatex">\(z = \dfrac{0{,}03}{0{,}0153} = 1{,}963\)</span>; nilai-p dua sisi <span class="arithmatex">\(\approx 0{,}0496\)</span>.</li>
+<li>CI 95% untuk selisih: <span class="arithmatex">\(0{,}03 \pm 1{,}96 \times 0{,}01527\)</span>, yaitu <span class="arithmatex">\([0{,}0001;\ 0{,}0599]\)</span>.</li>
+<li>Nilai-p tepat di bawah <span class="arithmatex">\(0{,}05\)</span> dan CI hampir menyentuh nol. Selisih nyata mungkin hanya sangat kecil atau sampai sekitar 6 poin. Hasil seperti ini sebaiknya dibaca dengan hati-hati dan, bila perlu, diperkuat dengan data tambahan.</li>
+</ul>
+<h3 id="5-kesalahan-tipe-i-dan-tipe-ii-serta-kuasa">5. Kesalahan Tipe I dan Tipe II, serta Kuasa<a class="headerlink" href="#5-kesalahan-tipe-i-dan-tipe-ii-serta-kuasa" title="Permanent link">&para;</a></h3>
+<p>Ada dua jenis kesalahan keputusan dalam uji hipotesis:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><span class="arithmatex">\(H_0\)</span> benar</th>
+<th><span class="arithmatex">\(H_0\)</span> salah</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tolak <span class="arithmatex">\(H_0\)</span></strong></td>
+<td><strong>Kesalahan Tipe I</strong> (positif palsu), peluang <span class="arithmatex">\(\alpha\)</span></td>
+<td>keputusan benar, peluang <span class="arithmatex">\(1 - \beta\)</span> (<strong>kuasa</strong>)</td>
+</tr>
+<tr>
+<td><strong>Gagal menolak <span class="arithmatex">\(H_0\)</span></strong></td>
+<td>keputusan benar, peluang <span class="arithmatex">\(1 - \alpha\)</span></td>
+<td><strong>Kesalahan Tipe II</strong> (negatif palsu), peluang <span class="arithmatex">\(\beta\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><span class="arithmatex">\(\alpha\)</span></strong> (tingkat signifikansi): peluang menolak <span class="arithmatex">\(H_0\)</span> padahal <span class="arithmatex">\(H_0\)</span> benar; kita yang menetapkannya.</li>
+<li><strong><span class="arithmatex">\(\beta\)</span></strong>: peluang gagal menolak <span class="arithmatex">\(H_0\)</span> padahal <span class="arithmatex">\(H_0\)</span> salah.</li>
+<li><strong>Kuasa uji</strong> (<em>power</em>) <span class="arithmatex">\(= 1 - \beta\)</span>: peluang mendeteksi efek yang memang ada.</li>
+</ul>
+<p>Menurunkan <span class="arithmatex">\(\alpha\)</span> (lebih hati-hati menolak) cenderung menaikkan <span class="arithmatex">\(\beta\)</span>, bila <span class="arithmatex">\(n\)</span> tetap. Cara menaikkan kuasa tanpa menaikkan <span class="arithmatex">\(\alpha\)</span>: perbesar <span class="arithmatex">\(n\)</span>, atau efeknya memang lebih besar, atau data kurang bervariasi.</p>
+<p><strong>Contoh kuasa.</strong> <span class="arithmatex">\(H_0: \mu = 50\)</span>, <span class="arithmatex">\(\sigma = 9\)</span>, <span class="arithmatex">\(n = 36\)</span>, <span class="arithmatex">\(\alpha = 0{,}05\)</span> dua sisi, dan <span class="arithmatex">\(\mu\)</span> sebenarnya <span class="arithmatex">\(52\)</span>. <span class="arithmatex">\(\mathrm{SE} = 1{,}5\)</span>; <span class="arithmatex">\(H_0\)</span> ditolak bila <span class="arithmatex">\(\bar{x} &gt; 50 + 1{,}96(1{,}5) = 52{,}94\)</span> atau <span class="arithmatex">\(\bar{x} &lt; 47{,}06\)</span>. Bila <span class="arithmatex">\(\mu = 52\)</span>: <span class="arithmatex">\(P(\bar{X} &gt; 52{,}94) = 1 - \Phi\!\left(\dfrac{52{,}94 - 52}{1{,}5}\right) = 1 - \Phi(0{,}627) \approx 0{,}265\)</span>, ditambah bagian kiri yang hampir nol. <strong>Kuasa hanya sekitar <span class="arithmatex">\(26{,}6\%\)</span></strong>: efek 2 poin yang nyata hanya terdeteksi sekitar satu kali dari empat. Dengan <span class="arithmatex">\(n = 100\)</span>, kuasa naik menjadi <span class="arithmatex">\(0{,}603\)</span>; dengan <span class="arithmatex">\(n = 159\)</span>, kuasa mencapai <span class="arithmatex">\(0{,}80\)</span>.</p>
+<p>Uji dengan kuasa rendah sering gagal menolak <span class="arithmatex">\(H_0\)</span> padahal efeknya ada; kegagalan menolak pada sampel kecil tidak berarti "tidak ada efek".</p>
+<h3 id="6-banyak-pengujian">6. Banyak Pengujian<a class="headerlink" href="#6-banyak-pengujian" title="Permanent link">&para;</a></h3>
+<p>Jika kita menjalankan banyak uji, peluang mendapatkan <strong>minimal satu</strong> hasil "signifikan" hanya karena kebetulan membesar. Dengan 20 uji independen pada <span class="arithmatex">\(\alpha = 0{,}05\)</span> dan seluruh <span class="arithmatex">\(H_0\)</span> benar, trik komplemen (Part 4) memberi:</p>
+<div class="arithmatex">\[
+P(\text{minimal satu positif palsu}) = 1 - (1 - 0{,}05)^{20} \approx 0{,}6415
+\]</div>
+<p>Artinya, kira-kira dua dari tiga kali kita akan "menemukan" sesuatu yang signifikan padahal tidak ada apa-apa. Mencoba banyak analisis lalu hanya melaporkan yang signifikan disebut <em><strong>p-hacking</strong></em>. Penanganannya antara lain menetapkan hipotesis sebelum melihat data, melaporkan semua uji, dan memakai koreksi seperti Bonferroni (memakai <span class="arithmatex">\(\alpha/m\)</span> untuk <span class="arithmatex">\(m\)</span> uji, sehingga <span class="arithmatex">\(0{,}05/20 = 0{,}0025\)</span> per uji).</p>
+<h3 id="7-signifikansi-statistik-versus-kepentingan-praktis">7. Signifikansi Statistik versus Kepentingan Praktis<a class="headerlink" href="#7-signifikansi-statistik-versus-kepentingan-praktis" title="Permanent link">&para;</a></h3>
+<p>Hasil yang <strong>signifikan secara statistik</strong> belum tentu <strong>penting secara praktis</strong>. Dengan <span class="arithmatex">\(n\)</span> sangat besar, selisih yang sangat kecil pun dapat menghasilkan nilai-p kecil. Sebaliknya, efek yang penting dapat gagal signifikan pada <span class="arithmatex">\(n\)</span> kecil. Karena itu laporkan juga <strong>ukuran efek</strong> (misalnya selisih rata-rata) dan <strong>interval kepercayaannya</strong>, bukan hanya nilai-p.</p>
+<h2 id="istilah-yang-perlu-dipahami">Istilah yang Perlu Dipahami<a class="headerlink" href="#istilah-yang-perlu-dipahami" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Istilah</th>
+<th>Arti sederhana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estimator / estimasi</td>
+<td>rumus penaksir / angka hasilnya</td>
+</tr>
+<tr>
+<td>Kemungkinan maksimum</td>
+<td>pilih parameter yang membuat data paling mungkin</td>
+</tr>
+<tr>
+<td>Likelihood</td>
+<td>peluang data sebagai fungsi parameter</td>
+</tr>
+<tr>
+<td>Interval kepercayaan</td>
+<td>rentang nilai wajar bagi parameter dari sebuah prosedur</td>
+</tr>
+<tr>
+<td>Nilai kritis</td>
+<td>batas dari distribusi acuan (<span class="arithmatex">\(z^{*}\)</span> atau <span class="arithmatex">\(t^{*}\)</span>)</td>
+</tr>
+<tr>
+<td>Derajat kebebasan</td>
+<td><span class="arithmatex">\(n - 1\)</span> untuk uji <span class="arithmatex">\(t\)</span> satu sampel</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(H_0\)</span>, <span class="arithmatex">\(H_1\)</span></td>
+<td>hipotesis nol dan alternatif</td>
+</tr>
+<tr>
+<td>Statistik uji</td>
+<td>ukuran jarak data dari <span class="arithmatex">\(H_0\)</span> dalam satuan galat baku</td>
+</tr>
+<tr>
+<td>Nilai-p</td>
+<td>peluang hasil seekstrem itu bila <span class="arithmatex">\(H_0\)</span> benar</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>tingkat signifikansi, ambang keputusan</td>
+</tr>
+<tr>
+<td>Kesalahan Tipe I / II</td>
+<td>menolak <span class="arithmatex">\(H_0\)</span> yang benar / gagal menolak <span class="arithmatex">\(H_0\)</span> yang salah</td>
+</tr>
+<tr>
+<td>Kuasa uji</td>
+<td><span class="arithmatex">\(1 - \beta\)</span>, peluang mendeteksi efek yang ada</td>
+</tr>
+<tr>
+<td>Ukuran efek</td>
+<td>besarnya selisih atau hubungan yang diamati</td>
+</tr>
+<tr>
+<td><em>p-hacking</em></td>
+<td>mencoba banyak analisis dan melaporkan yang signifikan saja</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Prosedur</th>
+<th>Rumus</th>
+<th>Syarat dan arti simbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CI rata-rata (<span class="arithmatex">\(\sigma\)</span> diketahui)</td>
+<td><span class="arithmatex">\(\bar{x} \pm z^{*}\,\dfrac{\sigma}{\sqrt{n}}\)</span></td>
+<td>sampel independen; populasi Normal atau <span class="arithmatex">\(n\)</span> besar</td>
+</tr>
+<tr>
+<td>CI rata-rata (<span class="arithmatex">\(\sigma\)</span> tidak diketahui)</td>
+<td><span class="arithmatex">\(\bar{x} \pm t^{*}_{n-1}\,\dfrac{s}{\sqrt{n}}\)</span></td>
+<td><span class="arithmatex">\(t^{*}\)</span> dari distribusi <span class="arithmatex">\(t\)</span> dengan <span class="arithmatex">\(n - 1\)</span> derajat kebebasan</td>
+</tr>
+<tr>
+<td>CI proporsi</td>
+<td><span class="arithmatex">\(\hat{p} \pm z^{*}\sqrt{\dfrac{\hat{p}(1 - \hat{p})}{n}}\)</span></td>
+<td><span class="arithmatex">\(n\hat{p}, n(1 - \hat{p}) \gtrsim 10\)</span></td>
+</tr>
+<tr>
+<td>Uji <span class="arithmatex">\(z\)</span> (rata-rata)</td>
+<td><span class="arithmatex">\(z = \dfrac{\bar{x} - \mu_0}{\sigma/\sqrt{n}}\)</span></td>
+<td><span class="arithmatex">\(\mu_0\)</span> nilai di <span class="arithmatex">\(H_0\)</span></td>
+</tr>
+<tr>
+<td>Uji <span class="arithmatex">\(t\)</span> (rata-rata)</td>
+<td><span class="arithmatex">\(t = \dfrac{\bar{x} - \mu_0}{s/\sqrt{n}}\)</span></td>
+<td><span class="arithmatex">\(n - 1\)</span> derajat kebebasan</td>
+</tr>
+<tr>
+<td>Uji proporsi</td>
+<td><span class="arithmatex">\(z = \dfrac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}}\)</span></td>
+<td><span class="arithmatex">\(p_0\)</span> nilai di <span class="arithmatex">\(H_0\)</span></td>
+</tr>
+<tr>
+<td>Uji dua proporsi</td>
+<td><span class="arithmatex">\(z = \dfrac{\hat{p}_B - \hat{p}_A}{\sqrt{\hat{p}(1 - \hat{p})(1/n_A + 1/n_B)}}\)</span></td>
+<td><span class="arithmatex">\(\hat{p}\)</span> proporsi gabungan di bawah <span class="arithmatex">\(H_0\)</span></td>
+</tr>
+<tr>
+<td>Peluang positif palsu pada <span class="arithmatex">\(m\)</span> uji</td>
+<td><span class="arithmatex">\(1 - (1 - \alpha)^m\)</span></td>
+<td>uji independen, semua <span class="arithmatex">\(H_0\)</span> benar</td>
+</tr>
+<tr>
+<td>Likelihood Bernoulli</td>
+<td><span class="arithmatex">\(L(p) = p^k(1 - p)^{n - k}\)</span>, <span class="arithmatex">\(\hat{p} = k/n\)</span></td>
+<td><span class="arithmatex">\(k\)</span> sukses dari <span class="arithmatex">\(n\)</span> percobaan</td>
+</tr>
+</tbody>
+</table>
+<h2 id="penjelasan-langkah-demi-langkah">Penjelasan Langkah demi Langkah<a class="headerlink" href="#penjelasan-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<p><strong>Menyelesaikan uji hipotesis:</strong></p>
+<ol>
+<li>Tulis pertanyaan dan <strong>rumuskan <span class="arithmatex">\(H_0\)</span> dan <span class="arithmatex">\(H_1\)</span></strong> (satu atau dua sisi) <strong>sebelum</strong> melihat hasil.</li>
+<li>Tetapkan <span class="arithmatex">\(\alpha\)</span> (misalnya <span class="arithmatex">\(0{,}05\)</span>).</li>
+<li>Pilih uji dan <strong>periksa asumsi</strong> (independen, kira-kira Normal atau <span class="arithmatex">\(n\)</span> besar, <span class="arithmatex">\(\sigma\)</span> diketahui atau tidak).</li>
+<li>Hitung statistik uji.</li>
+<li>Hitung nilai-p (atau bandingkan dengan nilai kritis).</li>
+<li>Putuskan: tolak atau gagal menolak <span class="arithmatex">\(H_0\)</span>.</li>
+<li><strong>Tafsirkan</strong> dalam konteks, laporkan ukuran efek dan interval kepercayaan, dan sebut batasan (asumsi, ukuran sampel, banyaknya uji).</li>
+</ol>
+<p><strong>Membuat interval kepercayaan:</strong> hitung estimasi dan galat baku, pilih tingkat kepercayaan, ambil nilai kritis yang sesuai (<span class="arithmatex">\(z^{*}\)</span> atau <span class="arithmatex">\(t^{*}\)</span>), lalu hitung estimasi <span class="arithmatex">\(\pm\)</span> nilai kritis <span class="arithmatex">\(\times\)</span> galat baku.</p>
+<h2 id="contoh-soal-dan-pembahasan">Contoh Soal dan Pembahasan<a class="headerlink" href="#contoh-soal-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-ci-dengan-distribusi-t">Contoh 1 — CI dengan distribusi <span class="arithmatex">\(t\)</span><a class="headerlink" href="#contoh-1-ci-dengan-distribusi-t" title="Permanent link">&para;</a></h3>
+<p>Data <span class="arithmatex">\(10, 12, 9, 11, 13, 10, 12, 11\)</span>. Hitung CI 95% untuk rata-rata.</p>
+<ol>
+<li><span class="arithmatex">\(n = 8\)</span>, <span class="arithmatex">\(\bar{x} = \dfrac{88}{8} = 11\)</span>.</li>
+<li>Deviasi: <span class="arithmatex">\(-1, 1, -2, 0, 2, -1, 1, 0\)</span>; kuadrat: <span class="arithmatex">\(1, 1, 4, 0, 4, 1, 1, 0\)</span>; jumlah <span class="arithmatex">\(12\)</span>. <span class="arithmatex">\(s^2 = \dfrac{12}{7} \approx 1{,}714\)</span>, <span class="arithmatex">\(s \approx 1{,}309\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{SE} = \dfrac{1{,}309}{\sqrt{8}} \approx 0{,}4629\)</span>.</li>
+<li><span class="arithmatex">\(t^{*}_7 = 2{,}365\)</span>; margin <span class="arithmatex">\(= 2{,}365 \times 0{,}4629 \approx 1{,}095\)</span>.</li>
+<li>CI 95% <span class="arithmatex">\(= 11 \pm 1{,}095 = [9{,}905;\ 12{,}095]\)</span>.</li>
+</ol>
+<h3 id="contoh-2-ci-dengan-z-dan-tingkat-kepercayaan-berbeda">Contoh 2 — CI dengan <span class="arithmatex">\(z\)</span> dan tingkat kepercayaan berbeda<a class="headerlink" href="#contoh-2-ci-dengan-z-dan-tingkat-kepercayaan-berbeda" title="Permanent link">&para;</a></h3>
+<p>Sampel <span class="arithmatex">\(n = 64\)</span>, <span class="arithmatex">\(\bar{x} = 50\)</span>, <span class="arithmatex">\(s = 8\)</span> (<span class="arithmatex">\(n\)</span> besar, pakai <span class="arithmatex">\(z\)</span>). Hitung CI 95% dan 99%.</p>
+<ol>
+<li><span class="arithmatex">\(\mathrm{SE} = \dfrac{8}{8} = 1\)</span>.</li>
+<li>95%: <span class="arithmatex">\(50 \pm 1{,}96(1) = [48{,}04;\ 51{,}96]\)</span>.</li>
+<li>99%: <span class="arithmatex">\(50 \pm 2{,}576(1) = [47{,}42;\ 52{,}58]\)</span>.</li>
+<li>Interval 99% lebih lebar: kepastian lebih tinggi dibayar dengan presisi lebih rendah.</li>
+</ol>
+<h3 id="contoh-3-uji-z-dua-sisi">Contoh 3 — Uji <span class="arithmatex">\(z\)</span> dua sisi<a class="headerlink" href="#contoh-3-uji-z-dua-sisi" title="Permanent link">&para;</a></h3>
+<p><span class="arithmatex">\(H_0: \mu = 100\)</span>, <span class="arithmatex">\(\sigma = 14\)</span>, <span class="arithmatex">\(n = 49\)</span>, <span class="arithmatex">\(\bar{x} = 104\)</span>. Uji pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(\mathrm{SE} = \dfrac{14}{7} = 2\)</span>; <span class="arithmatex">\(z = \dfrac{104 - 100}{2} = 2\)</span>.</li>
+<li>Nilai-p <span class="arithmatex">\(= 2[1 - \Phi(2)] = 2(0{,}0228) \approx 0{,}0455\)</span>.</li>
+<li><span class="arithmatex">\(0{,}0455 &lt; 0{,}05\)</span>: tolak <span class="arithmatex">\(H_0\)</span>.</li>
+<li>CI 95%: <span class="arithmatex">\(104 \pm 1{,}96(2) = [100{,}08;\ 107{,}92]\)</span>. Tidak memuat <span class="arithmatex">\(100\)</span> (tipis), konsisten dengan penolakan.</li>
+</ol>
+<h3 id="contoh-4-pengaruh-ukuran-sampel-pada-keputusan">Contoh 4 — Pengaruh ukuran sampel pada keputusan<a class="headerlink" href="#contoh-4-pengaruh-ukuran-sampel-pada-keputusan" title="Permanent link">&para;</a></h3>
+<p>Selisih yang sama (<span class="arithmatex">\(\bar{x} - \mu_0 = 4\)</span>, <span class="arithmatex">\(\sigma = 14\)</span>) tetapi <span class="arithmatex">\(n = 16\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(\mathrm{SE} = \dfrac{14}{4} = 3{,}5\)</span>; <span class="arithmatex">\(z = \dfrac{4}{3{,}5} \approx 1{,}143\)</span>.</li>
+<li>Nilai-p dua sisi <span class="arithmatex">\(\approx 0{,}253\)</span>: <strong>gagal menolak</strong> <span class="arithmatex">\(H_0\)</span>.</li>
+<li>Selisih yang sama menghasilkan kesimpulan berbeda karena galat baku lebih besar. Gagal menolak <span class="arithmatex">\(H_0\)</span> di sini tidak berarti <span class="arithmatex">\(\mu = 100\)</span>; ia berarti data kurang untuk memutuskan.</li>
+</ol>
+<h3 id="contoh-5-perbandingan-dua-model">Contoh 5 — Perbandingan dua model<a class="headerlink" href="#contoh-5-perbandingan-dua-model" title="Permanent link">&para;</a></h3>
+<p>Model A akurasi <span class="arithmatex">\(85{,}0\%\)</span> dan model B <span class="arithmatex">\(86{,}5\%\)</span>, masing-masing diuji pada 1.000 contoh <strong>terpisah</strong>. Apakah B terbukti lebih baik?</p>
+<ol>
+<li><span class="arithmatex">\(\hat{p}_A = 0{,}85\)</span>, <span class="arithmatex">\(\hat{p}_B = 0{,}865\)</span>; selisih <span class="arithmatex">\(0{,}015\)</span>. Proporsi gabungan <span class="arithmatex">\(0{,}8575\)</span>.</li>
+<li><span class="arithmatex">\(\mathrm{SE} = \sqrt{0{,}8575 \times 0{,}1425 \times \dfrac{2}{1000}} \approx 0{,}01563\)</span>.</li>
+<li><span class="arithmatex">\(z = \dfrac{0{,}015}{0{,}01563} \approx 0{,}960\)</span>; nilai-p dua sisi <span class="arithmatex">\(\approx 0{,}337\)</span>.</li>
+<li>Gagal menolak <span class="arithmatex">\(H_0\)</span>: selisih 1,5 poin tidak dapat dibedakan dari variasi sampling pada data uji sebesar ini.</li>
+<li>Catatan: bila kedua model diuji pada <strong>contoh yang sama</strong>, pengujian berpasangan lebih tepat dan lebih peka daripada uji dua proporsi independen ini.</li>
+</ol>
+<h2 id="contoh-tambahan-dengan-kesulitan-bertahap">Contoh Tambahan dengan Kesulitan Bertahap<a class="headerlink" href="#contoh-tambahan-dengan-kesulitan-bertahap" title="Permanent link">&para;</a></h2>
+<p><strong>Mudah.</strong> Nilai-p <span class="arithmatex">\(= 0{,}03\)</span> dan <span class="arithmatex">\(\alpha = 0{,}05\)</span>: tolak <span class="arithmatex">\(H_0\)</span>. Nilai-p <span class="arithmatex">\(= 0{,}08\)</span>: gagal menolak.</p>
+<p><strong>Sedang.</strong> CI proporsi: 60 dari 200 pengguna mengklik. <span class="arithmatex">\(\hat{p} = 0{,}3\)</span>, <span class="arithmatex">\(\mathrm{SE} = \sqrt{\dfrac{0{,}3 \times 0{,}7}{200}} = 0{,}0324\)</span>, CI 95% <span class="arithmatex">\(= [0{,}236;\ 0{,}364]\)</span>.</p>
+<p><strong>Sedang.</strong> Dalam kerangka klasik, benar: "prosedur yang menghasilkan interval ini memuat parameter pada 95% pengulangan". Keliru: "peluang parameter ada di interval ini adalah 95%" dan "nilai-p <span class="arithmatex">\(= 0{,}03\)</span> berarti peluang <span class="arithmatex">\(H_0\)</span> benar adalah 3%".</p>
+<p><strong>Menantang.</strong> Bila <span class="arithmatex">\(\alpha\)</span> diturunkan dari <span class="arithmatex">\(0{,}05\)</span> ke <span class="arithmatex">\(0{,}01\)</span> dengan <span class="arithmatex">\(n\)</span> tetap, kuasa menurun karena batas penolakan menjadi lebih ketat. Untuk mempertahankan kuasa yang sama pada <span class="arithmatex">\(\alpha\)</span> lebih kecil, <span class="arithmatex">\(n\)</span> harus diperbesar.</p>
+<h2 id="visualisasi-atau-interpretasi-grafik">Visualisasi atau Interpretasi Grafik<a class="headerlink" href="#visualisasi-atau-interpretasi-grafik" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Distribusi statistik uji di bawah <span class="arithmatex">\(H_0\)</span></strong> berbentuk lonceng. Nilai-p adalah luas ekor (satu atau dua sisi) di luar nilai yang teramati; wilayah penolakan adalah ekor dengan luas total <span class="arithmatex">\(\alpha\)</span>.</li>
+<li><strong>Interval kepercayaan</strong> digambar sebagai garis dengan titik estimasi di tengah. Garis yang melewati nilai <span class="arithmatex">\(H_0\)</span> berarti <span class="arithmatex">\(H_0\)</span> tidak ditolak.</li>
+<li><strong>Pengulangan interval:</strong> bila kita menggambar 100 interval 95% dari 100 sampel, sekitar 95 menutup parameter dan sekitar 5 tidak (simulasi 100 sampel dengan seed 8 memberi 94 yang menutup).</li>
+</ul>
+<h2 id="kesalahan-umum">Kesalahan Umum<a class="headerlink" href="#kesalahan-umum" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kesalahan</th>
+<th>Mengapa salah</th>
+<th>Yang benar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menyebut nilai-p sebagai peluang <span class="arithmatex">\(H_0\)</span> benar</td>
+<td>nilai-p dihitung dengan menganggap <span class="arithmatex">\(H_0\)</span> benar</td>
+<td>nilai-p = peluang hasil seekstrem itu bila <span class="arithmatex">\(H_0\)</span> benar</td>
+</tr>
+<tr>
+<td>Mengatakan "menerima <span class="arithmatex">\(H_0\)</span>"</td>
+<td>tidak menolak bukan bukti <span class="arithmatex">\(H_0\)</span> benar</td>
+<td>"gagal menolak <span class="arithmatex">\(H_0\)</span>"</td>
+</tr>
+<tr>
+<td>"Peluang 95% parameter ada di interval ini"</td>
+<td>parameter tetap, intervalnya yang acak</td>
+<td>tafsir prosedur: 95% pengulangan memuat parameter</td>
+</tr>
+<tr>
+<td>Mengira "95% data ada di interval kepercayaan"</td>
+<td>CI membicarakan parameter</td>
+<td>gunakan rentang sebaran data untuk itu</td>
+</tr>
+<tr>
+<td>Memakai <span class="arithmatex">\(z^{*}\)</span> pada sampel kecil dengan <span class="arithmatex">\(\sigma\)</span> tidak diketahui</td>
+<td>interval terlalu sempit</td>
+<td>pakai <span class="arithmatex">\(t^{*}\)</span></td>
+</tr>
+<tr>
+<td>Menganggap signifikan berarti penting</td>
+<td><span class="arithmatex">\(n\)</span> besar menjadikan efek kecil signifikan</td>
+<td>laporkan ukuran efek dan CI</td>
+</tr>
+<tr>
+<td>Menganggap tidak signifikan berarti tidak ada efek</td>
+<td>kuasa bisa rendah</td>
+<td>periksa <span class="arithmatex">\(n\)</span> dan CI</td>
+</tr>
+<tr>
+<td>Menetapkan <span class="arithmatex">\(H_1\)</span> atau <span class="arithmatex">\(\alpha\)</span> setelah melihat data</td>
+<td>menggelembungkan positif palsu</td>
+<td>tetapkan sebelum melihat hasil</td>
+</tr>
+<tr>
+<td>Menjalankan banyak uji lalu melaporkan yang signifikan</td>
+<td>kebetulan menghasilkan positif palsu</td>
+<td>koreksi atau laporkan semua uji</td>
+</tr>
+<tr>
+<td>Mengabaikan asumsi (independen, Normal/n besar)</td>
+<td>hasil tidak sah</td>
+<td>periksa asumsi</td>
+</tr>
+<tr>
+<td>Menganggap <span class="arithmatex">\(\alpha = 0{,}05\)</span> batas keras</td>
+<td>itu konvensi</td>
+<td>tafsirkan nilai-p secara kontinu bersama CI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hubungan-dengan-machine-learning">Hubungan dengan Machine Learning<a class="headerlink" href="#hubungan-dengan-machine-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Membandingkan model.</strong> Selisih akurasi dua model pada data uji adalah selisih dua estimasi yang masing-masing bergoyang. Uji hipotesis dan interval kepercayaan menyatakan apakah selisih itu melebihi kebisingan. Untuk model yang diuji pada contoh yang sama, uji berpasangan (misalnya terhadap contoh yang diprediksi berbeda) lebih sesuai.</li>
+<li><strong>Pengujian A/B.</strong> Mengukur apakah versi baru produk atau model memberi konversi yang berbeda memakai uji dua proporsi atau uji rata-rata. Praktik baik: tetapkan ukuran sampel dan hipotesis sebelum percobaan, jangan berhenti saat nilai-p kebetulan di bawah <span class="arithmatex">\(0{,}05\)</span>, dan perhatikan banyaknya metrik yang diuji.</li>
+<li><strong>Selang ketidakpastian metrik.</strong> Melaporkan akurasi bersama interval kepercayaan (atau interval bootstrap) lebih jujur daripada satu angka.</li>
+<li><strong>Positif palsu dan negatif palsu.</strong> Kesalahan Tipe I dan II pada uji hipotesis punya analogi dengan positif palsu dan negatif palsu pada klasifikasi, dan trade-off ambangnya mirip. Namun keduanya konsep yang berbeda (satu tentang keputusan atas hipotesis, satu tentang prediksi per contoh).</li>
+<li><strong>Banyak eksperimen.</strong> Menyetel banyak hiperparameter dan memilih yang terbaik pada data uji yang sama menaikkan peluang hasil terbaik hanyalah kebetulan, mirip <em>p-hacking</em>. Data uji sebaiknya hanya dipakai sekali di akhir.</li>
+<li><strong>Kemungkinan maksimum.</strong> Banyak fungsi kerugian (misalnya cross-entropy) adalah negatif log-likelihood; melatih model sering setara dengan estimasi kemungkinan maksimum atas suatu asumsi distribusi.</li>
+<li><strong>Asumsi independensi.</strong> Seluruh perhitungan di atas mengandalkan contoh yang independen. Data yang saling bergantung (Part 5 dan 9) membuat interval terlalu sempit dan nilai-p terlalu kecil.</li>
+</ul>
+<h3 id="python-interval-uji-kuasa-dan-simulasi-cakupan">Python: interval, uji, kuasa, dan simulasi cakupan<a class="headerlink" href="#python-interval-uji-kuasa-dan-simulasi-cakupan" title="Permanent link">&para;</a></h3>
+<p>Hanya pustaka standar (<code>math</code>, <code>random</code>, <code>statistics.NormalDist</code>). Nilai kritis <span class="arithmatex">\(t\)</span> diambil dari tabel di atas karena pustaka standar tidak menyediakan distribusi <span class="arithmatex">\(t\)</span>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">math</span><span class="o">,</span><span class="w"> </span><span class="nn">random</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span><span class="p">,</span> <span class="n">NormalDist</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Z</span> <span class="o">=</span> <span class="n">NormalDist</span><span class="p">()</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">13</span><span class="p">]</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">n</span><span class="p">,</span> <span class="n">xbar</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="n">mean</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="n">stdev</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">se</span> <span class="o">=</span> <span class="n">s</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">xbar</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">se</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>                     <span class="c1"># 8 14.75 3.0119 1.0649</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">t_kritis_7</span> <span class="o">=</span> <span class="mf">2.365</span>                                            <span class="c1"># t(0,975; db = 7) dari tabel</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">xbar</span> <span class="o">-</span> <span class="n">t_kritis_7</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">xbar</span> <span class="o">+</span> <span class="n">t_kritis_7</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>   <span class="c1"># 12.232 17.268</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">xbar</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">xbar</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>               <span class="c1"># 12.663 16.837</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">print</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">inv_cdf</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">,</span> <span class="mf">0.995</span><span class="p">)])</span>               <span class="c1"># [1.6449, 1.96, 2.5758]</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">xbar</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="n">se</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>                             <span class="c1"># 2.582  (kritis satu sisi t(0,95; db = 7) = 1.895)</span>
+</span></code></pre></div>
+<p>Uji <span class="arithmatex">\(z\)</span>, uji proporsi (pendekatan dan eksak), dan uji dua proporsi:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="mf">52.4</span> <span class="o">-</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">9</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">36</span><span class="p">))</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))),</span> <span class="mi">4</span><span class="p">))</span>        <span class="c1"># 1.6 0.1096</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">z_koin</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.6</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">z_koin</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z_koin</span><span class="p">)),</span> <span class="mi">4</span><span class="p">))</span>   <span class="c1"># 2.0 0.0455</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">ekor</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">101</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">100</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ekor</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ekor</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>                    <span class="c1"># 0.0284 0.0569</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">pa</span><span class="p">,</span> <span class="n">pb</span><span class="p">,</span> <span class="n">n_ab</span> <span class="o">=</span> <span class="mi">120</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">150</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">p_gab</span> <span class="o">=</span> <span class="p">(</span><span class="mi">120</span> <span class="o">+</span> <span class="mi">150</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2000</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">se_gab</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_gab</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_gab</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">n_ab</span><span class="p">))</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">z_ab</span> <span class="o">=</span> <span class="p">(</span><span class="n">pb</span> <span class="o">-</span> <span class="n">pa</span><span class="p">)</span> <span class="o">/</span> <span class="n">se_gab</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p_gab</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">se_gab</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">z_ab</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z_ab</span><span class="p">)),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># 0.135 0.0153 1.963 0.0496</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">se_beda</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pa</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pa</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_ab</span> <span class="o">+</span> <span class="n">pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pb</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_ab</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.03</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se_beda</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mf">0.03</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se_beda</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>   <span class="c1"># 0.0001 0.0599</span>
+</span></code></pre></div>
+<p>Kuasa uji, banyak pengujian, dan cakupan interval kepercayaan (seed tetap, Python 3.14):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">kuasa</span><span class="p">(</span><span class="n">mu_benar</span><span class="p">,</span> <span class="n">mu0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">36</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">se</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">atas</span><span class="p">,</span> <span class="n">bawah</span> <span class="o">=</span> <span class="n">mu0</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se</span><span class="p">,</span> <span class="n">mu0</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">se</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">atas</span> <span class="o">-</span> <span class="n">mu_benar</span><span class="p">)</span> <span class="o">/</span> <span class="n">se</span><span class="p">))</span> <span class="o">+</span> <span class="n">Z</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">bawah</span> <span class="o">-</span> <span class="n">mu_benar</span><span class="p">)</span> <span class="o">/</span> <span class="n">se</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">159</span><span class="p">,</span> <span class="mi">200</span><span class="p">):</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">kuasa</span><span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># 36 0.2659</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># 100 0.6034</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># 159 0.8001</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># 200 0.8815</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.95</span> <span class="o">**</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.95</span> <span class="o">**</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>     <span class="c1"># 0.6415 0.2262</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">2024</span><span class="p">)</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">ulang</span><span class="p">,</span> <span class="n">tutup</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">0</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ulang</span><span class="p">):</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="k">if</span> <span class="n">m</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">50</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="n">tutup</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="nb">print</span><span class="p">(</span><span class="n">tutup</span> <span class="o">/</span> <span class="n">ulang</span><span class="p">)</span>                                          <span class="c1"># 0.9475</span>
+</span></code></pre></div>
+<p>Interpretasi: CI <span class="arithmatex">\(t\)</span> lebih lebar daripada CI <span class="arithmatex">\(z\)</span> untuk <span class="arithmatex">\(n = 8\)</span>; uji koin memberi nilai-p <span class="arithmatex">\(0{,}0455\)</span> dengan pendekatan Normal tetapi <span class="arithmatex">\(0{,}0569\)</span> secara eksak (berbeda keputusan pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>); kuasa <span class="arithmatex">\(26{,}6\%\)</span> pada <span class="arithmatex">\(n = 36\)</span> naik menjadi <span class="arithmatex">\(80\%\)</span> pada <span class="arithmatex">\(n = 159\)</span>; dan simulasi cakupan menunjukkan interval "95%" benar-benar memuat parameter pada kira-kira <span class="arithmatex">\(95\%\)</span> pengulangan. Kode hanya menjalankan hitungan; tafsir dan pemeriksaan asumsi tetap tugas kita.</p>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Data <span class="arithmatex">\(10, 12, 9, 11, 13, 10, 12, 11\)</span>. Hitung CI 95% untuk rata-rata memakai distribusi <span class="arithmatex">\(t\)</span> (<span class="arithmatex">\(t^{*}_7 = 2{,}365\)</span>).</li>
+<li>Sampel <span class="arithmatex">\(n = 64\)</span> dengan <span class="arithmatex">\(\bar{x} = 50\)</span> dan <span class="arithmatex">\(s = 8\)</span>. Hitung CI 95% dan 99% dengan <span class="arithmatex">\(z\)</span>. Mana yang lebih lebar dan mengapa?</li>
+<li>Seseorang berkata "CI 95% saya <span class="arithmatex">\([48, 52]\)</span>, jadi ada peluang 95% bahwa <span class="arithmatex">\(\mu\)</span> berada di antara 48 dan 52." Koreksi pernyataan ini.</li>
+<li>Dari 200 pengguna, 60 mengklik iklan. Hitung CI 95% untuk proporsi klik dan periksa syaratnya.</li>
+<li><span class="arithmatex">\(H_0: \mu = 100\)</span>, <span class="arithmatex">\(\sigma = 14\)</span>, <span class="arithmatex">\(n = 49\)</span>, <span class="arithmatex">\(\bar{x} = 104\)</span>. Hitung <span class="arithmatex">\(z\)</span>, nilai-p dua sisi, dan keputusan pada <span class="arithmatex">\(\alpha = 0{,}05\)</span>. Periksa dengan CI 95%.</li>
+<li>Ulangi soal 5 dengan <span class="arithmatex">\(n = 16\)</span> (selisih tetap). Apa yang berubah dan mengapa?</li>
+<li>Sebuah filter spam memakai <span class="arithmatex">\(H_0\)</span>: "e-mail ini bukan spam". Jelaskan arti kesalahan Tipe I dan Tipe II, dan apa dampaknya bila <span class="arithmatex">\(\alpha\)</span> diturunkan.</li>
+<li><span class="arithmatex">\(H_0: \mu = 50\)</span>, <span class="arithmatex">\(\sigma = 9\)</span>, <span class="arithmatex">\(\alpha = 0{,}05\)</span> dua sisi, <span class="arithmatex">\(\mu\)</span> sebenarnya <span class="arithmatex">\(52\)</span>. Hitung kuasa untuk <span class="arithmatex">\(n = 100\)</span>. Kira-kira berapa <span class="arithmatex">\(n\)</span> yang dibutuhkan untuk kuasa <span class="arithmatex">\(0{,}8\)</span>?</li>
+<li>Dua puluh uji independen dijalankan pada <span class="arithmatex">\(\alpha = 0{,}05\)</span> dan semua <span class="arithmatex">\(H_0\)</span> benar. Berapa peluang minimal satu positif palsu? Apa yang dilakukan koreksi Bonferroni?</li>
+<li>Model A 85,0% dan model B 86,5% pada masing-masing 1.000 contoh uji terpisah. Hitung <span class="arithmatex">\(z\)</span> dan nilai-p dua sisi untuk selisihnya, dan tafsirkan.</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p><span class="arithmatex">\(\bar{x} = 11\)</span>, <span class="arithmatex">\(s \approx 1{,}309\)</span>, <span class="arithmatex">\(\mathrm{SE} \approx 0{,}4629\)</span>, margin <span class="arithmatex">\(= 2{,}365 \times 0{,}4629 \approx 1{,}095\)</span>. CI 95% <span class="arithmatex">\(= [9{,}905;\ 12{,}095]\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p><span class="arithmatex">\(\mathrm{SE} = 1\)</span>. 95%: <span class="arithmatex">\(50 \pm 1{,}96 = [48{,}04;\ 51{,}96]\)</span>. 99%: <span class="arithmatex">\(50 \pm 2{,}576 = [47{,}42;\ 52{,}58]\)</span>. Interval 99% lebih lebar karena untuk lebih yakin menangkap parameter kita perlu rentang yang lebih besar.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>Dalam kerangka klasik, <span class="arithmatex">\(\mu\)</span> adalah konstanta, bukan variabel acak; yang acak adalah interval. Pernyataan yang tepat: "interval ini dibangun dengan prosedur yang memuat <span class="arithmatex">\(\mu\)</span> pada sekitar 95% pengulangan; untuk interval ini saja kita tidak tahu apakah ia memuat <span class="arithmatex">\(\mu\)</span>".</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p><span class="arithmatex">\(\hat{p} = 0{,}3\)</span>; <span class="arithmatex">\(n\hat{p} = 60 \geq 10\)</span> dan <span class="arithmatex">\(n(1 - \hat{p}) = 140 \geq 10\)</span>. <span class="arithmatex">\(\mathrm{SE} = \sqrt{\dfrac{0{,}3 \times 0{,}7}{200}} = 0{,}0324\)</span>. CI <span class="arithmatex">\(= 0{,}3 \pm 1{,}96(0{,}0324) = [0{,}236;\ 0{,}364]\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p><span class="arithmatex">\(\mathrm{SE} = 2\)</span>, <span class="arithmatex">\(z = 2\)</span>, nilai-p <span class="arithmatex">\(= 2(1 - 0{,}9772) \approx 0{,}0455 &lt; 0{,}05\)</span>: tolak <span class="arithmatex">\(H_0\)</span>. CI <span class="arithmatex">\(= 104 \pm 3{,}92 = [100{,}08;\ 107{,}92]\)</span> tidak memuat 100, konsisten.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p><span class="arithmatex">\(\mathrm{SE} = \dfrac{14}{4} = 3{,}5\)</span>, <span class="arithmatex">\(z \approx 1{,}143\)</span>, nilai-p <span class="arithmatex">\(\approx 0{,}253 &gt; 0{,}05\)</span>: gagal menolak <span class="arithmatex">\(H_0\)</span>. Selisih sama, tetapi galat baku lebih besar karena sampel lebih kecil, sehingga data kurang meyakinkan. Ini bukan bukti bahwa <span class="arithmatex">\(\mu = 100\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>Tipe I: menolak <span class="arithmatex">\(H_0\)</span> padahal benar, yaitu menandai e-mail sah sebagai spam (positif palsu). Tipe II: gagal menolak <span class="arithmatex">\(H_0\)</span> padahal salah, yaitu spam lolos. Menurunkan <span class="arithmatex">\(\alpha\)</span> membuat filter lebih jarang menandai e-mail sah, tetapi lebih banyak spam lolos (Tipe II naik).</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p><span class="arithmatex">\(\mathrm{SE} = \dfrac{9}{10} = 0{,}9\)</span>. <span class="arithmatex">\(H_0\)</span> ditolak bila <span class="arithmatex">\(\bar{x} &gt; 50 + 1{,}96(0{,}9) = 51{,}764\)</span> atau <span class="arithmatex">\(\bar{x} &lt; 48{,}236\)</span>. Kuasa <span class="arithmatex">\(= 1 - \Phi\!\left(\dfrac{51{,}764 - 52}{0{,}9}\right) + \Phi\!\left(\dfrac{48{,}236 - 52}{0{,}9}\right) = 1 - \Phi(-0{,}262) + \Phi(-4{,}18) \approx 0{,}603\)</span>. Untuk kuasa <span class="arithmatex">\(0{,}8\)</span> dibutuhkan <span class="arithmatex">\(n \approx \dfrac{(1{,}96 + 0{,}8416)^2 \times 81}{4} \approx 159\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p><span class="arithmatex">\(1 - 0{,}95^{20} \approx 0{,}6415\)</span>. Koreksi Bonferroni memakai <span class="arithmatex">\(\alpha/m = 0{,}05/20 = 0{,}0025\)</span> untuk tiap uji, sehingga peluang minimal satu positif palsu menjadi sekitar <span class="arithmatex">\(1 - 0{,}9975^{20} \approx 0{,}049\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>Selisih <span class="arithmatex">\(0{,}015\)</span>. Proporsi gabungan <span class="arithmatex">\(0{,}8575\)</span>, <span class="arithmatex">\(\mathrm{SE} = \sqrt{0{,}8575 \times 0{,}1425 \times 0{,}002} \approx 0{,}01563\)</span>. <span class="arithmatex">\(z \approx 0{,}960\)</span>, nilai-p dua sisi <span class="arithmatex">\(\approx 0{,}337\)</span>. Gagal menolak <span class="arithmatex">\(H_0\)</span>: selisih 1,5 poin dapat dijelaskan oleh variasi sampling pada data uji sebesar ini, jadi belum ada bukti yang kuat bahwa B lebih baik. Itu bukan bukti bahwa kedua model sama baiknya.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Estimasi titik</strong> memberi satu angka (estimator tak bias dan konsisten); <strong>kemungkinan maksimum</strong> memilih parameter yang membuat data paling mungkin (pada Bernoulli: <span class="arithmatex">\(\hat{p} = k/n\)</span>).</li>
+<li><strong>Interval kepercayaan</strong> <span class="arithmatex">\(=\)</span> estimasi <span class="arithmatex">\(\pm\)</span> nilai kritis <span class="arithmatex">\(\times\)</span> galat baku; pakai <span class="arithmatex">\(t\)</span> bila <span class="arithmatex">\(\sigma\)</span> tidak diketahui. Tafsir tepat: prosedurnya memuat parameter pada tingkat kepercayaan itu dalam pengulangan; bukan "peluang parameter ada di interval ini".</li>
+<li><strong>Uji hipotesis:</strong> rumuskan <span class="arithmatex">\(H_0\)</span> dan <span class="arithmatex">\(H_1\)</span> sebelum melihat data, hitung statistik uji, nilai-p, bandingkan dengan <span class="arithmatex">\(\alpha\)</span>; hasilnya "tolak" atau "gagal menolak <span class="arithmatex">\(H_0\)</span>" (bukan "menerima").</li>
+<li><strong>Nilai-p</strong> adalah peluang hasil seekstrem itu bila <span class="arithmatex">\(H_0\)</span> benar; <strong>bukan</strong> peluang <span class="arithmatex">\(H_0\)</span> benar dan bukan ukuran besarnya efek.</li>
+<li><strong>Kesalahan Tipe I (<span class="arithmatex">\(\alpha\)</span>) dan Tipe II (<span class="arithmatex">\(\beta\)</span>)</strong>; kuasa <span class="arithmatex">\(1 - \beta\)</span> naik dengan <span class="arithmatex">\(n\)</span> yang lebih besar dan efek yang lebih besar.</li>
+<li>Banyak pengujian menaikkan peluang positif palsu (<span class="arithmatex">\(1 - (1 - \alpha)^m\)</span>); <em>p-hacking</em> harus dihindari.</li>
+<li>Signifikan secara statistik tidak sama dengan penting secara praktis; laporkan ukuran efek dan CI.</li>
+<li>Dalam ML: membandingkan model, pengujian A/B, ketidakpastian metrik, bahaya memilih dari banyak percobaan, dan hubungan kemungkinan maksimum dengan fungsi kerugian.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan estimator dan estimasi, serta ide kemungkinan maksimum pada Bernoulli.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menghitung CI untuk rata-rata (<span class="arithmatex">\(z\)</span> dan <span class="arithmatex">\(t\)</span>) dan untuk proporsi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menyatakan tafsir CI yang benar dan menolak tafsir yang keliru.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Merumuskan <span class="arithmatex">\(H_0\)</span> dan <span class="arithmatex">\(H_1\)</span>, serta menjalankan uji <span class="arithmatex">\(z\)</span>, <span class="arithmatex">\(t\)</span>, dan proporsi dasar.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menyatakan arti nilai-p yang tepat dan tiga hal yang bukan nilai-p.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan Tipe I, Tipe II, kuasa, dan hubungannya dengan <span class="arithmatex">\(n\)</span> dan <span class="arithmatex">\(\alpha\)</span>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan bahaya banyak pengujian dan perbedaan signifikan versus penting.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mengaitkan inferensi dengan perbandingan model dan pengujian A/B.</li>
+</ul>
+<h2 id="prasyarat-untuk-materi-berikutnya">Prasyarat untuk Materi Berikutnya<a class="headerlink" href="#prasyarat-untuk-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<p><a href="../11-korelasi-kovarians-dan-standardisasi/">Part 11 — Korelasi, Kovarians, dan Standardisasi</a> kembali ke hubungan antar variabel dan menyiapkan fitur untuk model. Konsep <span class="arithmatex">\(z\)</span>-score, rata-rata, dan simpangan baku dari Part 2 dan 8 akan dipakai lagi; kehati-hatian menafsirkan hasil (hubungan bukan sebab-akibat) akan menjadi tema yang sama dengan part ini.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../09-distribusi-sampling-dan-clt/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 9 - Distribusi Sampling dan Central Limit Theorem">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 9 - Distribusi Sampling dan Central Limit Theorem
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../11-korelasi-kovarians-dan-standardisasi/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 11 - Korelasi, Kovarians, dan Standardisasi">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 11 - Korelasi, Kovarians, dan Standardisasi
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

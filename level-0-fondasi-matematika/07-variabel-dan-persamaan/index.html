@@ -1,0 +1,4382 @@
+
+<!doctype html>
+<html lang="id" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Belajar matematika untuk Machine Learning dan Deep Learning dalam bahasa Indonesia, dari pemula hingga tingkat lanjut.">
+      
+      
+      
+        <link rel="canonical" href="https://topekox.github.io/matematika-machine-learning/level-0-fondasi-matematika/07-variabel-dan-persamaan/">
+      
+      
+        <link rel="prev" href="../06-nilai-absolut-dan-notasi-ilmiah/">
+      
+      
+        <link rel="next" href="../08-notasi-matematika-dasar/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Part 7 - Pengenalan Variabel dan Persamaan - Matematika untuk Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-7-pengenalan-variabel-dan-persamaan" class="md-skip">
+          Lewati ke isi
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-header__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Matematika untuk Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 7 - Pengenalan Variabel dan Persamaan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: sistem (klik untuk terang)"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tema: sistem (klik untuk terang)" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: terang (klik untuk gelap)"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tema: terang (klik untuk gelap)" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Tema: gelap (klik untuk sistem)"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Tema: gelap (klik untuk sistem)" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cari" placeholder="Cari" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cari">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Kosongkan" aria-label="Kosongkan" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Mempersiapkan pencarian
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigasi" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Matematika untuk Machine Learning" class="md-nav__button md-logo" aria-label="Matematika untuk Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Matematika untuk Machine Learning
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/topekox/matematika-machine-learning" title="Ke repositori" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TopekoX/matematika-machine-learning
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beranda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../curriculum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Peta Belajar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 0 - Fondasi Matematika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 0 - Fondasi Matematika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-mengenal-bilangan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Bilangan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-operasi-aritmatika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Aritmatika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-pecahan-dan-desimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Pecahan dan Desimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-persentase-rasio-proporsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Persentase, Rasio, dan Proporsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pangkat-dan-akar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Pangkat dan Akar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-nilai-absolut-dan-notasi-ilmiah/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Nilai Absolut dan Notasi Ilmiah
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Pengenalan Variabel dan Persamaan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-konsep-dari-dasar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Konsep dari Dasar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Konsep dari Dasar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pengertian-variabel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pengertian Variabel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pengertian-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pengertian Konstanta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pengertian-koefisien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pengertian Koefisien
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-membaca-ekspresi-matematika" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Membaca Ekspresi Matematika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-substitusi-nilai-ke-dalam-ekspresi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Substitusi Nilai ke dalam Ekspresi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-persamaan-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Persamaan Sederhana
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-menyelesaikan-persamaan-linear-satu-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Menyelesaikan Persamaan Linear Satu Langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-menyelesaikan-persamaan-linear-dua-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Menyelesaikan Persamaan Linear Dua Langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-memahami-simbol-sama-dengan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Memahami Simbol Sama Dengan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-pengantar-variabel-dalam-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pengantar Variabel dalam Machine Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-menerjemahkan-lalu-mensubstitusi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Menerjemahkan lalu mensubstitusi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-persamaan-satu-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Persamaan satu langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-persamaan-dua-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Persamaan dua langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-menyederhanakan-lalu-menyelesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Menyederhanakan, lalu menyelesaikan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-model-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Model linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-tingkat-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Tingkat Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum-dan-cara-menghindarinya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum dan Cara Menghindarinya
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-variabel-substitusi-dan-persamaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: variabel, substitusi, dan persamaan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-notasi-matematika-dasar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Notasi Matematika Dasar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-1-aljabar-dasar-dan-fungsi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 - Aljabar Dasar dan Fungsi
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/01-mengenal-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Mengenal Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/02-operasi-bentuk-aljabar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Operasi Bentuk Aljabar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/03-persamaan-linear-satu-variabel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Persamaan Linear Satu Variabel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/04-pertidaksamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Pertidaksamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/05-koordinat-dan-grafik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Koordinat dan Grafik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/06-sistem-persamaan-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Sistem Persamaan Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/07-konsep-fungsi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Konsep Fungsi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/08-fungsi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Fungsi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/09-fungsi-kuadrat-dan-polinomial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Fungsi Kuadrat dan Polinomial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/10-fungsi-eksponensial-dan-logaritma/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Fungsi Eksponensial dan Logaritma
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/11-pengantar-trigonometri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Pengantar Fungsi Trigonometri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-1-aljabar-dasar-dan-fungsi/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-2-aljabar-linear-dan-kalkulus/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 - Aljabar Linear dan Kalkulus
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/01-pengantar-aljabar-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Aljabar Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/02-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/03-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matriks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/04-sistem-persamaan-linear-matriks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Sistem Persamaan Linear (Bentuk Matriks)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/05-transformasi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Transformasi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/06-limit-dan-kontinuitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Limit dan Kontinuitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/07-turunan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Turunan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/08-turunan-parsial-dan-gradien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Turunan Parsial dan Gradien
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/09-chain-rule-dan-backpropagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Chain Rule dan Backpropagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/10-integral/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Integral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/11-optimasi-dan-gradient-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Optimasi dan Gradient Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-2-aljabar-linear-dan-kalkulus/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-3-probabilitas-dan-statistika/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 - Probabilitas dan Statistika
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/01-pengantar-statistika/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Statistika
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/02-statistik-deskriptif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Statistik Deskriptif
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/03-visualisasi-dan-distribusi-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Visualisasi dan Distribusi Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/04-dasar-probabilitas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Dasar Probabilitas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/05-probabilitas-bersyarat-dan-independensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Probabilitas Bersyarat dan Independensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/06-teorema-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Teorema Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/07-variabel-acak-dan-distribusi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Variabel Acak dan Distribusi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/08-distribusi-probabilitas-umum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Distribusi Probabilitas Umum
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/09-distribusi-sampling-dan-clt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Distribusi Sampling dan Central Limit Theorem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/10-inferensi-statistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Inferensi Statistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/11-korelasi-kovarians-dan-standardisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Korelasi, Kovarians, dan Standardisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-3-probabilitas-dan-statistika/12-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Integrasi dan Evaluasi Level 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-4-matematika-ml-klasik/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 - Matematika untuk Machine Learning Klasik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/01-pengantar-matematika-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Pengantar Matematika ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/02-representasi-data-dan-feature-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Representasi Data dan Feature Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/03-regresi-linear/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Regresi Linear
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/04-regresi-logistik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Matematika Regresi Logistik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/05-k-nearest-neighbors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Matematika K-Nearest Neighbors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/06-naive-bayes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Matematika Naive Bayes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/07-decision-tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Matematika Decision Tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/08-random-forest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Matematika Random Forest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/09-support-vector-machine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Matematika Support Vector Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/10-k-means-clustering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika K-Means Clustering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/11-evaluasi-dan-pemilihan-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Evaluasi dan Pemilihan Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/12-regularisasi-dan-reduksi-dimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Regularisasi dan Reduksi Dimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-4-matematika-ml-klasik/13-integrasi-dan-studi-kasus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Integrasi dan Studi Kasus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../level-5-matematika-lanjutan-deep-learning/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 5 - Matematika Lanjutan untuk Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/01-fondasi-matematika-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 - Fondasi Matematika Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/02-tensor-dan-operasi-multidimensi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 - Tensor dan Operasi Multidimensi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/03-matematika-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 - Matematika Neural Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/04-fungsi-aktivasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 - Fungsi Aktivasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/05-loss-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 - Loss Function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/06-backpropagation-mendalam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 - Backpropagation Mendalam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/07-optimasi-deep-learning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 - Optimasi Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/08-regularisasi-dan-generalisasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 8 - Regularisasi dan Generalisasi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/09-embedding-dan-representasi-vektor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 9 - Embedding dan Representasi Vektor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/10-matematika-pemrosesan-bahasa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 10 - Matematika Pemrosesan Bahasa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/11-softmax-dan-probabilitas-keluaran/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 11 - Softmax dan Probabilitas Keluaran
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/12-attention-dan-self-attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 12 - Attention dan Self-Attention
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/13-transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 13 - Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/14-fondasi-matematis-bert-dan-indobert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 14 - Fondasi Matematis BERT dan IndoBERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../level-5-matematika-lanjutan-deep-learning/15-integrasi-dan-evaluasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 15 - Integrasi dan Evaluasi Level 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Daftar isi">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Daftar isi
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tujuan-pembelajaran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tujuan Pembelajaran
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prasyarat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prasyarat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mengapa-materi-ini-penting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mengapa Materi Ini Penting?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-konsep-dari-dasar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Penjelasan Konsep dari Dasar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Konsep dari Dasar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-pengertian-variabel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pengertian Variabel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-pengertian-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Pengertian Konstanta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pengertian-koefisien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pengertian Koefisien
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-membaca-ekspresi-matematika" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Membaca Ekspresi Matematika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-substitusi-nilai-ke-dalam-ekspresi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Substitusi Nilai ke dalam Ekspresi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-persamaan-sederhana" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Persamaan Sederhana
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-menyelesaikan-persamaan-linear-satu-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Menyelesaikan Persamaan Linear Satu Langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-menyelesaikan-persamaan-linear-dua-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Menyelesaikan Persamaan Linear Dua Langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-memahami-simbol-sama-dengan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Memahami Simbol Sama Dengan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-pengantar-variabel-dalam-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Pengantar Variabel dalam Machine Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#istilah-yang-perlu-dipahami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Istilah yang Perlu Dipahami
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rumus-dan-penjelasan-setiap-simbol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rumus dan Penjelasan Setiap Simbol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-soal-dan-pembahasan-langkah-demi-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Soal dan Pembahasan Langkah demi Langkah
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contoh Soal dan Pembahasan Langkah demi Langkah">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contoh-1-menerjemahkan-lalu-mensubstitusi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 1 — Menerjemahkan lalu mensubstitusi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-2-persamaan-satu-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 2 — Persamaan satu langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-3-persamaan-dua-langkah" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 3 — Persamaan dua langkah
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-4-menyederhanakan-lalu-menyelesaikan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 4 — Menyederhanakan, lalu menyelesaikan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contoh-5-model-linear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh 5 — Model linear
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contoh-tambahan-dengan-tingkat-kesulitan-bertahap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contoh Tambahan dengan Tingkat Kesulitan Bertahap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kesalahan-umum-dan-cara-menghindarinya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kesalahan Umum dan Cara Menghindarinya
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-materi-berikutnya" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Materi Berikutnya
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hubungan-dengan-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hubungan dengan Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hubungan dengan Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-variabel-substitusi-dan-persamaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: variabel, substitusi, dan persamaan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latihan-mandiri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Latihan Mandiri
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kunci-jawaban-dan-pembahasan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kunci Jawaban dan Pembahasan
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ringkasan-materi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ringkasan Materi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-penguasaan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist Penguasaan
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigasi" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Beranda
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Level 0 - Fondasi Matematika
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/topekox/matematika-machine-learning/edit/main/docs/level-0-fondasi-matematika/07-variabel-dan-persamaan.md" title="Ubah halaman ini" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="part-7-pengenalan-variabel-dan-persamaan">Part 7 — Pengenalan Variabel dan Persamaan<a class="headerlink" href="#part-7-pengenalan-variabel-dan-persamaan" title="Permanent link">&para;</a></h1>
+<h2 id="tujuan-pembelajaran">Tujuan Pembelajaran<a class="headerlink" href="#tujuan-pembelajaran" title="Permanent link">&para;</a></h2>
+<p>Setelah mempelajari bagian ini, kamu mampu:</p>
+<ul>
+<li>menjelaskan variabel, konstanta, dan koefisien, serta membedakannya dalam sebuah ekspresi;</li>
+<li>membaca ekspresi matematika dan menerjemahkan kalimat sederhana ke dalam ekspresi;</li>
+<li>mensubstitusi nilai ke dalam ekspresi dengan benar;</li>
+<li>menjelaskan arti tanda sama dengan dan membedakan ekspresi dari persamaan;</li>
+<li>menyelesaikan persamaan linear satu langkah dan dua langkah serta memeriksa jawabannya;</li>
+<li>mengenali peran variabel dalam Machine Learning.</li>
+</ul>
+<h2 id="prasyarat">Prasyarat<a class="headerlink" href="#prasyarat" title="Permanent link">&para;</a></h2>
+<p><a href="../02-operasi-aritmatika-dasar/">Part 2</a> (operasi, bilangan negatif, urutan operasi) dan <a href="../03-pecahan-dan-desimal/">Part 3</a> (pecahan). Part 5 membantu untuk pangkat dua.</p>
+<div class="admonition note">
+<p class="admonition-title">Jembatan menuju Level 1</p>
+<p>Bagian ini hanya pengantar. Aljabar yang lengkap (persamaan lebih rumit, pertidaksamaan, sistem persamaan, dan fungsi) ada di Level 1.</p>
+</div>
+<h2 id="mengapa-materi-ini-penting">Mengapa Materi Ini Penting?<a class="headerlink" href="#mengapa-materi-ini-penting" title="Permanent link">&para;</a></h2>
+<p>Rumus Machine Learning ditulis dengan huruf, bukan angka. Huruf itu memungkinkan satu rumus berlaku untuk banyak nilai. Jika kamu tidak bisa membaca ekspresi seperti <span class="arithmatex">\(y = 2x + 3\)</span>, hampir semua materi berikutnya akan terasa seperti bahasa asing. Selain itu, "mencari nilai yang belum diketahui" (menyelesaikan persamaan) adalah keterampilan yang dipakai di mana-mana.</p>
+<h2 id="penjelasan-konsep-dari-dasar">Penjelasan Konsep dari Dasar<a class="headerlink" href="#penjelasan-konsep-dari-dasar" title="Permanent link">&para;</a></h2>
+<h3 id="1-pengertian-variabel">1. Pengertian Variabel<a class="headerlink" href="#1-pengertian-variabel" title="Permanent link">&para;</a></h3>
+<p><strong>Variabel</strong> (<em>variable</em>) adalah huruf atau simbol yang mewakili bilangan yang <strong>nilainya bisa berubah</strong> atau <strong>belum diketahui</strong>. Variabel seperti kotak kosong bernama yang boleh diisi bilangan.</p>
+<p>Contoh: luas persegi dengan panjang sisi <span class="arithmatex">\(s\)</span> adalah <span class="arithmatex">\(L = s^2\)</span>. Satu rumus ini berlaku untuk semua persegi.</p>
+<ul>
+<li>Jika <span class="arithmatex">\(s = 3\)</span>, maka <span class="arithmatex">\(L = 9\)</span>.</li>
+<li>Jika <span class="arithmatex">\(s = 10\)</span>, maka <span class="arithmatex">\(L = 100\)</span>.</li>
+</ul>
+<p>Variabel biasanya huruf kecil seperti <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(n\)</span>, atau <span class="arithmatex">\(t\)</span>. Pilihan huruf bebas, tetapi beberapa kebiasaan: <span class="arithmatex">\(x\)</span> untuk masukan, <span class="arithmatex">\(y\)</span> untuk keluaran, <span class="arithmatex">\(n\)</span> untuk banyaknya.</p>
+<h3 id="2-pengertian-konstanta">2. Pengertian Konstanta<a class="headerlink" href="#2-pengertian-konstanta" title="Permanent link">&para;</a></h3>
+<p><strong>Konstanta</strong> (<em>constant</em>) adalah nilai yang <strong>tetap</strong>. Konstanta bisa berupa angka biasa atau huruf yang nilainya sudah baku.</p>
+<ul>
+<li>Angka: pada <span class="arithmatex">\(y = 2x + 3\)</span>, angka <span class="arithmatex">\(3\)</span> adalah konstanta.</li>
+<li>Huruf baku: <span class="arithmatex">\(\pi \approx 3{,}14159\)</span> adalah konstanta, karena nilainya tidak berubah.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Catatan</p>
+<p>Sebuah huruf bisa menjadi variabel pada satu soal dan konstanta pada soal lain. Misalnya, pada "<span class="arithmatex">\(y = ax + b\)</span>", huruf <span class="arithmatex">\(a\)</span> dan <span class="arithmatex">\(b\)</span> adalah konstanta selama kita menganalisis satu garis tertentu, tetapi berubah bila kita berpindah ke garis lain.</p>
+</div>
+<h3 id="3-pengertian-koefisien">3. Pengertian Koefisien<a class="headerlink" href="#3-pengertian-koefisien" title="Permanent link">&para;</a></h3>
+<p><strong>Koefisien</strong> (<em>coefficient</em>) adalah angka yang <strong>mengalikan</strong> sebuah variabel. Pada <span class="arithmatex">\(2x\)</span>, koefisien <span class="arithmatex">\(x\)</span> adalah <span class="arithmatex">\(2\)</span>, karena <span class="arithmatex">\(2x\)</span> berarti <span class="arithmatex">\(2 \times x\)</span>.</p>
+<ul>
+<li>Pada <span class="arithmatex">\(5y\)</span>, koefisiennya <span class="arithmatex">\(5\)</span>.</li>
+<li>Pada <span class="arithmatex">\(x\)</span>, koefisiennya <span class="arithmatex">\(1\)</span> (karena <span class="arithmatex">\(x = 1 \times x\)</span>).</li>
+<li>Pada <span class="arithmatex">\(-x\)</span>, koefisiennya <span class="arithmatex">\(-1\)</span>.</li>
+<li>Pada <span class="arithmatex">\(\frac{x}{2}\)</span>, koefisiennya <span class="arithmatex">\(\frac{1}{2}\)</span>.</li>
+</ul>
+<p><strong>Suku</strong> (<em>term</em>) adalah bagian ekspresi yang dipisahkan oleh tanda <span class="arithmatex">\(+\)</span> atau <span class="arithmatex">\(-\)</span>. Ekspresi <span class="arithmatex">\(2x + 3\)</span> punya dua suku: <span class="arithmatex">\(2x\)</span> (suku berkoefisien 2) dan <span class="arithmatex">\(3\)</span> (suku konstanta).</p>
+<h3 id="4-membaca-ekspresi-matematika">4. Membaca Ekspresi Matematika<a class="headerlink" href="#4-membaca-ekspresi-matematika" title="Permanent link">&para;</a></h3>
+<p><strong>Ekspresi</strong> (<em>expression</em>) adalah rangkaian bilangan, variabel, dan operasi <strong>tanpa tanda sama dengan</strong>. Contoh: <span class="arithmatex">\(2x + 3\)</span> atau <span class="arithmatex">\(s^2\)</span>. Ekspresi tidak "benar" atau "salah"; ia hanya menyatakan suatu nilai.</p>
+<p>Cara membaca penulisan:</p>
+<ul>
+<li><span class="arithmatex">\(2x\)</span> berarti <span class="arithmatex">\(2 \times x\)</span> (tanda kali sering dihilangkan di aljabar).</li>
+<li><span class="arithmatex">\(xy\)</span> berarti <span class="arithmatex">\(x \times y\)</span>.</li>
+<li><span class="arithmatex">\(x^2\)</span> berarti <span class="arithmatex">\(x \times x\)</span>.</li>
+<li><span class="arithmatex">\(\frac{x}{2}\)</span> berarti <span class="arithmatex">\(x \div 2\)</span>.</li>
+</ul>
+<p><strong>Menerjemahkan kalimat ke ekspresi:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Kalimat</th>
+<th>Ekspresi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lima lebih banyak dari <span class="arithmatex">\(n\)</span></td>
+<td><span class="arithmatex">\(n + 5\)</span></td>
+</tr>
+<tr>
+<td>tiga kali <span class="arithmatex">\(m\)</span>, dikurangi 2</td>
+<td><span class="arithmatex">\(3m - 2\)</span></td>
+</tr>
+<tr>
+<td>setengah dari <span class="arithmatex">\(p\)</span></td>
+<td><span class="arithmatex">\(\frac{p}{2}\)</span></td>
+</tr>
+<tr>
+<td>kuadrat <span class="arithmatex">\(q\)</span>, ditambah 1</td>
+<td><span class="arithmatex">\(q^2 + 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Suku sejenis</strong> adalah suku dengan variabel yang sama. Suku sejenis boleh dijumlahkan. <span class="arithmatex">\(3x + 2x = 5x\)</span>, karena menurut sifat distributif, <span class="arithmatex">\(3x + 2x = (3 + 2)x = 5x\)</span>. Suku yang berbeda variabel tidak bisa digabung: <span class="arithmatex">\(3x + 2y\)</span> tetap seperti itu.</p>
+<h3 id="5-substitusi-nilai-ke-dalam-ekspresi">5. Substitusi Nilai ke dalam Ekspresi<a class="headerlink" href="#5-substitusi-nilai-ke-dalam-ekspresi" title="Permanent link">&para;</a></h3>
+<p><strong>Substitusi</strong> berarti mengganti variabel dengan bilangan, lalu menghitung. Gunakan urutan operasi (Part 2).</p>
+<p>Ekspresi <span class="arithmatex">\(2x + 3\)</span> dengan <span class="arithmatex">\(x = 4\)</span>:</p>
+<div class="arithmatex">\[
+2x + 3 = 2 \times 4 + 3 = 8 + 3 = 11
+\]</div>
+<p>Untuk beberapa nilai <span class="arithmatex">\(x\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(x\)</span></th>
+<th><span class="arithmatex">\(2x + 3\)</span></th>
+<th>Hasil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-2</td>
+<td><span class="arithmatex">\(2(-2) + 3 = -4 + 3\)</span></td>
+<td>-1</td>
+</tr>
+<tr>
+<td>0</td>
+<td><span class="arithmatex">\(2(0) + 3 = 0 + 3\)</span></td>
+<td>3</td>
+</tr>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(2(1) + 3 = 2 + 3\)</span></td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="arithmatex">\(2(4) + 3 = 8 + 3\)</span></td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pakai kurung saat mensubstitusi bilangan negatif.</strong> Untuk <span class="arithmatex">\(x^2\)</span> dengan <span class="arithmatex">\(x = -3\)</span>, tulis <span class="arithmatex">\((-3)^2 = 9\)</span>. Menulis <span class="arithmatex">\(-3^2\)</span> memberikan <span class="arithmatex">\(-9\)</span>, yang salah (Part 5).</p>
+<h3 id="6-persamaan-sederhana">6. Persamaan Sederhana<a class="headerlink" href="#6-persamaan-sederhana" title="Permanent link">&para;</a></h3>
+<p><strong>Persamaan</strong> (<em>equation</em>) adalah pernyataan bahwa dua ekspresi <strong>bernilai sama</strong>, dihubungkan dengan tanda sama dengan. Contoh: <span class="arithmatex">\(x + 3 = 7\)</span>.</p>
+<p>Persamaan bisa benar atau salah, tergantung nilai variabelnya.</p>
+<ul>
+<li>Jika <span class="arithmatex">\(x = 4\)</span>: <span class="arithmatex">\(4 + 3 = 7\)</span> <strong>benar</strong>.</li>
+<li>Jika <span class="arithmatex">\(x = 5\)</span>: <span class="arithmatex">\(5 + 3 = 8 \neq 7\)</span>, <strong>salah</strong>.</li>
+</ul>
+<p>Nilai variabel yang membuat persamaan benar disebut <strong>penyelesaian</strong> atau <strong>solusi</strong>. <strong>Menyelesaikan persamaan</strong> berarti mencari solusi itu. Solusi <span class="arithmatex">\(x + 3 = 7\)</span> adalah <span class="arithmatex">\(x = 4\)</span>.</p>
+<h3 id="7-menyelesaikan-persamaan-linear-satu-langkah">7. Menyelesaikan Persamaan Linear Satu Langkah<a class="headerlink" href="#7-menyelesaikan-persamaan-linear-satu-langkah" title="Permanent link">&para;</a></h3>
+<p>Persamaan <strong>linear</strong> adalah persamaan yang variabelnya hanya berpangkat satu (tidak ada <span class="arithmatex">\(x^2\)</span> dan sejenisnya). Persamaan satu langkah hanya butuh <strong>satu operasi kebalikan</strong>.</p>
+<p><strong>Prinsip penting:</strong> persamaan seperti timbangan seimbang. Jika kamu melakukan hal yang <strong>sama</strong> pada <strong>kedua sisi</strong>, timbangan tetap seimbang dan solusinya tidak berubah.</p>
+<p>Operasi kebalikan:</p>
+<ul>
+<li>tambah <span class="arithmatex">\(\leftrightarrow\)</span> kurang</li>
+<li>kali <span class="arithmatex">\(\leftrightarrow\)</span> bagi</li>
+</ul>
+<p>Contoh:</p>
+<ul>
+<li><span class="arithmatex">\(x + 5 = 12\)</span>. Kurangi 5 di kedua sisi: <span class="arithmatex">\(x + 5 - 5 = 12 - 5\)</span>, maka <span class="arithmatex">\(x = 7\)</span>.</li>
+<li><span class="arithmatex">\(x - 4 = 9\)</span>. Tambah 4 di kedua sisi: <span class="arithmatex">\(x = 13\)</span>.</li>
+<li><span class="arithmatex">\(3x = 15\)</span>. Bagi 3 di kedua sisi: <span class="arithmatex">\(x = 5\)</span>.</li>
+<li><span class="arithmatex">\(\frac{x}{4} = 6\)</span>. Kali 4 di kedua sisi: <span class="arithmatex">\(x = 24\)</span>.</li>
+</ul>
+<p><strong>Periksa selalu</strong> dengan mensubstitusi kembali ke persamaan awal: <span class="arithmatex">\(3(5) = 15\)</span> benar.</p>
+<h3 id="8-menyelesaikan-persamaan-linear-dua-langkah">8. Menyelesaikan Persamaan Linear Dua Langkah<a class="headerlink" href="#8-menyelesaikan-persamaan-linear-dua-langkah" title="Permanent link">&para;</a></h3>
+<p>Jika variabel terkena <strong>dua operasi</strong>, bongkar dengan urutan <strong>terbalik</strong> dari urutan operasi. Variabel dikalikan lebih dulu, baru ditambah, jadi kita kurangi dulu, baru bagi.</p>
+<p>Selesaikan <span class="arithmatex">\(2x + 3 = 11\)</span>:</p>
+<ol>
+<li>Kurangi 3 di kedua sisi: <span class="arithmatex">\(2x + 3 - 3 = 11 - 3\)</span>, jadi <span class="arithmatex">\(2x = 8\)</span>.</li>
+<li>Bagi 2 di kedua sisi: <span class="arithmatex">\(x = 4\)</span>.</li>
+<li>Periksa: <span class="arithmatex">\(2(4) + 3 = 11\)</span> benar.</li>
+</ol>
+<p>Contoh lain:</p>
+<ul>
+<li><span class="arithmatex">\(5x - 7 = 18\)</span>. Tambah 7: <span class="arithmatex">\(5x = 25\)</span>. Bagi 5: <span class="arithmatex">\(x = 5\)</span>.</li>
+<li><span class="arithmatex">\(\frac{x}{3} + 2 = 6\)</span>. Kurangi 2: <span class="arithmatex">\(\frac{x}{3} = 4\)</span>. Kali 3: <span class="arithmatex">\(x = 12\)</span>.</li>
+<li><span class="arithmatex">\(-3x + 1 = 10\)</span>. Kurangi 1: <span class="arithmatex">\(-3x = 9\)</span>. Bagi <span class="arithmatex">\(-3\)</span>: <span class="arithmatex">\(x = -3\)</span>.</li>
+</ul>
+<h3 id="9-memahami-simbol-sama-dengan">9. Memahami Simbol Sama Dengan<a class="headerlink" href="#9-memahami-simbol-sama-dengan" title="Permanent link">&para;</a></h3>
+<p>Tanda sama dengan (<span class="arithmatex">\(=\)</span>) berarti <strong>kedua sisi bernilai sama</strong>. Ia bukan perintah "hitung hasilnya". Bayangkan timbangan dua sisi: yang kiri dan kanan berat sama.</p>
+<p>Kesalahan umum: menulis rangkaian seperti <span class="arithmatex">\(3 + 2 = 5 + 4 = 9\)</span>. Tanda sama dengan pertama benar (<span class="arithmatex">\(3 + 2 = 5\)</span>), tetapi <span class="arithmatex">\(5 + 4 = 9\)</span> tidak berarti <span class="arithmatex">\(3 + 2 = 9\)</span>. Setiap tanda sama dengan harus benar. Tulis setiap langkah di baris baru.</p>
+<div class="admonition warning">
+<p class="admonition-title">Di pemrograman berbeda</p>
+<p>Dalam Python, <code>=</code> berarti <strong>penugasan</strong> (menyimpan nilai ke variabel), dan <code>==</code> berarti <strong>membandingkan</strong>. <code>x = 4</code> menyimpan 4 ke <code>x</code>; <code>x == 4</code> menanyakan apakah <code>x</code> sama dengan 4.</p>
+</div>
+<h3 id="10-pengantar-variabel-dalam-machine-learning">10. Pengantar Variabel dalam Machine Learning<a class="headerlink" href="#10-pengantar-variabel-dalam-machine-learning" title="Permanent link">&para;</a></h3>
+<p>Dalam Machine Learning, huruf-huruf mewakili:</p>
+<ul>
+<li><span class="arithmatex">\(x\)</span>: <strong>masukan</strong> atau fitur (misalnya jam belajar),</li>
+<li><span class="arithmatex">\(y\)</span>: <strong>keluaran</strong> atau target (misalnya nilai ujian),</li>
+<li><span class="arithmatex">\(w\)</span> dan <span class="arithmatex">\(b\)</span>: <strong>parameter</strong> yang diatur selama model belajar.</li>
+</ul>
+<p>Model paling sederhana:</p>
+<div class="arithmatex">\[
+y = wx + b
+\]</div>
+<p>Jika <span class="arithmatex">\(w = 2\)</span> dan <span class="arithmatex">\(b = 3\)</span>, kita memperoleh <span class="arithmatex">\(y = 2x + 3\)</span>. Pada contoh fiktif ini, <span class="arithmatex">\(x\)</span> adalah jam belajar dan <span class="arithmatex">\(y\)</span> adalah nilai prediksi. Untuk <span class="arithmatex">\(x = 4\)</span> jam, prediksi <span class="arithmatex">\(y = 11\)</span>. Sebaliknya, jika kita ingin tahu berapa jam belajar yang diperlukan agar nilai prediksi 21, kita menyelesaikan <span class="arithmatex">\(2x + 3 = 21\)</span>.</p>
+<h2 id="istilah-yang-perlu-dipahami">Istilah yang Perlu Dipahami<a class="headerlink" href="#istilah-yang-perlu-dipahami" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Istilah</th>
+<th>Arti sederhana</th>
+<th>Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variabel (<em>variable</em>)</td>
+<td>huruf pengganti bilangan yang bisa berubah atau belum diketahui</td>
+<td><span class="arithmatex">\(x\)</span></td>
+</tr>
+<tr>
+<td>Konstanta (<em>constant</em>)</td>
+<td>nilai tetap</td>
+<td>3 pada <span class="arithmatex">\(2x + 3\)</span></td>
+</tr>
+<tr>
+<td>Koefisien (<em>coefficient</em>)</td>
+<td>pengali variabel</td>
+<td>2 pada <span class="arithmatex">\(2x\)</span></td>
+</tr>
+<tr>
+<td>Suku (<em>term</em>)</td>
+<td>bagian ekspresi yang dipisah <span class="arithmatex">\(+\)</span> atau <span class="arithmatex">\(-\)</span></td>
+<td><span class="arithmatex">\(2x\)</span> dan <span class="arithmatex">\(3\)</span></td>
+</tr>
+<tr>
+<td>Suku sejenis</td>
+<td>suku dengan variabel yang sama</td>
+<td><span class="arithmatex">\(3x\)</span> dan <span class="arithmatex">\(2x\)</span></td>
+</tr>
+<tr>
+<td>Ekspresi (<em>expression</em>)</td>
+<td>rangkaian bilangan, variabel, operasi tanpa <span class="arithmatex">\(=\)</span></td>
+<td><span class="arithmatex">\(2x + 3\)</span></td>
+</tr>
+<tr>
+<td>Persamaan (<em>equation</em>)</td>
+<td>dua ekspresi yang dinyatakan sama</td>
+<td><span class="arithmatex">\(2x + 3 = 11\)</span></td>
+</tr>
+<tr>
+<td>Substitusi</td>
+<td>mengganti variabel dengan bilangan</td>
+<td><span class="arithmatex">\(x = 4\)</span></td>
+</tr>
+<tr>
+<td>Solusi / penyelesaian</td>
+<td>nilai yang membuat persamaan benar</td>
+<td><span class="arithmatex">\(x = 4\)</span></td>
+</tr>
+<tr>
+<td>Linear</td>
+<td>variabel hanya berpangkat satu</td>
+<td><span class="arithmatex">\(2x + 3\)</span></td>
+</tr>
+<tr>
+<td>Operasi kebalikan</td>
+<td>operasi yang membatalkan operasi lain</td>
+<td><span class="arithmatex">\(+\)</span> dan <span class="arithmatex">\(-\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rumus-dan-penjelasan-setiap-simbol">Rumus dan Penjelasan Setiap Simbol<a class="headerlink" href="#rumus-dan-penjelasan-setiap-simbol" title="Permanent link">&para;</a></h2>
+<p><strong>Bentuk umum persamaan linear dua langkah:</strong></p>
+<div class="arithmatex">\[
+ax + b = c \quad\Longrightarrow\quad x = \frac{c - b}{a} \qquad (a \neq 0)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(x\)</span> adalah variabel yang dicari.</li>
+<li><span class="arithmatex">\(a\)</span> adalah koefisien <span class="arithmatex">\(x\)</span>, dan <span class="arithmatex">\(a \neq 0\)</span> (kalau <span class="arithmatex">\(a = 0\)</span>, <span class="arithmatex">\(x\)</span> hilang dari persamaan).</li>
+<li><span class="arithmatex">\(b\)</span> adalah konstanta yang ditambahkan pada sisi kiri.</li>
+<li><span class="arithmatex">\(c\)</span> adalah nilai di sisi kanan.</li>
+<li>Rumus kanan diperoleh dengan mengurangi <span class="arithmatex">\(b\)</span> di kedua sisi (<span class="arithmatex">\(ax = c - b\)</span>) lalu membagi dengan <span class="arithmatex">\(a\)</span>.</li>
+</ul>
+<p>Contoh: <span class="arithmatex">\(2x + 3 = 11\)</span> memiliki <span class="arithmatex">\(a = 2\)</span>, <span class="arithmatex">\(b = 3\)</span>, <span class="arithmatex">\(c = 11\)</span>. Maka <span class="arithmatex">\(x = \frac{11 - 3}{2} = \frac{8}{2} = 4\)</span>.</p>
+<p><strong>Model linear dalam Machine Learning:</strong></p>
+<div class="arithmatex">\[
+\hat{y} = wx + b
+\]</div>
+<ul>
+<li><span class="arithmatex">\(x\)</span> adalah masukan; <span class="arithmatex">\(w\)</span> (bobot) dan <span class="arithmatex">\(b\)</span> (bias) adalah parameter.</li>
+<li><span class="arithmatex">\(\hat{y}\)</span> dibaca "y topi", yaitu <strong>prediksi</strong> model, berbeda dari <span class="arithmatex">\(y\)</span> yang adalah nilai sebenarnya. Tanda topi (<span class="arithmatex">\(\hat{\ }\)</span>) hanya penanda bahwa itu hasil perkiraan.</li>
+</ul>
+<h2 id="contoh-soal-dan-pembahasan-langkah-demi-langkah">Contoh Soal dan Pembahasan Langkah demi Langkah<a class="headerlink" href="#contoh-soal-dan-pembahasan-langkah-demi-langkah" title="Permanent link">&para;</a></h2>
+<h3 id="contoh-1-menerjemahkan-lalu-mensubstitusi">Contoh 1 — Menerjemahkan lalu mensubstitusi<a class="headerlink" href="#contoh-1-menerjemahkan-lalu-mensubstitusi" title="Permanent link">&para;</a></h3>
+<p>"Tiga kali sebuah bilangan, ditambah 4." Tulis sebagai ekspresi, lalu hitung untuk bilangan 5 dan <span class="arithmatex">\(-2\)</span>.</p>
+<ol>
+<li>Sebut bilangannya <span class="arithmatex">\(n\)</span>. Ekspresi: <span class="arithmatex">\(3n + 4\)</span>.</li>
+<li><span class="arithmatex">\(n = 5\)</span>: <span class="arithmatex">\(3(5) + 4 = 15 + 4 = 19\)</span>.</li>
+<li><span class="arithmatex">\(n = -2\)</span>: <span class="arithmatex">\(3(-2) + 4 = -6 + 4 = -2\)</span>.</li>
+</ol>
+<h3 id="contoh-2-persamaan-satu-langkah">Contoh 2 — Persamaan satu langkah<a class="headerlink" href="#contoh-2-persamaan-satu-langkah" title="Permanent link">&para;</a></h3>
+<p>Selesaikan <span class="arithmatex">\(x - 4 = 9\)</span> dan <span class="arithmatex">\(\dfrac{x}{4} = 6\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(x - 4 = 9\)</span>. Operasi pada <span class="arithmatex">\(x\)</span> adalah "kurang 4", kebalikannya "tambah 4". Tambah 4 di kedua sisi: <span class="arithmatex">\(x = 13\)</span>. Periksa: <span class="arithmatex">\(13 - 4 = 9\)</span> benar.</li>
+<li><span class="arithmatex">\(\frac{x}{4} = 6\)</span>. Operasi pada <span class="arithmatex">\(x\)</span> adalah "bagi 4", kebalikannya "kali 4". Kali 4 di kedua sisi: <span class="arithmatex">\(x = 24\)</span>. Periksa: <span class="arithmatex">\(\frac{24}{4} = 6\)</span> benar.</li>
+</ol>
+<h3 id="contoh-3-persamaan-dua-langkah">Contoh 3 — Persamaan dua langkah<a class="headerlink" href="#contoh-3-persamaan-dua-langkah" title="Permanent link">&para;</a></h3>
+<p>Selesaikan <span class="arithmatex">\(5x - 7 = 18\)</span>.</p>
+<ol>
+<li><span class="arithmatex">\(x\)</span> dikali 5, lalu dikurangi 7. Bongkar terbalik: tambah 7 dulu.</li>
+<li>Tambah 7 di kedua sisi: <span class="arithmatex">\(5x = 25\)</span>.</li>
+<li>Bagi 5 di kedua sisi: <span class="arithmatex">\(x = 5\)</span>.</li>
+<li>Periksa: <span class="arithmatex">\(5(5) - 7 = 25 - 7 = 18\)</span> benar.</li>
+</ol>
+<h3 id="contoh-4-menyederhanakan-lalu-menyelesaikan">Contoh 4 — Menyederhanakan, lalu menyelesaikan<a class="headerlink" href="#contoh-4-menyederhanakan-lalu-menyelesaikan" title="Permanent link">&para;</a></h3>
+<p>Selesaikan <span class="arithmatex">\(4x + 7 + 2x - 3 = 28\)</span>.</p>
+<ol>
+<li>Gabungkan suku sejenis: <span class="arithmatex">\(4x + 2x = 6x\)</span> dan <span class="arithmatex">\(7 - 3 = 4\)</span>. Persamaan menjadi <span class="arithmatex">\(6x + 4 = 28\)</span>.</li>
+<li>Kurangi 4: <span class="arithmatex">\(6x = 24\)</span>.</li>
+<li>Bagi 6: <span class="arithmatex">\(x = 4\)</span>.</li>
+<li>Periksa dengan persamaan awal: <span class="arithmatex">\(4(4) + 7 + 2(4) - 3 = 16 + 7 + 8 - 3 = 28\)</span> benar.</li>
+</ol>
+<h3 id="contoh-5-model-linear">Contoh 5 — Model linear<a class="headerlink" href="#contoh-5-model-linear" title="Permanent link">&para;</a></h3>
+<p>Pada model <span class="arithmatex">\(y = 2x + 3\)</span> (angka fiktif), berapa <span class="arithmatex">\(x\)</span> jika <span class="arithmatex">\(y = 21\)</span>?</p>
+<ol>
+<li>Substitusi <span class="arithmatex">\(y = 21\)</span>: <span class="arithmatex">\(2x + 3 = 21\)</span>.</li>
+<li>Kurangi 3: <span class="arithmatex">\(2x = 18\)</span>.</li>
+<li>Bagi 2: <span class="arithmatex">\(x = 9\)</span>.</li>
+<li>Periksa: <span class="arithmatex">\(2(9) + 3 = 21\)</span> benar. Jadi diperlukan 9 jam.</li>
+</ol>
+<h2 id="contoh-tambahan-dengan-tingkat-kesulitan-bertahap">Contoh Tambahan dengan Tingkat Kesulitan Bertahap<a class="headerlink" href="#contoh-tambahan-dengan-tingkat-kesulitan-bertahap" title="Permanent link">&para;</a></h2>
+<p><strong>Mudah.</strong> Koefisien pada <span class="arithmatex">\(-7y\)</span> adalah <span class="arithmatex">\(-7\)</span>; pada <span class="arithmatex">\(y\)</span> saja adalah <span class="arithmatex">\(1\)</span>.</p>
+<p><strong>Sedang.</strong> Sederhanakan <span class="arithmatex">\(5a + 3a - 2a = (5 + 3 - 2)a = 6a\)</span>.</p>
+<p><strong>Sedang.</strong> Hitung <span class="arithmatex">\(x^2 - 2x + 1\)</span> untuk <span class="arithmatex">\(x = -1\)</span>: <span class="arithmatex">\((-1)^2 - 2(-1) + 1 = 1 + 2 + 1 = 4\)</span>.</p>
+<p><strong>Menantang.</strong> Selesaikan <span class="arithmatex">\(-4x + 3 = -9\)</span>. Kurangi 3: <span class="arithmatex">\(-4x = -12\)</span>. Bagi <span class="arithmatex">\(-4\)</span>: <span class="arithmatex">\(x = 3\)</span>. Periksa: <span class="arithmatex">\(-4(3) + 3 = -12 + 3 = -9\)</span> benar.</p>
+<h2 id="kesalahan-umum-dan-cara-menghindarinya">Kesalahan Umum dan Cara Menghindarinya<a class="headerlink" href="#kesalahan-umum-dan-cara-menghindarinya" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Kesalahan</th>
+<th>Mengapa salah</th>
+<th>Yang benar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(2x + 3 = 11 \Rightarrow 2x = 11 + 3\)</span></td>
+<td>operasi kebalikan dari <span class="arithmatex">\(+3\)</span> adalah <span class="arithmatex">\(-3\)</span></td>
+<td><span class="arithmatex">\(2x = 11 - 3 = 8\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(2x = 8 \Rightarrow x = 8 \times 2\)</span></td>
+<td>kebalikan dari kali adalah bagi</td>
+<td><span class="arithmatex">\(x = 8 \div 2 = 4\)</span></td>
+</tr>
+<tr>
+<td>Melakukan operasi hanya di satu sisi</td>
+<td>timbangan jadi tidak seimbang</td>
+<td>lakukan di kedua sisi</td>
+</tr>
+<tr>
+<td>Menggabungkan <span class="arithmatex">\(3x + 2y = 5xy\)</span></td>
+<td>variabel berbeda bukan suku sejenis</td>
+<td>biarkan <span class="arithmatex">\(3x + 2y\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(3 + 2 = 5 + 4 = 9\)</span></td>
+<td>tiap tanda sama dengan harus benar</td>
+<td>tulis di baris terpisah</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(-3^2\)</span> dianggap <span class="arithmatex">\(9\)</span> saat <span class="arithmatex">\(x = -3\)</span> pada <span class="arithmatex">\(x^2\)</span></td>
+<td>tanpa kurung, minus tidak ikut dikuadratkan</td>
+<td><span class="arithmatex">\((-3)^2 = 9\)</span></td>
+</tr>
+<tr>
+<td>Lupa memeriksa jawaban</td>
+<td>kesalahan tanda tak terdeteksi</td>
+<td>substitusi ke persamaan awal</td>
+</tr>
+<tr>
+<td>Membagi dengan koefisien yang salah, misalnya <span class="arithmatex">\(-3x = 9\)</span> menjadi <span class="arithmatex">\(x = 3\)</span></td>
+<td>tanda negatif ikut</td>
+<td><span class="arithmatex">\(x = -3\)</span></td>
+</tr>
+<tr>
+<td>Mengira <span class="arithmatex">\(=\)</span> di Python sama dengan <span class="arithmatex">\(=\)</span> di matematika</td>
+<td><code>=</code> adalah penugasan</td>
+<td>gunakan <code>==</code> untuk membandingkan</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hubungan-dengan-materi-berikutnya">Hubungan dengan Materi Berikutnya<a class="headerlink" href="#hubungan-dengan-materi-berikutnya" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Part 8</strong> memperkenalkan notasi sigma, indeks, dan notasi fungsi, yang semuanya memakai variabel.</li>
+<li><strong>Level 1</strong> memperluas ke persamaan kuadrat, pertidaksamaan, sistem persamaan, dan fungsi.</li>
+<li><strong>Level 2</strong> memakai variabel untuk vektor dan matriks.</li>
+<li><strong>Level 4</strong> menyelesaikan masalah "cari <span class="arithmatex">\(w\)</span> dan <span class="arithmatex">\(b\)</span> terbaik" untuk regresi linear.</li>
+</ul>
+<h2 id="hubungan-dengan-machine-learning">Hubungan dengan Machine Learning<a class="headerlink" href="#hubungan-dengan-machine-learning" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Model sebagai rumus.</strong> Prediksi <span class="arithmatex">\(\hat{y} = wx + b\)</span> adalah ekspresi dengan variabel masukan <span class="arithmatex">\(x\)</span> dan parameter <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(b\)</span>.</li>
+<li><strong>Belajar = mencari parameter.</strong> Melatih model berarti mencari <span class="arithmatex">\(w\)</span> dan <span class="arithmatex">\(b\)</span> yang membuat prediksi dekat dengan kenyataan. Itu mirip dengan menyelesaikan persamaan, hanya saja dengan banyak data dan tanpa solusi yang tepat sempurna.</li>
+<li><strong>Prediksi dan nilai sebenarnya.</strong> Tanda topi membedakan <span class="arithmatex">\(\hat{y}\)</span> (prediksi) dari <span class="arithmatex">\(y\)</span> (target).</li>
+<li><strong>Substitusi</strong> adalah apa yang dilakukan komputer setiap kali memprediksi: memasukkan nilai <span class="arithmatex">\(x\)</span> ke dalam rumus.</li>
+</ul>
+<h3 id="python-variabel-substitusi-dan-persamaan">Python: variabel, substitusi, dan persamaan<a class="headerlink" href="#python-variabel-substitusi-dan-persamaan" title="Permanent link">&para;</a></h3>
+<p>Variabel di Python menyimpan nilai:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">x</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>    <span class="c1"># 11</span>
+</span></code></pre></div>
+<p>Baris <code>y = 2 * x + 3</code> berarti: hitung ekspresi di kanan dengan <code>x = 4</code>, lalu simpan hasilnya di <code>y</code>. Tanda <code>*</code> wajib ditulis di Python (tidak boleh menulis <code>2x</code>).</p>
+<p>Tabel substitusi dengan beberapa nilai <code>x</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">nilai_x</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">hasil</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nilai_x</span><span class="p">]</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span>   <span class="c1"># [-1, 3, 5, 11]</span>
+</span></code></pre></div>
+<p>Memeriksa apakah suatu nilai merupakan solusi memakai <code>==</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">11</span><span class="p">)</span>   <span class="c1"># True, x = 4 adalah solusi</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">11</span><span class="p">)</span>   <span class="c1"># False</span>
+</span></code></pre></div>
+<p>Menyelesaikan <span class="arithmatex">\(2x + 3 = 21\)</span> dengan rumus <span class="arithmatex">\(x = \frac{c - b}{a}\)</span>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">a</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                  <span class="c1"># 9.0</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span>     <span class="c1"># True</span>
+</span></code></pre></div>
+<p>Hasil <code>9.0</code> (bukan <code>9</code>) karena <code>/</code> menghasilkan desimal.</p>
+<h2 id="latihan-mandiri">Latihan Mandiri<a class="headerlink" href="#latihan-mandiri" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Pada <span class="arithmatex">\(4x - 7\)</span>, sebutkan variabel, koefisien, dan konstanta. Berapa koefisien <span class="arithmatex">\(x\)</span> pada <span class="arithmatex">\(-x + 5\)</span>?</li>
+<li>Terjemahkan ke ekspresi: (a) lima lebih banyak dari <span class="arithmatex">\(n\)</span> (b) tiga kali <span class="arithmatex">\(m\)</span> dikurangi 2 (c) setengah dari <span class="arithmatex">\(p\)</span> (d) kuadrat <span class="arithmatex">\(q\)</span> ditambah 1</li>
+<li>Sederhanakan: (a) <span class="arithmatex">\(5a + 3a - 2a\)</span> (b) <span class="arithmatex">\(4x + 7 + 2x - 3\)</span></li>
+<li>Untuk <span class="arithmatex">\(y = 3x - 2\)</span>, hitung <span class="arithmatex">\(y\)</span> saat (a) <span class="arithmatex">\(x = 0\)</span> (b) <span class="arithmatex">\(x = 4\)</span> (c) <span class="arithmatex">\(x = -2\)</span></li>
+<li>Hitung <span class="arithmatex">\(x^2 - 2x + 1\)</span> untuk <span class="arithmatex">\(x = 3\)</span> dan untuk <span class="arithmatex">\(x = -1\)</span>.</li>
+<li>Selesaikan: (a) <span class="arithmatex">\(x + 9 = 15\)</span> (b) <span class="arithmatex">\(x - 7 = -3\)</span> (c) <span class="arithmatex">\(4x = 28\)</span> (d) <span class="arithmatex">\(\frac{x}{5} = 3\)</span></li>
+<li>Selesaikan: (a) <span class="arithmatex">\(3x + 5 = 20\)</span> (b) <span class="arithmatex">\(2x - 9 = 7\)</span> (c) <span class="arithmatex">\(\frac{x}{2} - 1 = 4\)</span> (d) <span class="arithmatex">\(-4x + 3 = -9\)</span></li>
+<li>Periksa: apakah <span class="arithmatex">\(x = 3\)</span> solusi <span class="arithmatex">\(5x - 4 = 11\)</span>? Apakah <span class="arithmatex">\(x = 2\)</span> solusi <span class="arithmatex">\(3x + 1 = 8\)</span>?</li>
+<li>Seorang siswa menulis: <span class="arithmatex">\(2x + 3 = 11\)</span>, maka <span class="arithmatex">\(2x = 11 + 3 = 14\)</span>, sehingga <span class="arithmatex">\(x = 7\)</span>. Temukan kesalahannya dan beri jawaban yang benar.</li>
+<li>Pada model <span class="arithmatex">\(y = 2x + 3\)</span> (angka fiktif): (a) hitung <span class="arithmatex">\(y\)</span> saat <span class="arithmatex">\(x = 5\)</span>; (b) cari <span class="arithmatex">\(x\)</span> saat <span class="arithmatex">\(y = 21\)</span>; (c) hitung <span class="arithmatex">\(y\)</span> saat <span class="arithmatex">\(x = -1{,}5\)</span>.</li>
+</ol>
+<h2 id="kunci-jawaban-dan-pembahasan">Kunci Jawaban dan Pembahasan<a class="headerlink" href="#kunci-jawaban-dan-pembahasan" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Soal 1</summary>
+<p>Variabel: <span class="arithmatex">\(x\)</span>. Koefisien: <span class="arithmatex">\(4\)</span>. Konstanta: <span class="arithmatex">\(-7\)</span>. Pada <span class="arithmatex">\(-x + 5\)</span>, koefisien <span class="arithmatex">\(x\)</span> adalah <span class="arithmatex">\(-1\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 2</summary>
+<p>(a) <span class="arithmatex">\(n + 5\)</span>. (b) <span class="arithmatex">\(3m - 2\)</span>. (c) <span class="arithmatex">\(\frac{p}{2}\)</span>. (d) <span class="arithmatex">\(q^2 + 1\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 3</summary>
+<p>(a) <span class="arithmatex">\((5 + 3 - 2)a = 6a\)</span>.
+(b) Suku <span class="arithmatex">\(x\)</span>: <span class="arithmatex">\(4x + 2x = 6x\)</span>. Konstanta: <span class="arithmatex">\(7 - 3 = 4\)</span>. Hasil <span class="arithmatex">\(6x + 4\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 4</summary>
+<p>(a) <span class="arithmatex">\(3(0) - 2 = -2\)</span>. (b) <span class="arithmatex">\(3(4) - 2 = 10\)</span>. (c) <span class="arithmatex">\(3(-2) - 2 = -6 - 2 = -8\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 5</summary>
+<p><span class="arithmatex">\(x = 3\)</span>: <span class="arithmatex">\(9 - 6 + 1 = 4\)</span>. <span class="arithmatex">\(x = -1\)</span>: <span class="arithmatex">\((-1)^2 - 2(-1) + 1 = 1 + 2 + 1 = 4\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 6</summary>
+<p>(a) Kurangi 9: <span class="arithmatex">\(x = 6\)</span>. (b) Tambah 7: <span class="arithmatex">\(x = 4\)</span>. (c) Bagi 4: <span class="arithmatex">\(x = 7\)</span>. (d) Kali 5: <span class="arithmatex">\(x = 15\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 7</summary>
+<p>(a) <span class="arithmatex">\(3x = 15\)</span>, <span class="arithmatex">\(x = 5\)</span>. (b) <span class="arithmatex">\(2x = 16\)</span>, <span class="arithmatex">\(x = 8\)</span>. (c) <span class="arithmatex">\(\frac{x}{2} = 5\)</span>, <span class="arithmatex">\(x = 10\)</span>. (d) <span class="arithmatex">\(-4x = -12\)</span>, <span class="arithmatex">\(x = 3\)</span>.
+Periksa (d): <span class="arithmatex">\(-4(3) + 3 = -9\)</span> benar.</p>
+</details>
+<details class="success">
+<summary>Soal 8</summary>
+<p><span class="arithmatex">\(x = 3\)</span>: <span class="arithmatex">\(5(3) - 4 = 11\)</span>, benar, jadi solusi. <span class="arithmatex">\(x = 2\)</span>: <span class="arithmatex">\(3(2) + 1 = 7 \neq 8\)</span>, bukan solusi.</p>
+</details>
+<details class="success">
+<summary>Soal 9</summary>
+<p>Kesalahan: untuk membatalkan "+3", seharusnya dikurangi 3, bukan ditambah. Yang benar: <span class="arithmatex">\(2x = 11 - 3 = 8\)</span>, lalu <span class="arithmatex">\(x = 4\)</span>. Periksa: <span class="arithmatex">\(2(4) + 3 = 11\)</span>.</p>
+</details>
+<details class="success">
+<summary>Soal 10</summary>
+<p>(a) <span class="arithmatex">\(2(5) + 3 = 13\)</span>.
+(b) <span class="arithmatex">\(2x + 3 = 21\)</span>, maka <span class="arithmatex">\(2x = 18\)</span>, <span class="arithmatex">\(x = 9\)</span>.
+(c) <span class="arithmatex">\(2(-1{,}5) + 3 = -3 + 3 = 0\)</span>.</p>
+</details>
+<h2 id="ringkasan-materi">Ringkasan Materi<a class="headerlink" href="#ringkasan-materi" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Variabel adalah huruf pengganti bilangan; konstanta nilai tetap; koefisien pengali variabel.</li>
+<li>Ekspresi tidak memuat tanda sama dengan; persamaan menyatakan dua ekspresi bernilai sama.</li>
+<li>Substitusi: ganti variabel dengan bilangan (pakai kurung untuk bilangan negatif) dan ikuti urutan operasi.</li>
+<li>Menyelesaikan persamaan linear: lakukan operasi kebalikan di <strong>kedua sisi</strong>, membongkar urutan operasi dari belakang. Selalu periksa jawaban.</li>
+<li>Tanda <span class="arithmatex">\(=\)</span> berarti kedua sisi sama nilainya; di Python, <code>=</code> adalah penugasan dan <code>==</code> perbandingan.</li>
+<li>Dalam ML, <span class="arithmatex">\(y = wx + b\)</span> adalah model sederhana dengan masukan <span class="arithmatex">\(x\)</span> dan parameter <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(b\)</span>.</li>
+</ul>
+<h2 id="checklist-penguasaan">Checklist Penguasaan<a class="headerlink" href="#checklist-penguasaan" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Membedakan variabel, konstanta, koefisien, dan suku dalam sebuah ekspresi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menerjemahkan kalimat sederhana ke ekspresi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Mensubstitusi nilai (termasuk negatif) dan menghitung dengan urutan yang benar.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menyelesaikan persamaan satu langkah dan dua langkah serta memeriksa jawaban.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan mengapa operasi harus dilakukan di kedua sisi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan perbedaan <code>=</code> dan <code>==</code> di Python.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Menjelaskan peran <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(w\)</span>, <span class="arithmatex">\(b\)</span> dalam <span class="arithmatex">\(y = wx + b\)</span>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Kembali ke atas
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../06-nilai-absolut-dan-notasi-ilmiah/" class="md-footer__link md-footer__link--prev" aria-label="Sebelumnya: Part 6 - Nilai Absolut dan Notasi Ilmiah">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Sebelumnya
+              </span>
+              <div class="md-ellipsis">
+                Part 6 - Nilai Absolut dan Notasi Ilmiah
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../08-notasi-matematika-dasar/" class="md-footer__link md-footer__link--next" aria-label="Selanjutnya: Part 8 - Notasi Matematika Dasar">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Selanjutnya
+              </span>
+              <div class="md-ellipsis">
+                Part 8 - Notasi Matematika Dasar
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.footer", "navigation.top", "navigation.tracking", "toc.follow", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Tersalin ke clipboard", "clipboard.copy": "Salin ke clipboard", "search.result.more.one": "1 lagi di halaman ini", "search.result.more.other": "# lagi di halaman ini", "search.result.none": "Tidak ada dokumen yang sesuai", "search.result.one": "1 dokumen ditemukan", "search.result.other": "# dokumen ditemukan", "search.result.placeholder": "Ketik untuk mulai pencarian", "search.result.term.missing": "Tidak ada", "select.version": "Pilih versi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../assets/vendor/mermaid/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/mermaid-config.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
